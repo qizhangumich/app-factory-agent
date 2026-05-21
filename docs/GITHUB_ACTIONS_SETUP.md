@@ -90,10 +90,9 @@ review the metadata, and click **Submit for Review** — the 5% human gate.
 
 ## Known gaps to clear before the first green build
 
-1. **App icons.** Each `ios/.../Assets.xcassets/AppIcon.appiconset` references a
-   1024×1024 PNG that does not exist yet — only `shared/app_icon.svg` does.
-   App Store builds are rejected without it. Rasterize the SVG to
-   `AppIcon-1024.png` (any SVG→PNG tool, or ask me to generate the PNGs).
+1. **App icons — done.** All five iOS apps have a flat 1024×1024 RGB
+   `AppIcon` PNG (no alpha), rendered from `shared/app_icon.svg` by
+   `scripts/render_icons.py`. Re-run that script if an SVG changes.
 2. **App record must exist** in App Store Connect first (step 2.4).
 3. **Bundle IDs** in each `spec.json` must be registered to your team.
 

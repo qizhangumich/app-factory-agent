@@ -1,0 +1,7 @@
+# Dependencies for scripts/render_icons.py (SVG -> iOS app-icon PNG).
+# The brain and factory layers themselves need NO packages — Python stdlib only.
+#
+#   pip install -r scripts/requirements.txt
+#   python -m playwright install chromium
+playwright>=1.40
+pillow>=10.0
