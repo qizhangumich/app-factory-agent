@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. The actual UI colors are driven by the
+         Compose Material 3 theme; this theme exists so the manifest and
+         the splash window have a valid parent before Compose loads. -->
+    <style name="Theme.TipCalculatorDeluxe" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+</resources>

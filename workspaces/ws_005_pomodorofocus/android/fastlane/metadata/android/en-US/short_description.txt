@@ -1,0 +1,1 @@
+Pomodoro timer with customizable intervals, session streaks, and focus statistics

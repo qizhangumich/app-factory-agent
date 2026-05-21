@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand palette (matches spec color_scheme). -->
+    <color name="primary_blue">#0A84FF</color>
+    <color name="primary_blue_dark">#0040A8</color>
+    <color name="scan_success">#34C759</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Adaptive launcher icon background. -->
+    <color name="ic_launcher_background">#0A84FF</color>
+</resources>

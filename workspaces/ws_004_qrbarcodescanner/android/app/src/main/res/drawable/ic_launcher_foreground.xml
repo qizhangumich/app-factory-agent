@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adaptive-icon foreground for QR & Barcode Scanner+.
+    108x108 viewport; artwork kept inside the central 72x72 safe zone.
+    Theme: a QR matrix framed by scan-target brackets with a green beam.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Scan-frame corner brackets -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M40,52 L40,40 L52,40" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M56,40 L68,40 L68,52" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M40,56 L40,68 L52,68" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M68,56 L68,68 L56,68" />
+
+    <!-- QR finder patterns (white squares with notched centers) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,44 h7 v7 h-7 z M58,44 h7 v7 h-7 z M44,58 h7 v7 h-7 z" />
+
+    <!-- QR data modules -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,44 h3 v3 h-3 z M54,52 h3 v3 h-3 z M58,58 h3 v3 h-3 z M62,62 h3 v3 h-3 z M54,62 h3 v3 h-3 z" />
+
+    <!-- Green scan beam -->
+    <path
+        android:fillColor="#34C759"
+        android:pathData="M38,53 h32 v2 h-32 z" />
+</vector>

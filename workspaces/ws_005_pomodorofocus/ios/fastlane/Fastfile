@@ -1,0 +1,33 @@
+# Fastlane Fastfile — Pomodoro Focus Timer (iOS)
+# Minimal lanes for the App Factory delivery pipeline.
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build and upload a TestFlight beta"
+  lane :beta do
+    build_app(
+      project: "PomodoroFocusTimer.xcodeproj",
+      scheme: "PomodoroFocusTimer",
+      configuration: "Release",
+      export_method: "app-store"
+    )
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+  end
+
+  desc "Build and submit to the App Store"
+  lane :release do
+    build_app(
+      project: "PomodoroFocusTimer.xcodeproj",
+      scheme: "PomodoroFocusTimer",
+      configuration: "Release",
+      export_method: "app-store"
+    )
+    upload_to_app_store(
+      submit_for_review: false,
+      automatic_release: false,
+      precheck_include_in_app_purchases: false,
+      force: true
+    )
+  end
+end

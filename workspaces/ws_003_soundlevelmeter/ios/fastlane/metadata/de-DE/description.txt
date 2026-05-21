@@ -1,0 +1,23 @@
+Verwandeln Sie Ihr iPhone in einen professionellen Schallpegelmesser. Misst Umgebungslärm in Echtzeit in Dezibel (dB) über das eingebaute Mikrofon.
+
+FUNKTIONEN
+- Echtzeit-dB-Messung mit 10 Messwerten pro Sekunde
+- Große, analog wirkende Zeigeranzeige mit weicher Animation
+- Digitale Anzeige: aktueller dB-Wert sowie Min, Max, Durchschnitt und Spitze
+- Spitzenwert-Halten mit Zurücksetzen per Tipp
+- Berechnung der Lärmbelastungszeit nach NIOSH-Referenzwerten
+- Farbcodierte Pegel: Grün (sicher), Orange (mäßig), Rot (gefährlich)
+- Scrollbares Sitzungsdiagramm des Schallpegels über die Zeit
+- Kalibrierungsversatz zur Anpassung an eine bekannte Referenz
+- Messung jederzeit pausieren und fortsetzen
+- Voller Dark Mode und VoiceOver-Barrierefreiheit
+- Lokalisiert in Englisch, Japanisch und Deutsch
+
+IDEAL FÜR
+Musiker, die Veranstaltungspegel prüfen, Beschäftigte zur Beurteilung von Arbeitsplatzlärm, Eltern zur Überwachung von Kinderzimmern oder alle, die ihre Umgebung kennenlernen möchten.
+
+DATENSCHUTZ ZUERST
+Das Mikrofon wird ausschließlich zur Messung von Schallpegeln verwendet. Es wird kein Audio aufgezeichnet, gespeichert oder übertragen. Es ist keine Internetverbindung erforderlich und es werden keine Daten erfasst.
+
+BITTE BEACHTEN
+iPhone-Mikrofone sind nicht laborkalibriert. Die Messwerte sind daher Näherungswerte und dürfen nicht für rechtliche, medizinische oder arbeitsschutzrechtliche Zwecke verwendet werden.

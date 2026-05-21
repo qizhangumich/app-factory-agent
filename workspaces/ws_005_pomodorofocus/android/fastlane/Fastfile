@@ -1,0 +1,30 @@
+# Fastlane Fastfile — Pomodoro Focus Timer (Android)
+
+default_platform(:android)
+
+platform :android do
+  desc "Build a release App Bundle"
+  lane :build do
+    gradle(task: "clean bundleRelease")
+  end
+
+  desc "Upload to the Play Store internal testing track"
+  lane :internal do
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(
+      track: "internal",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      skip_upload_apk: true
+    )
+  end
+
+  desc "Promote a build to production"
+  lane :release do
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(
+      track: "production",
+      aab: "app/build/outputs/bundle/release/app-release.aab",
+      skip_upload_apk: true
+    )
+  end
+end

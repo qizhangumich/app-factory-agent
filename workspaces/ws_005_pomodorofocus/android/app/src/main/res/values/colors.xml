@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pomodoro brand colors (spec.color_scheme) -->
+    <color name="focus_red">#FFFF6B6B</color>
+    <color name="break_teal">#FF4ECDC4</color>
+    <color name="long_break_blue">#FF45B7D1</color>
+    <color name="heat_green">#FF4FBF4F</color>
+
+    <!-- Dark surfaces -->
+    <color name="background_dark">#FF161212</color>
+    <color name="surface_dark">#FF1E1A1A</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Adaptive launcher icon background -->
+    <color name="ic_launcher_background">#FF1E1414</color>
+</resources>

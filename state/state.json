@@ -1,0 +1,30 @@
+{
+  "system": "app-factory-v2",
+  "version": "2.1",
+  "phase": "phase_1_quick_wins",
+  "brain_cycle_count": 1,
+  "last_brain_run": "2026-05-21T16:45:45Z",
+  "brain_interval_minutes": 30,
+  "budget": {
+    "total": 800,
+    "spent_accounts": 744,
+    "reserve_fund": 56,
+    "server_costs_monthly": 0,
+    "server_cost_cap_monthly": 10
+  },
+  "revenue": {
+    "total_earned": 0,
+    "breakeven_target": 800,
+    "breakeven_reached": false
+  },
+  "counters": {
+    "next_workspace_id": 6,
+    "apps_specced": 5,
+    "apps_built": 5,
+    "apps_submitted": 0,
+    "apps_live": 0,
+    "apps_killed": 0
+  },
+  "created_at": "2026-05-22T00:00:00Z",
+  "updated_at": "2026-05-21T17:10:24Z"
+}

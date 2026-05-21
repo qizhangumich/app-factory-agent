@@ -1,0 +1,11 @@
+Welcome to Unit Converter Pro 1.0!
+
+- 16 unit categories with 130+ individual units
+- Real-time conversion as you type
+- Save favorite conversion pairs
+- Full history of your last 100 conversions
+- Search any unit by name or symbol
+- Swap and copy with one tap
+- Works completely offline
+
+Thanks for downloading. We'd love your feedback!

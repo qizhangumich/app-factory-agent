@@ -1,0 +1,24 @@
+The cleanest QR and barcode scanner on the store. Point your camera, get instant results. No ads, no tracking, no sign-up required.
+
+Most free QR scanners are infested with full-screen interstitial ads. This one is different: its entire purpose is to be clean, fast, and private.
+
+SUPPORTED CODES
+Scan QR codes plus EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, PDF417, Aztec, and Data Matrix.
+
+SMART RESULTS
+The app understands what you scan. Links open in your browser. Wi-Fi configs and contact cards are parsed and laid out cleanly. Phone numbers, emails, and text are detected automatically. Every result can be copied or shared in one tap.
+
+SCAN HISTORY
+Every scan is saved to a private, on-device history with timestamps - your last 200 scans, searchable, ready when you need them. Swipe to delete, or clear everything at once.
+
+BUILT FOR REAL USE
+- Built-in flashlight for scanning in dark environments
+- Scan a QR code straight from a photo in your library
+- Haptic feedback confirms every successful scan
+- Full dark-mode interface
+- Designed for VoiceOver accessibility
+
+PRIVATE BY DESIGN
+The camera is used only to scan codes. No images are stored, transmitted, or analyzed beyond barcode detection. There is no account, no tracking, no analytics, and no data collection of any kind. Everything stays on your device.
+
+Scan, copy, share. That is it.

@@ -1,0 +1,63 @@
+# App Factory v2 — Global Configuration
+# Single source of runtime settings for the brain, factory, and delivery layers.
+
+system:
+  name: app-factory-v2
+  version: "2.1"
+  root_dir: "."
+  bundle_id_prefix: "com.appfactory"
+
+brain:
+  cycle_interval_minutes: 30
+  min_pending_queue: 5          # refill queue when pending drops below this
+  kill_after_days_zero_revenue: 30
+  freeze_account_after_days_zero: 60
+  boost_threshold_week1_usd: 10 # apps earning $10+ in week 1 get localization expansion
+
+budget:
+  total_usd: 800
+  reserve_fund_usd: 56
+  reserve_floor_usd: 50         # pause new account creation below this
+  server_cost_cap_monthly_usd: 10
+
+revenue_rules:
+  breakeven_per_ios_slot_usd: 99
+  proven_3x_usd: 297
+  full_breakeven_usd: 800
+
+submission:
+  days_between_submissions_per_account: 3   # anti-spam spacing
+  submit_for_review: false                  # human gate approves final submit
+  automatic_release: false
+
+factory:
+  ios:
+    deployment_target: "16.0"
+    swift_tools_version: "5.9"
+    devices: ["iphone", "ipad"]
+    no_third_party_deps: true
+  android:
+    min_sdk: 26
+    target_sdk: 35
+    compile_sdk: 35
+    no_third_party_deps: true   # AndroidX only (ML Kit allowed for scanner)
+
+delivery:
+  fastlane_match_type: "appstore"
+  screenshot_languages: ["en-US", "ja", "de-DE", "ko", "zh-Hans"]
+  screenshot_devices:
+    - "iPhone 15 Pro Max"
+    - "iPhone 15 Pro"
+    - "iPad Pro (12.9-inch) (6th generation)"
+
+localization:
+  default: "en"
+  priority_order: ["en", "ja", "de", "ko", "zh-Hans", "fr", "es", "pt", "zh-Hant", "ar"]
+
+paths:
+  state_dir: "state"
+  queue_dir: "queue"
+  workspaces_dir: "workspaces"
+  factory_templates: "factory/templates"
+  delivery_dir: "delivery"
+  data_dir: "data"

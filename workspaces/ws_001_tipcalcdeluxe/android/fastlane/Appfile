@@ -1,0 +1,6 @@
+# Fastlane Appfile for App Factory account android_001.
+# Identifying values are read from environment variables so no secrets
+# are committed to the repository.
+
+package_name(ENV["PACKAGE_NAME_ANDROID_001"] || "com.appfactory.tipcalcdeluxe")
+json_key_file(ENV["JSON_KEY_FILE_ANDROID_001"])

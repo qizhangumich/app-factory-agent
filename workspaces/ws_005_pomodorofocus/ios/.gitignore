@@ -1,0 +1,31 @@
+# Xcode / iOS
+build/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# CocoaPods / SPM (not used, but ignored defensively)
+Pods/
+.swiftpm/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+fastlane/builds/
+
+# macOS
+.DS_Store
+
+# Signing secrets — never commit
+*.p8
+*.p12
+*.mobileprovision
+*.cer

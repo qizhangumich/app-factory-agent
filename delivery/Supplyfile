@@ -1,0 +1,8 @@
+# App Factory v2 — default supply configuration (Google Play uploads).
+# Per-app values (package_name, aab path) are passed by the deploy lane.
+
+track("production")
+release_status("draft")       # human gate promotes the draft to live
+skip_upload_metadata(false)
+skip_upload_images(false)
+skip_upload_screenshots(false)

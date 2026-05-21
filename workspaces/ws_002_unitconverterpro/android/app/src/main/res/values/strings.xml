@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Unit Converter Pro</string>
+
+    <!-- Navigation -->
+    <string name="tab_convert">Convert</string>
+    <string name="tab_history">History</string>
+
+    <!-- Common UI -->
+    <string name="search_prompt">Search categories or units</string>
+    <string name="section_favorites">Favorites</string>
+    <string name="section_categories">Categories</string>
+    <string name="section_related">Related Conversions</string>
+    <string name="label_from">From</string>
+    <string name="label_to">To</string>
+    <string name="action_copy">Copy Result</string>
+    <string name="action_favorite">Favorite</string>
+    <string name="action_unfavorite">Favorited</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_back">Back</string>
+    <string name="confirm_clear_title">Clear all history?</string>
+    <string name="toast_copied">Copied to clipboard</string>
+    <string name="history_empty_title">No History Yet</string>
+    <string name="history_empty_message">Conversions you make will appear here.</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_swap">Swap units</string>
+    <string name="a11y_favorite">Add to favorites</string>
+    <string name="a11y_unfavorite">Remove from favorites</string>
+    <string name="a11y_delete">Delete entry</string>
+
+    <!-- Categories -->
+    <string name="cat_length">Length</string>
+    <string name="cat_weight">Weight</string>
+    <string name="cat_temperature">Temperature</string>
+    <string name="cat_speed">Speed</string>
+    <string name="cat_volume">Volume</string>
+    <string name="cat_area">Area</string>
+    <string name="cat_data">Data Storage</string>
+    <string name="cat_time">Time</string>
+    <string name="cat_pressure">Pressure</string>
+    <string name="cat_energy">Energy</string>
+    <string name="cat_power">Power</string>
+    <string name="cat_angle">Angle</string>
+    <string name="cat_force">Force</string>
+    <string name="cat_frequency">Frequency</string>
+    <string name="cat_fuel">Fuel Economy</string>
+    <string name="cat_cooking">Cooking</string>
+
+    <!-- Length units -->
+    <string name="u_kilometer">Kilometer</string>
+    <string name="u_meter">Meter</string>
+    <string name="u_centimeter">Centimeter</string>
+    <string name="u_millimeter">Millimeter</string>
+    <string name="u_micrometer">Micrometer</string>
+    <string name="u_nanometer">Nanometer</string>
+    <string name="u_mile">Mile</string>
+    <string name="u_yard">Yard</string>
+    <string name="u_foot">Foot</string>
+    <string name="u_inch">Inch</string>
+    <string name="u_nautical_mile">Nautical Mile</string>
+    <string name="u_light_year">Light Year</string>
+
+    <!-- Weight units -->
+    <string name="u_metric_ton">Metric Ton</string>
+    <string name="u_kilogram">Kilogram</string>
+    <string name="u_gram">Gram</string>
+    <string name="u_milligram">Milligram</string>
+    <string name="u_microgram">Microgram</string>
+    <string name="u_pound">Pound</string>
+    <string name="u_ounce">Ounce</string>
+    <string name="u_stone">Stone</string>
+    <string name="u_short_ton">Short Ton (US)</string>
+    <string name="u_long_ton">Long Ton (UK)</string>
+    <string name="u_carat">Carat</string>
+
+    <!-- Temperature units -->
+    <string name="u_celsius">Celsius</string>
+    <string name="u_fahrenheit">Fahrenheit</string>
+    <string name="u_kelvin">Kelvin</string>
+
+    <!-- Speed units -->
+    <string name="u_mps">Meters per second</string>
+    <string name="u_kmh">Kilometers per hour</string>
+    <string name="u_mph">Miles per hour</string>
+    <string name="u_knot">Knot</string>
+    <string name="u_fps">Feet per second</string>
+    <string name="u_mach">Mach</string>
+
+    <!-- Volume units -->
+    <string name="u_cubic_meter">Cubic Meter</string>
+    <string name="u_liter">Liter</string>
+    <string name="u_milliliter">Milliliter</string>
+    <string name="u_cubic_cm">Cubic Centimeter</string>
+    <string name="u_us_gallon">Gallon (US)</string>
+    <string name="u_us_quart">Quart (US)</string>
+    <string name="u_us_pint">Pint (US)</string>
+    <string name="u_us_cup">Cup (US)</string>
+    <string name="u_us_fl_oz">Fluid Ounce (US)</string>
+    <string name="u_imp_gallon">Gallon (UK)</string>
+    <string name="u_cubic_inch">Cubic Inch</string>
+
+    <!-- Area units -->
+    <string name="u_sq_kilometer">Square Kilometer</string>
+    <string name="u_hectare">Hectare</string>
+    <string name="u_sq_meter">Square Meter</string>
+    <string name="u_sq_centimeter">Square Centimeter</string>
+    <string name="u_sq_mile">Square Mile</string>
+    <string name="u_acre">Acre</string>
+    <string name="u_sq_yard">Square Yard</string>
+    <string name="u_sq_foot">Square Foot</string>
+    <string name="u_sq_inch">Square Inch</string>
+
+    <!-- Data units -->
+    <string name="u_bit">Bit</string>
+    <string name="u_byte">Byte</string>
+    <string name="u_kilobit">Kilobit</string>
+    <string name="u_kilobyte">Kilobyte</string>
+    <string name="u_megabit">Megabit</string>
+    <string name="u_megabyte">Megabyte</string>
+    <string name="u_gigabit">Gigabit</string>
+    <string name="u_gigabyte">Gigabyte</string>
+    <string name="u_terabyte">Terabyte</string>
+    <string name="u_petabyte">Petabyte</string>
+
+    <!-- Time units -->
+    <string name="u_nanosecond">Nanosecond</string>
+    <string name="u_microsecond">Microsecond</string>
+    <string name="u_millisecond">Millisecond</string>
+    <string name="u_second">Second</string>
+    <string name="u_minute">Minute</string>
+    <string name="u_hour">Hour</string>
+    <string name="u_day">Day</string>
+    <string name="u_week">Week</string>
+    <string name="u_month">Month</string>
+    <string name="u_year">Year</string>
+
+    <!-- Pressure units -->
+    <string name="u_pascal">Pascal</string>
+    <string name="u_kilopascal">Kilopascal</string>
+    <string name="u_bar">Bar</string>
+    <string name="u_psi">PSI</string>
+    <string name="u_atmosphere">Atmosphere</string>
+    <string name="u_torr">Torr</string>
+    <string name="u_mmhg">Millimeter of Mercury</string>
+
+    <!-- Energy units -->
+    <string name="u_joule">Joule</string>
+    <string name="u_kilojoule">Kilojoule</string>
+    <string name="u_calorie">Calorie</string>
+    <string name="u_kilocalorie">Kilocalorie</string>
+    <string name="u_watt_hour">Watt-hour</string>
+    <string name="u_kilowatt_hour">Kilowatt-hour</string>
+    <string name="u_electron_volt">Electronvolt</string>
+    <string name="u_btu">British Thermal Unit</string>
+    <string name="u_foot_pound">Foot-pound</string>
+
+    <!-- Power units -->
+    <string name="u_watt">Watt</string>
+    <string name="u_kilowatt">Kilowatt</string>
+    <string name="u_megawatt">Megawatt</string>
+    <string name="u_horsepower">Horsepower (Mechanical)</string>
+    <string name="u_metric_hp">Horsepower (Metric)</string>
+    <string name="u_btu_per_hour">BTU per hour</string>
+    <string name="u_ftlb_per_sec">Foot-pound per second</string>
+
+    <!-- Angle units -->
+    <string name="u_degree">Degree</string>
+    <string name="u_radian">Radian</string>
+    <string name="u_gradian">Gradian</string>
+    <string name="u_arcminute">Arcminute</string>
+    <string name="u_arcsecond">Arcsecond</string>
+    <string name="u_revolution">Revolution</string>
+
+    <!-- Force units -->
+    <string name="u_newton">Newton</string>
+    <string name="u_kilonewton">Kilonewton</string>
+    <string name="u_dyne">Dyne</string>
+    <string name="u_pound_force">Pound-force</string>
+    <string name="u_kilogram_force">Kilogram-force</string>
+    <string name="u_ounce_force">Ounce-force</string>
+
+    <!-- Frequency units -->
+    <string name="u_hertz">Hertz</string>
+    <string name="u_kilohertz">Kilohertz</string>
+    <string name="u_megahertz">Megahertz</string>
+    <string name="u_gigahertz">Gigahertz</string>
+    <string name="u_rpm">Revolutions per minute</string>
+
+    <!-- Fuel economy units -->
+    <string name="u_km_per_liter">Kilometers per liter</string>
+    <string name="u_mpg_us">Miles per gallon (US)</string>
+    <string name="u_mpg_uk">Miles per gallon (UK)</string>
+    <string name="u_miles_per_liter">Miles per liter</string>
+
+    <!-- Cooking units -->
+    <string name="u_teaspoon">Teaspoon</string>
+    <string name="u_tablespoon">Tablespoon</string>
+    <string name="u_cup_us">Cup (US)</string>
+    <string name="u_cup_metric">Cup (Metric)</string>
+</resources>

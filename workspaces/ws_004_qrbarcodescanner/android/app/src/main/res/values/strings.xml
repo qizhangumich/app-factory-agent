@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QR Scanner+</string>
+    <string name="scanner_hint">Point the camera at a QR code or barcode</string>
+    <string name="cd_history">Scan history</string>
+    <string name="cd_flashlight_on">Turn flashlight on</string>
+    <string name="cd_flashlight_off">Turn flashlight off</string>
+    <string name="cd_import_photo">Scan a code from a photo</string>
+    <string name="permission_title">Camera Access Needed</string>
+    <string name="permission_body">QR &amp; Barcode Scanner+ needs the camera to scan codes. Grant camera access to start scanning.</string>
+    <string name="permission_grant">Grant Camera Access</string>
+    <string name="permission_settings">Open Settings</string>
+    <string name="result_title">Scan Result</string>
+    <string name="action_open">Open</string>
+    <string name="action_open_link">Open Link</string>
+    <string name="action_call">Call</string>
+    <string name="action_email">Email</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_copied">Copied</string>
+    <string name="action_share">Share</string>
+    <string name="action_scan_again">Scan Again</string>
+    <string name="history_title">History</string>
+    <string name="history_search">Search scans</string>
+    <string name="history_empty_title">No Scans Yet</string>
+    <string name="history_empty_body">Codes you scan will appear here, saved privately on this device.</string>
+    <string name="history_no_match">No scans match your search.</string>
+    <string name="history_clear">Clear All</string>
+    <string name="history_clear_confirm">Delete all saved scans? This cannot be undone.</string>
+    <string name="history_delete">Delete</string>
+    <string name="detail_title">Scan Detail</string>
+    <string name="copied_toast">Copied to clipboard</string>
+    <string name="import_no_code">No QR code or barcode found in that image.</string>
+    <string name="share_chooser">Share scanned content</string>
+</resources>

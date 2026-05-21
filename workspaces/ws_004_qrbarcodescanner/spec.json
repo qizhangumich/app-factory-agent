@@ -1,0 +1,112 @@
+{
+  "spec_version": "2.1",
+  "workspace_id": "ws_004",
+  "app_name": "QR & Barcode Scanner+",
+  "slug": "qrbarcodescanner",
+  "bundle_id_ios": "com.appfactory.qrbarcodescanner",
+  "bundle_id_android": "com.appfactory.qrbarcodescanner",
+  "category": "Utilities",
+  "subcategory": "Scanner",
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "ios_account": "ios_001",
+  "android_account": "and_001",
+  "template": "utility_template",
+  "description_short": "Ad-free QR code and barcode scanner with scan history and flashlight",
+  "description_full": "The cleanest QR and barcode scanner on the store. Point your camera, get instant results. No ads, no tracking, no sign-up required. Supports QR codes, EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, PDF417, Aztec, and Data Matrix. Every scan is saved to your history for easy retrieval. Built-in flashlight for scanning in dark environments.",
+  "features": [
+    "Instant QR code scanning via camera",
+    "Barcode support: EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, PDF417, Aztec, Data Matrix",
+    "Scan history with timestamps (stored locally, last 200)",
+    "Flashlight toggle for dark environments",
+    "Auto-detect: opens URLs in browser, shows text, parses vCards, WiFi configs",
+    "Copy result to clipboard with one tap",
+    "Share scanned content via system share sheet",
+    "Scan from photo library (import image with QR code)",
+    "Haptic feedback on successful scan",
+    "Zero ads, zero tracking"
+  ],
+  "ios_frameworks": [
+    "SwiftUI",
+    "AVFoundation"
+  ],
+  "android_frameworks": [
+    "Jetpack Compose",
+    "ML Kit Barcode Scanning"
+  ],
+  "requires_server": false,
+  "data_storage": "UserDefaults",
+  "permissions_required": [
+    "camera"
+  ],
+  "ui_spec": {
+    "screens": [
+      {
+        "name": "ScannerView",
+        "description": "Full-screen camera preview with scan overlay rectangle. Flashlight button top-right. History button top-left. Scan result appears as bottom sheet on detection.",
+        "components": [
+          "Camera preview (full screen)",
+          "Scan target overlay (rounded rect, semi-transparent border)",
+          "Flashlight toggle button (top-right corner)",
+          "History button (top-left)",
+          "Photo library import button (bottom-left)",
+          "Bottom sheet on scan: result text, type badge, open/copy/share buttons"
+        ]
+      },
+      {
+        "name": "HistoryView",
+        "description": "List of past scans. Each row shows scan type icon, content preview, timestamp. Tap to see full result. Swipe to delete.",
+        "components": [
+          "Search bar at top",
+          "List: type icon | content preview | timestamp",
+          "Tap opens detail view with full content + action buttons",
+          "Swipe to delete, clear all button"
+        ]
+      }
+    ],
+    "color_scheme": {
+      "primary": "System blue",
+      "scan_success": "#34C759 (green flash on successful scan)",
+      "background": "Camera feed (dark by nature)"
+    }
+  },
+  "technical_notes": {
+    "ios_scanning": "Use AVCaptureSession with AVCaptureMetadataOutput. Set metadataObjectTypes to all supported barcode types. Process in real-time on the camera feed.",
+    "android_scanning": "Use Google ML Kit Barcode Scanning (on-device, no network). bundled model, works offline.",
+    "selling_point": "The key differentiator is ZERO ADS. Free QR scanners are infested with full-screen interstitials. This app's entire value proposition is being clean and ad-free for $0.99."
+  },
+  "price_tier": 1,
+  "price_usd": 0.99,
+  "price_by_country": {
+    "us": "$0.99",
+    "gb": "£0.79",
+    "jp": "¥160",
+    "de": "€0.99",
+    "au": "A$1.69"
+  },
+  "target_countries": "all_175",
+  "languages": [
+    "en"
+  ],
+  "aso": {
+    "title": "QR & Barcode Scanner+",
+    "subtitle": "Ad-Free, Fast, Private",
+    "keywords": "qr scanner,barcode reader,qr code,scan barcode,qr reader,code scanner,barcode scan,no ads scanner,qr scan,upc scanner",
+    "promotional_text": "Finally, a QR scanner with zero ads and zero tracking. Scan, copy, share. That's it."
+  },
+  "privacy_policy": {
+    "collects_data": false,
+    "uses_tracking": false,
+    "third_party_services": [],
+    "special_note": "Camera is used ONLY for scanning codes. No images are stored, transmitted, or analyzed beyond barcode detection."
+  },
+  "estimated_build_hours": 4,
+  "score": 44.5,
+  "build_order": 4,
+  "phase": "phase_1_quick_wins",
+  "target_week": "W1",
+  "created_at": "2026-05-22T00:00:00Z",
+  "status": "pending"
+}

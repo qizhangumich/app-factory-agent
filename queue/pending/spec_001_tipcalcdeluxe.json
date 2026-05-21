@@ -1,0 +1,98 @@
+{
+  "spec_version": "2.1",
+  "workspace_id": "ws_001",
+  "app_name": "Tip Calculator Deluxe",
+  "slug": "tipcalcdeluxe",
+  "bundle_id_ios": "com.appfactory.tipcalcdeluxe",
+  "bundle_id_android": "com.appfactory.tipcalcdeluxe",
+  "category": "Utilities",
+  "subcategory": "Calculator",
+  "platforms": ["ios", "android"],
+  "ios_account": "ios_001",
+  "android_account": "and_001",
+  "template": "utility_template",
+
+  "description_short": "Split bills with custom tip, tax, and per-person breakdown",
+  "description_full": "The fastest way to split any bill. Enter the total, set your tip percentage, add tax if needed, and instantly see what each person owes. Supports unequal splits for when someone ordered the lobster. Clean, ad-free, works offline. One tap, done.",
+
+  "features": [
+    "Custom tip percentage (slider 0-50%)",
+    "Tax toggle with configurable rate",
+    "Split between 1-20 people",
+    "Unequal splits (assign custom amounts per person)",
+    "Per-person breakdown with tip + tax included",
+    "Round up/down to nearest dollar option",
+    "History of recent calculations (last 20)",
+    "Currency symbol auto-detection from locale",
+    "Dark mode support",
+    "Haptic feedback on interactions"
+  ],
+
+  "ios_frameworks": ["SwiftUI"],
+  "android_frameworks": ["Jetpack Compose"],
+  "requires_server": false,
+  "data_storage": "UserDefaults",
+  "permissions_required": [],
+
+  "ui_spec": {
+    "screens": [
+      {
+        "name": "MainCalculator",
+        "description": "Single-screen app. Bill amount input at top, tip slider below, number of people stepper, then per-person result card at bottom. History accessible via sheet.",
+        "components": [
+          "Bill amount text field (numeric keyboard, auto-focus on launch)",
+          "Tip percentage slider (0-50%, default 18%, shows dollar amount live)",
+          "Tax toggle + tax rate field (default off, configurable %)",
+          "Number of people stepper (1-20, default 2)",
+          "Equal/Unequal split toggle",
+          "Result card: total per person, tip per person, tax per person",
+          "Round up/down segmented control",
+          "History button (opens sheet with last 20 calculations)"
+        ]
+      }
+    ],
+    "color_scheme": {
+      "primary": "System blue",
+      "accent": "System green (for money amounts)",
+      "background": "System background (adapts to dark mode)"
+    }
+  },
+
+  "price_tier": 1,
+  "price_usd": 0.99,
+  "price_by_country": {
+    "us": "$0.99", "ca": "C$1.39", "gb": "£0.79",
+    "au": "A$1.69", "ae": "AED 3.99", "sg": "SGD 1.48"
+  },
+  "target_countries": ["us", "ca", "gb", "au", "ae", "sg"],
+  "languages": ["en"],
+
+  "aso": {
+    "title": "Tip Calculator Deluxe",
+    "subtitle": "Split Bills & Calculate Tips",
+    "keywords": "tip calculator,bill splitter,split bill,restaurant tip,gratuity,tip calc,bill split,check splitter,meal split,dining tip",
+    "promotional_text": "The fastest, cleanest way to split any bill. No ads, no subscriptions, just math."
+  },
+
+  "privacy_policy": {
+    "collects_data": false,
+    "uses_tracking": false,
+    "third_party_services": []
+  },
+
+  "estimated_build_hours": 2,
+  "score": 45.2,
+  "score_breakdown": {
+    "revenue_potential": 7,
+    "build_speed": 5.0,
+    "low_competition": 2.0,
+    "easy_localization": 10.0,
+    "low_maintenance": 10.0
+  },
+
+  "build_order": 1,
+  "phase": "phase_1_quick_wins",
+  "target_week": "W1",
+  "created_at": "2026-05-22T00:00:00Z",
+  "status": "pending"
+}

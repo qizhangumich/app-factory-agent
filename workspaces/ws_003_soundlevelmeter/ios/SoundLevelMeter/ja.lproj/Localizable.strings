@@ -1,0 +1,52 @@
+/* App */
+"app.name" = "サウンドレベルメーター";
+
+/* Gauge & readout */
+"gauge.accessibility" = "音量ゲージ";
+"readout.accessibility" = "現在の音量";
+
+/* Noise level labels */
+"level.safe" = "安全";
+"level.moderate" = "中程度";
+"level.danger" = "大音量 — 聴覚を保護してください";
+
+/* Stats row */
+"stat.min" = "最小";
+"stat.max" = "最大";
+"stat.avg" = "平均";
+"stat.peak" = "ピーク";
+"stat.reset" = "統計をリセット";
+
+/* NIOSH exposure */
+"exposure.heading" = "騒音ばく露";
+"exposure.safe" = "8時間以上安全";
+"exposure.limitHours %d" = "ばく露を約%d時間に制限してください";
+"exposure.limitMinutes %d" = "ばく露を約%d分に制限してください";
+"exposure.limitSeconds %d" = "ばく露を約%d秒に制限してください";
+
+/* Session chart */
+"chart.title" = "セッション履歴";
+"chart.empty" = "測定中… 履歴がここに表示されます。";
+
+/* Controls */
+"control.pause" = "一時停止";
+"control.resume" = "再開";
+
+/* Calibration */
+"calibration.title" = "キャリブレーション";
+"calibration.section" = "マイクのキャリブレーション";
+"calibration.offset" = "オフセット";
+"calibration.reset" = "0 dBにリセット";
+"calibration.help" = "既知の基準音源に合わせてオフセットを調整します。設定は自動的に保存されます。";
+
+/* Disclaimer */
+"disclaimer.title" = "免責事項";
+"disclaimer.body" = "測定値は概算です。iPhoneのマイクは実験室レベルの校正がされていないため、法的・医療・労働安全の基準には使用しないでください。";
+
+/* Permission */
+"permission.deniedTitle" = "マイクへのアクセスが必要です";
+"permission.deniedBody" = "音量を測定するにはマイクが必要です。音声は録音・保存されません。続けるには設定でアクセスを許可してください。";
+"permission.openSettings" = "設定を開く";
+
+/* Common */
+"common.done" = "完了";

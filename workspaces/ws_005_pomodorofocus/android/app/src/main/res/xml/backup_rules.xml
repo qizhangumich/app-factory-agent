@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Cloud-backup rules. The Room database and DataStore preferences are safe
+   to back up — they contain only the user's own focus history and settings.
+-->
+<full-backup-content>
+    <include domain="database" path="pomodoro.db" />
+    <include domain="file" path="datastore/" />
+</full-backup-content>

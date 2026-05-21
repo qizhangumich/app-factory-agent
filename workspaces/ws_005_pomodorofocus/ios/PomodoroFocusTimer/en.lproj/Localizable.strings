@@ -1,0 +1,87 @@
+/* Pomodoro Focus Timer — English localization */
+
+/* App / tabs */
+"app.name" = "Pomodoro Focus";
+"tab.timer" = "Timer";
+"tab.stats" = "Stats";
+
+/* Phases */
+"phase.focus" = "FOCUS";
+"phase.short" = "SHORT BREAK";
+"phase.long" = "LONG BREAK";
+"phase.focus.plain" = "Focus";
+"phase.short.plain" = "Short Break";
+"phase.long.plain" = "Long Break";
+
+/* Timer controls */
+"control.start" = "Start";
+"control.pause" = "Pause";
+"control.resume" = "Resume";
+"control.reset" = "Reset";
+"control.skip" = "Skip";
+
+/* Accessibility */
+"a11y.openSettings" = "Open settings";
+"a11y.sessionProgress" = "Session progress";
+"a11y.heatCell" = "%@: %d focus sessions";
+
+/* Notifications */
+"notif.focusDone.title" = "Focus session complete";
+"notif.focusDone.body" = "Great work! Time for a break.";
+"notif.breakDone.title" = "Break over";
+"notif.breakDone.body" = "Ready to focus again? Let's go.";
+
+/* Stats */
+"stats.heatmap" = "Last 90 Days";
+"stats.less" = "Less";
+"stats.more" = "More";
+"stats.currentStreak" = "Current Streak";
+"stats.bestStreak" = "Best Streak";
+"stats.consecutiveDays" = "consecutive days";
+"stats.longestRun" = "longest run";
+"stats.today" = "Today";
+"stats.thisWeek" = "This Week";
+"stats.thisMonth" = "This Month";
+"stats.allTime" = "All Time";
+"stats.sessions" = "sessions";
+"stats.focusMinutes" = "focus min";
+"stats.dailyAvg" = "daily avg min";
+"stats.dayValue" = "%d d";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.done" = "Done";
+"settings.section.durations" = "Durations";
+"settings.section.cycle" = "Cycle";
+"settings.section.behavior" = "Behavior";
+"settings.section.sound" = "Sound";
+"settings.section.appearance" = "Appearance & Notifications";
+"settings.section.data" = "Data";
+"settings.section.about" = "About";
+"settings.focusDuration" = "Focus";
+"settings.shortBreak" = "Short break";
+"settings.longBreak" = "Long break";
+"settings.sessionsUntilLong" = "Sessions until long break";
+"settings.autoStart" = "Auto-start next session";
+"settings.focusSound" = "Focus sound";
+"settings.notifications" = "Timer notifications";
+"settings.notifications.denied" = "Notifications are turned off in iOS Settings. Enable them to be alerted when a timer ends.";
+"settings.trueBlack" = "True black (OLED)";
+"settings.trueBlack.footer" = "Uses a pure-black background to save battery on OLED displays.";
+"settings.resetStats" = "Reset all statistics";
+"settings.resetStats.title" = "Reset statistics?";
+"settings.resetStats.message" = "This permanently deletes every recorded session. This cannot be undone.";
+"settings.resetStats.confirm" = "Delete everything";
+"settings.minuteValue" = "%d min";
+"settings.version" = "Version";
+"settings.technique" = "Method";
+"settings.technique.value" = "Pomodoro Technique";
+
+/* Sounds */
+"sound.silent" = "Silent";
+"sound.tick" = "Ticking";
+"sound.whiteNoise" = "White Noise";
+"sound.rain" = "Rain";
+
+/* Common */
+"common.cancel" = "Cancel";

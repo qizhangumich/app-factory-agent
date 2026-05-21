@@ -1,0 +1,37 @@
+# --- Secrets (never commit) ---------------------------------------------
+config/fastlane_env/*.env
+config/fastlane_env/*.p8
+config/fastlane_env/*.json
+config/fastlane_env/*.keystore
+!config/fastlane_env/*.example
+!config/fastlane_env/README.md
+
+# --- Build artifacts -----------------------------------------------------
+workspaces/*/ios/build/
+workspaces/*/android/build/
+workspaces/*/android/app/build/
+workspaces/*/android/.gradle/
+workspaces/*/ios/**/xcuserdata/
+workspaces/*/ios/**/DerivedData/
+**/*.ipa
+**/*.aab
+**/*.apk
+**/DerivedData/
+
+# --- Fastlane ------------------------------------------------------------
+delivery/.bundle/
+delivery/vendor/
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/test_output/
+
+# --- Python --------------------------------------------------------------
+__pycache__/
+*.pyc
+
+# --- OS ------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+
+# --- Editor / tooling local config --------------------------------------
+.claude/settings.local.json

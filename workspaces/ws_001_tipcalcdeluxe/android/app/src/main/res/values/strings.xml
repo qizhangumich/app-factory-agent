@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tip Calculator Deluxe</string>
+    <string name="screen_title">Tip Calculator</string>
+
+    <string name="bill_amount">Bill Amount</string>
+    <string name="tip">Tip</string>
+    <string name="add_tax">Add Tax</string>
+    <string name="tax_rate">Tax Rate</string>
+    <string name="people">People</string>
+    <string name="rounding">Rounding</string>
+    <string name="equal_split">Equal Split</string>
+    <string name="unequal_split">Unequal Split</string>
+    <string name="shares_per_person">Shares per Person</string>
+
+    <string name="each_person_pays">Each Person Pays</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="save_calculation">Save Calculation</string>
+    <string name="saved_to_history">Saved to History</string>
+
+    <string name="history">History</string>
+    <string name="clear_all">Clear All</string>
+    <string name="no_calculations">No Calculations Yet</string>
+
+    <string name="cd_reset">Reset calculator</string>
+    <string name="cd_history">Calculation history</string>
+    <string name="cd_add_person">Add a person</string>
+    <string name="cd_remove_person">Remove a person</string>
+</resources>

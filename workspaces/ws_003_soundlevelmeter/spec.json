@@ -1,0 +1,126 @@
+{
+  "spec_version": "2.1",
+  "workspace_id": "ws_003",
+  "app_name": "Sound Level Meter",
+  "slug": "soundlevelmeter",
+  "bundle_id_ios": "com.appfactory.soundlevelmeter",
+  "bundle_id_android": null,
+  "category": "Utilities",
+  "subcategory": "Measurement",
+  "platforms": [
+    "ios"
+  ],
+  "ios_account": "ios_001",
+  "android_account": null,
+  "template": "utility_template",
+  "description_short": "Real-time decibel meter with peak hold, min/max/avg tracking, and noise exposure warnings",
+  "description_full": "Turn your iPhone into a professional sound level meter. Measures ambient noise in real-time decibels (dB) using the built-in microphone. Features peak hold, running min/max/average, a large analog-style needle display, and noise exposure warnings based on NIOSH standards. Perfect for musicians checking venue levels, workers assessing workplace noise, or anyone curious about their sound environment. No internet required — everything runs on-device.",
+  "features": [
+    "Real-time dB measurement using AVAudioRecorder",
+    "Large analog needle display (animated, smooth)",
+    "Digital readout: current dB, peak dB, min/max/average",
+    "Peak hold indicator with manual reset",
+    "Noise exposure time calculator (NIOSH reference levels)",
+    "Calibration offset setting",
+    "A-weighted approximation for human hearing",
+    "Session recording: log dB over time with chart",
+    "Color-coded levels: green (safe), yellow (moderate), red (dangerous)",
+    "Dark mode support"
+  ],
+  "ios_frameworks": [
+    "SwiftUI",
+    "AVFoundation"
+  ],
+  "android_frameworks": [],
+  "requires_server": false,
+  "data_storage": "UserDefaults",
+  "permissions_required": [
+    "microphone"
+  ],
+  "ui_spec": {
+    "screens": [
+      {
+        "name": "MeterView",
+        "description": "Single-screen app. Large circular/semicircular gauge at top showing current dB. Digital readout below. Stats row (min/max/avg/peak). Color indicator. Session chart at bottom (scrollable time series).",
+        "components": [
+          "Semicircular gauge (0-130 dB range, animated needle)",
+          "Large digital dB readout (center, 48pt font)",
+          "Color indicator bar (green/yellow/red based on level)",
+          "Stats row: MIN | MAX | AVG | PEAK with reset button",
+          "Noise exposure warning text (e.g. 'Safe for 8 hours' or 'Limit exposure to 15 minutes')",
+          "Session chart: scrolling line graph of dB over time",
+          "Calibration button (±10 dB offset)",
+          "Pause/Resume toggle"
+        ]
+      }
+    ],
+    "color_scheme": {
+      "primary": "System teal",
+      "safe": "#34C759 (green, <70 dB)",
+      "moderate": "#FF9500 (orange, 70-85 dB)",
+      "danger": "#FF3B30 (red, >85 dB)",
+      "background": "System background"
+    }
+  },
+  "technical_notes": {
+    "audio_measurement": "Use AVAudioRecorder with meteringEnabled=true. Call updateMeters() at 10Hz (0.1s timer). Read averagePowerForChannel(0). Convert to dB SPL approximation: dB = power + 160 (rough calibration). Note: iPhone microphones are not laboratory-calibrated, so include disclaimer.",
+    "a_weighting": "Apply A-weighting approximation via frequency analysis if feasible, or note that readings are unweighted.",
+    "why_ios_only": "AVAudioRecorder metering API is iOS-specific. Android equivalent (AudioRecord) has different calibration characteristics and would need separate implementation."
+  },
+  "price_tier": 2,
+  "price_usd": 1.99,
+  "price_by_country": {
+    "us": "$1.99",
+    "gb": "£1.79",
+    "de": "€1.99",
+    "jp": "¥400",
+    "au": "A$3.49",
+    "ca": "C$2.79",
+    "fr": "€1.99"
+  },
+  "target_countries": [
+    "us",
+    "gb",
+    "de",
+    "jp",
+    "au",
+    "ca",
+    "fr"
+  ],
+  "languages": [
+    "en",
+    "ja",
+    "de"
+  ],
+  "aso": {
+    "title": "Sound Level Meter",
+    "subtitle": "Decibel & Noise Meter",
+    "keywords": "decibel meter,sound level,noise meter,db meter,sound measure,noise measure,audio level,decibel,loudness,noise exposure",
+    "promotional_text": "Professional-grade decibel meter in your pocket. Real-time dB, peak hold, noise exposure warnings. No ads."
+  },
+  "localization": {
+    "ja": {
+      "title": "サウンドレベルメーター",
+      "subtitle": "デシベル＆騒音測定",
+      "keywords": "デシベル,騒音計,音量,dB,騒音測定,サウンドメーター,音量計,騒音レベル"
+    },
+    "de": {
+      "title": "Schallpegelmesser",
+      "subtitle": "Dezibel & Lärmmessung",
+      "keywords": "dezibel,schallpegel,lärmmesser,db messer,geräuschmessung,lautstärke,schall"
+    }
+  },
+  "privacy_policy": {
+    "collects_data": false,
+    "uses_tracking": false,
+    "third_party_services": [],
+    "special_note": "Microphone is used ONLY for sound level measurement. No audio is recorded, stored, or transmitted."
+  },
+  "estimated_build_hours": 4,
+  "score": 46.1,
+  "build_order": 3,
+  "phase": "phase_1_quick_wins",
+  "target_week": "W1",
+  "created_at": "2026-05-22T00:00:00Z",
+  "status": "pending"
+}

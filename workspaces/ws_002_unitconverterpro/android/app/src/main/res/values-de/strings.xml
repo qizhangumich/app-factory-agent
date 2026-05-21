@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Einheitenrechner Pro</string>
+
+    <string name="tab_convert">Umrechnen</string>
+    <string name="tab_history">Verlauf</string>
+
+    <string name="search_prompt">Kategorien oder Einheiten suchen</string>
+    <string name="section_favorites">Favoriten</string>
+    <string name="section_categories">Kategorien</string>
+    <string name="section_related">Verwandte Umrechnungen</string>
+    <string name="label_from">Von</string>
+    <string name="label_to">Nach</string>
+    <string name="action_copy">Ergebnis kopieren</string>
+    <string name="action_favorite">Favorit</string>
+    <string name="action_unfavorite">Favorisiert</string>
+    <string name="action_clear_all">Alle löschen</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_back">Zurück</string>
+    <string name="confirm_clear_title">Gesamten Verlauf löschen?</string>
+    <string name="toast_copied">In die Zwischenablage kopiert</string>
+    <string name="history_empty_title">Noch kein Verlauf</string>
+    <string name="history_empty_message">Ihre Umrechnungen erscheinen hier.</string>
+
+    <string name="a11y_swap">Einheiten tauschen</string>
+    <string name="a11y_favorite">Zu Favoriten hinzufügen</string>
+    <string name="a11y_unfavorite">Aus Favoriten entfernen</string>
+    <string name="a11y_delete">Eintrag löschen</string>
+
+    <string name="cat_length">Länge</string>
+    <string name="cat_weight">Gewicht</string>
+    <string name="cat_temperature">Temperatur</string>
+    <string name="cat_speed">Geschwindigkeit</string>
+    <string name="cat_volume">Volumen</string>
+    <string name="cat_area">Fläche</string>
+    <string name="cat_data">Datenmenge</string>
+    <string name="cat_time">Zeit</string>
+    <string name="cat_pressure">Druck</string>
+    <string name="cat_energy">Energie</string>
+    <string name="cat_power">Leistung</string>
+    <string name="cat_angle">Winkel</string>
+    <string name="cat_force">Kraft</string>
+    <string name="cat_frequency">Frequenz</string>
+    <string name="cat_fuel">Kraftstoffverbrauch</string>
+    <string name="cat_cooking">Kochen</string>
+
+    <string name="u_kilometer">Kilometer</string>
+    <string name="u_meter">Meter</string>
+    <string name="u_centimeter">Zentimeter</string>
+    <string name="u_millimeter">Millimeter</string>
+    <string name="u_micrometer">Mikrometer</string>
+    <string name="u_nanometer">Nanometer</string>
+    <string name="u_mile">Meile</string>
+    <string name="u_yard">Yard</string>
+    <string name="u_foot">Fuß</string>
+    <string name="u_inch">Zoll</string>
+    <string name="u_nautical_mile">Seemeile</string>
+    <string name="u_light_year">Lichtjahr</string>
+
+    <string name="u_metric_ton">Tonne</string>
+    <string name="u_kilogram">Kilogramm</string>
+    <string name="u_gram">Gramm</string>
+    <string name="u_milligram">Milligramm</string>
+    <string name="u_microgram">Mikrogramm</string>
+    <string name="u_pound">Pfund</string>
+    <string name="u_ounce">Unze</string>
+    <string name="u_stone">Stone</string>
+    <string name="u_short_ton">Short Ton (US)</string>
+    <string name="u_long_ton">Long Ton (UK)</string>
+    <string name="u_carat">Karat</string>
+
+    <string name="u_celsius">Celsius</string>
+    <string name="u_fahrenheit">Fahrenheit</string>
+    <string name="u_kelvin">Kelvin</string>
+
+    <string name="u_mps">Meter pro Sekunde</string>
+    <string name="u_kmh">Kilometer pro Stunde</string>
+    <string name="u_mph">Meilen pro Stunde</string>
+    <string name="u_knot">Knoten</string>
+    <string name="u_fps">Fuß pro Sekunde</string>
+    <string name="u_mach">Mach</string>
+
+    <string name="u_cubic_meter">Kubikmeter</string>
+    <string name="u_liter">Liter</string>
+    <string name="u_milliliter">Milliliter</string>
+    <string name="u_cubic_cm">Kubikzentimeter</string>
+    <string name="u_us_gallon">Gallone (US)</string>
+    <string name="u_us_quart">Quart (US)</string>
+    <string name="u_us_pint">Pint (US)</string>
+    <string name="u_us_cup">Tasse (US)</string>
+    <string name="u_us_fl_oz">Flüssigunze (US)</string>
+    <string name="u_imp_gallon">Gallone (UK)</string>
+    <string name="u_cubic_inch">Kubikzoll</string>
+
+    <string name="u_sq_kilometer">Quadratkilometer</string>
+    <string name="u_hectare">Hektar</string>
+    <string name="u_sq_meter">Quadratmeter</string>
+    <string name="u_sq_centimeter">Quadratzentimeter</string>
+    <string name="u_sq_mile">Quadratmeile</string>
+    <string name="u_acre">Acre</string>
+    <string name="u_sq_yard">Quadratyard</string>
+    <string name="u_sq_foot">Quadratfuß</string>
+    <string name="u_sq_inch">Quadratzoll</string>
+
+    <string name="u_bit">Bit</string>
+    <string name="u_byte">Byte</string>
+    <string name="u_kilobit">Kilobit</string>
+    <string name="u_kilobyte">Kilobyte</string>
+    <string name="u_megabit">Megabit</string>
+    <string name="u_megabyte">Megabyte</string>
+    <string name="u_gigabit">Gigabit</string>
+    <string name="u_gigabyte">Gigabyte</string>
+    <string name="u_terabyte">Terabyte</string>
+    <string name="u_petabyte">Petabyte</string>
+
+    <string name="u_nanosecond">Nanosekunde</string>
+    <string name="u_microsecond">Mikrosekunde</string>
+    <string name="u_millisecond">Millisekunde</string>
+    <string name="u_second">Sekunde</string>
+    <string name="u_minute">Minute</string>
+    <string name="u_hour">Stunde</string>
+    <string name="u_day">Tag</string>
+    <string name="u_week">Woche</string>
+    <string name="u_month">Monat</string>
+    <string name="u_year">Jahr</string>
+
+    <string name="u_pascal">Pascal</string>
+    <string name="u_kilopascal">Kilopascal</string>
+    <string name="u_bar">Bar</string>
+    <string name="u_psi">PSI</string>
+    <string name="u_atmosphere">Atmosphäre</string>
+    <string name="u_torr">Torr</string>
+    <string name="u_mmhg">Millimeter Quecksilbersäule</string>
+
+    <string name="u_joule">Joule</string>
+    <string name="u_kilojoule">Kilojoule</string>
+    <string name="u_calorie">Kalorie</string>
+    <string name="u_kilocalorie">Kilokalorie</string>
+    <string name="u_watt_hour">Wattstunde</string>
+    <string name="u_kilowatt_hour">Kilowattstunde</string>
+    <string name="u_electron_volt">Elektronenvolt</string>
+    <string name="u_btu">British Thermal Unit</string>
+    <string name="u_foot_pound">Fuß-Pfund</string>
+
+    <string name="u_watt">Watt</string>
+    <string name="u_kilowatt">Kilowatt</string>
+    <string name="u_megawatt">Megawatt</string>
+    <string name="u_horsepower">Pferdestärke (mechanisch)</string>
+    <string name="u_metric_hp">Pferdestärke (metrisch)</string>
+    <string name="u_btu_per_hour">BTU pro Stunde</string>
+    <string name="u_ftlb_per_sec">Fuß-Pfund pro Sekunde</string>
+
+    <string name="u_degree">Grad</string>
+    <string name="u_radian">Radiant</string>
+    <string name="u_gradian">Gon</string>
+    <string name="u_arcminute">Bogenminute</string>
+    <string name="u_arcsecond">Bogensekunde</string>
+    <string name="u_revolution">Umdrehung</string>
+
+    <string name="u_newton">Newton</string>
+    <string name="u_kilonewton">Kilonewton</string>
+    <string name="u_dyne">Dyn</string>
+    <string name="u_pound_force">Pound-force</string>
+    <string name="u_kilogram_force">Kilopond</string>
+    <string name="u_ounce_force">Ounce-force</string>
+
+    <string name="u_hertz">Hertz</string>
+    <string name="u_kilohertz">Kilohertz</string>
+    <string name="u_megahertz">Megahertz</string>
+    <string name="u_gigahertz">Gigahertz</string>
+    <string name="u_rpm">Umdrehungen pro Minute</string>
+
+    <string name="u_km_per_liter">Kilometer pro Liter</string>
+    <string name="u_mpg_us">Meilen pro Gallone (US)</string>
+    <string name="u_mpg_uk">Meilen pro Gallone (UK)</string>
+    <string name="u_miles_per_liter">Meilen pro Liter</string>
+
+    <string name="u_teaspoon">Teelöffel</string>
+    <string name="u_tablespoon">Esslöffel</string>
+    <string name="u_cup_us">Tasse (US)</string>
+    <string name="u_cup_metric">Tasse (metrisch)</string>
+</resources>

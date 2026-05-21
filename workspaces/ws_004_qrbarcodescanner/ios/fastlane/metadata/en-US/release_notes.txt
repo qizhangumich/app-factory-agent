@@ -1,0 +1,8 @@
+First release of QR & Barcode Scanner+.
+
+- Instant QR and barcode scanning (QR, EAN, UPC, Code 128, Code 39, ITF, PDF417, Aztec, Data Matrix)
+- Private on-device scan history with search
+- Flashlight for dark environments
+- Scan codes from photos in your library
+- Smart detection of links, Wi-Fi, contacts, and more
+- Zero ads, zero tracking

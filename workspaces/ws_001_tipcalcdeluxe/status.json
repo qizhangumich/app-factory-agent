@@ -1,0 +1,19 @@
+{
+  "workspace_id": "ws_001",
+  "ios": {
+    "code": "complete",
+    "build": "pending",
+    "sign": "pending",
+    "upload": "pending",
+    "review": "pending",
+    "live": false
+  },
+  "android": {
+    "code": "complete",
+    "build": "pending",
+    "sign": "pending",
+    "upload": "pending",
+    "review": "pending",
+    "live": false
+  }
+}

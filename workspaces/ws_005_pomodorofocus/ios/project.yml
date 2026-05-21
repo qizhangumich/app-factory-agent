@@ -1,0 +1,50 @@
+name: PomodoroFocusTimer
+options:
+  bundleIdPrefix: com.appfactory
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+  minimumXcodeGenVersion: "2.40.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  PomodoroFocusTimer:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: PomodoroFocusTimer
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.appfactory.pomodorofocus
+        PRODUCT_NAME: PomodoroFocusTimer
+        INFOPLIST_FILE: PomodoroFocusTimer/Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MACCATALYST: false
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: true
+        GENERATE_INFOPLIST_FILE: false
+        SWIFT_EMIT_LOC_STRINGS: true
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/Frameworks"
+    info:
+      path: PomodoroFocusTimer/Info.plist
+
+schemes:
+  PomodoroFocusTimer:
+    build:
+      targets:
+        PomodoroFocusTimer: all
+    run:
+      config: Debug
+    archive:
+      config: Release

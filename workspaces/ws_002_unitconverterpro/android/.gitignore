@@ -1,0 +1,25 @@
+# Built files
+*.apk
+*.aab
+*.ap_
+*.dex
+/build/
+/app/build/
+/captures/
+
+# Gradle
+.gradle/
+local.properties
+
+# Android Studio / IntelliJ
+*.iml
+.idea/
+.cxx/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# macOS
+.DS_Store

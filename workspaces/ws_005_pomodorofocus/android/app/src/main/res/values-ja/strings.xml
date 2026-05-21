@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ポモドーロ集中</string>
+
+    <!-- Tabs -->
+    <string name="tab_timer">タイマー</string>
+    <string name="tab_stats">統計</string>
+
+    <!-- Phases -->
+    <string name="phase_focus">集中</string>
+    <string name="phase_short">小休憩</string>
+    <string name="phase_long">長休憩</string>
+
+    <!-- Timer controls -->
+    <string name="control_start">開始</string>
+    <string name="control_pause">一時停止</string>
+    <string name="control_resume">再開</string>
+    <string name="control_reset">リセット</string>
+    <string name="control_skip">スキップ</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_open_settings">設定を開く</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_name">タイマー通知</string>
+    <string name="notif_channel_desc">集中セッションや休憩の終了時にお知らせします。</string>
+    <string name="notif_focus_title">集中セッション終了</string>
+    <string name="notif_focus_body">お疲れさまでした。休憩しましょう。</string>
+    <string name="notif_break_title">休憩終了</string>
+    <string name="notif_break_body">もう一度集中しましょう。</string>
+
+    <!-- Stats -->
+    <string name="stats_heatmap">過去90日間</string>
+    <string name="stats_less">少</string>
+    <string name="stats_more">多</string>
+    <string name="stats_current_streak">現在の連続記録</string>
+    <string name="stats_best_streak">最高の連続記録</string>
+    <string name="stats_consecutive_days">連続日数</string>
+    <string name="stats_longest_run">最長記録</string>
+    <string name="stats_today">今日</string>
+    <string name="stats_this_week">今週</string>
+    <string name="stats_this_month">今月</string>
+    <string name="stats_all_time">累計</string>
+    <string name="stats_sessions">セッション</string>
+    <string name="stats_focus_minutes">集中分</string>
+    <string name="stats_daily_avg">1日平均分</string>
+    <string name="stats_day_value">%1$d 日</string>
+
+    <!-- Settings -->
+    <string name="settings_title">設定</string>
+    <string name="settings_section_durations">時間設定</string>
+    <string name="settings_section_cycle">サイクル</string>
+    <string name="settings_section_behavior">動作</string>
+    <string name="settings_section_sound">サウンド</string>
+    <string name="settings_section_appearance">外観と通知</string>
+    <string name="settings_section_data">データ</string>
+    <string name="settings_focus">集中</string>
+    <string name="settings_short_break">小休憩</string>
+    <string name="settings_long_break">長休憩</string>
+    <string name="settings_sessions_until_long">長休憩までのセッション数</string>
+    <string name="settings_auto_start">次のセッションを自動開始</string>
+    <string name="settings_focus_sound">集中サウンド</string>
+    <string name="settings_notifications">タイマー通知</string>
+    <string name="settings_true_black">トゥルーブラック（OLED）</string>
+    <string name="settings_reset_stats">すべての統計をリセット</string>
+    <string name="settings_reset_title">統計をリセットしますか？</string>
+    <string name="settings_reset_message">記録されたすべてのセッションが完全に削除されます。この操作は取り消せません。</string>
+    <string name="settings_reset_confirm">すべて削除</string>
+
+    <!-- Sounds -->
+    <string name="sound_silent">なし</string>
+    <string name="sound_tick">秒針音</string>
+    <string name="sound_white_noise">ホワイトノイズ</string>
+    <string name="sound_rain">雨音</string>
+
+    <!-- Units / common -->
+    <string name="unit_min">分</string>
+    <string name="common_cancel">キャンセル</string>
+</resources>

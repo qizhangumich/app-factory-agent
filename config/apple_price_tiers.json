@@ -1,0 +1,23 @@
+{
+  "note": "Apple App Store USD price points (post-2023 999-tier system, common tiers). Android Google Play uses direct USD pricing matched to these.",
+  "currency_base": "USD",
+  "tiers": {
+    "0": 0.00,
+    "1": 0.99,
+    "2": 1.99,
+    "3": 2.99,
+    "4": 3.99,
+    "5": 4.99,
+    "6": 5.99,
+    "7": 6.99,
+    "8": 7.99,
+    "9": 8.99,
+    "10": 9.99
+  },
+  "small_business_program": {
+    "enabled": true,
+    "commission_rate": 0.15,
+    "threshold_usd": 1000000,
+    "note": "All 12 accounts enrolled. 15% commission instead of 30% on first $1M/year."
+  }
+}

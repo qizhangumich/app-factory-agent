@@ -1,0 +1,7 @@
+Initial release of Tip Calculator Deluxe.
+
+- Split any bill in seconds
+- Custom tip and tax
+- Equal and unequal splits for 1-20 people
+- Recent calculation history
+- Dark mode and haptics

@@ -1,0 +1,20 @@
+# Xcode / iOS build artifacts
+build/
+DerivedData/
+xcuserdata/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Xcode user state
+*.xcuserstate
+*.xcscmblueprint
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output
+fastlane/screenshots/**/*.png
+
+# macOS
+.DS_Store

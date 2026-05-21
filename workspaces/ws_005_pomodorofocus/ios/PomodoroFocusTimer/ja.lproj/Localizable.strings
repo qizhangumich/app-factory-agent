@@ -1,0 +1,87 @@
+/* Pomodoro Focus Timer — Japanese localization (日本語) */
+
+/* App / tabs */
+"app.name" = "ポモドーロ集中";
+"tab.timer" = "タイマー";
+"tab.stats" = "統計";
+
+/* Phases */
+"phase.focus" = "集中";
+"phase.short" = "小休憩";
+"phase.long" = "長休憩";
+"phase.focus.plain" = "集中";
+"phase.short.plain" = "小休憩";
+"phase.long.plain" = "長休憩";
+
+/* Timer controls */
+"control.start" = "開始";
+"control.pause" = "一時停止";
+"control.resume" = "再開";
+"control.reset" = "リセット";
+"control.skip" = "スキップ";
+
+/* Accessibility */
+"a11y.openSettings" = "設定を開く";
+"a11y.sessionProgress" = "セッションの進捗";
+"a11y.heatCell" = "%@：集中セッション %d 回";
+
+/* Notifications */
+"notif.focusDone.title" = "集中セッション終了";
+"notif.focusDone.body" = "お疲れさまでした。休憩しましょう。";
+"notif.breakDone.title" = "休憩終了";
+"notif.breakDone.body" = "もう一度集中しましょう。";
+
+/* Stats */
+"stats.heatmap" = "過去90日間";
+"stats.less" = "少";
+"stats.more" = "多";
+"stats.currentStreak" = "現在の連続記録";
+"stats.bestStreak" = "最高の連続記録";
+"stats.consecutiveDays" = "連続日数";
+"stats.longestRun" = "最長記録";
+"stats.today" = "今日";
+"stats.thisWeek" = "今週";
+"stats.thisMonth" = "今月";
+"stats.allTime" = "累計";
+"stats.sessions" = "セッション";
+"stats.focusMinutes" = "集中分";
+"stats.dailyAvg" = "1日平均分";
+"stats.dayValue" = "%d 日";
+
+/* Settings */
+"settings.title" = "設定";
+"settings.done" = "完了";
+"settings.section.durations" = "時間設定";
+"settings.section.cycle" = "サイクル";
+"settings.section.behavior" = "動作";
+"settings.section.sound" = "サウンド";
+"settings.section.appearance" = "外観と通知";
+"settings.section.data" = "データ";
+"settings.section.about" = "情報";
+"settings.focusDuration" = "集中";
+"settings.shortBreak" = "小休憩";
+"settings.longBreak" = "長休憩";
+"settings.sessionsUntilLong" = "長休憩までのセッション数";
+"settings.autoStart" = "次のセッションを自動開始";
+"settings.focusSound" = "集中サウンド";
+"settings.notifications" = "タイマー通知";
+"settings.notifications.denied" = "iOSの設定で通知がオフになっています。タイマー終了時に通知を受け取るには有効にしてください。";
+"settings.trueBlack" = "トゥルーブラック（OLED）";
+"settings.trueBlack.footer" = "OLEDディスプレイのバッテリーを節約するため、純粋な黒の背景を使用します。";
+"settings.resetStats" = "すべての統計をリセット";
+"settings.resetStats.title" = "統計をリセットしますか？";
+"settings.resetStats.message" = "記録されたすべてのセッションが完全に削除されます。この操作は取り消せません。";
+"settings.resetStats.confirm" = "すべて削除";
+"settings.minuteValue" = "%d 分";
+"settings.version" = "バージョン";
+"settings.technique" = "メソッド";
+"settings.technique.value" = "ポモドーロ・テクニック";
+
+/* Sounds */
+"sound.silent" = "なし";
+"sound.tick" = "秒針音";
+"sound.whiteNoise" = "ホワイトノイズ";
+"sound.rain" = "雨音";
+
+/* Common */
+"common.cancel" = "キャンセル";

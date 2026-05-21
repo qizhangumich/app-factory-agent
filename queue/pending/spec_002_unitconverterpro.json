@@ -1,0 +1,124 @@
+{
+  "spec_version": "2.1",
+  "workspace_id": "ws_002",
+  "app_name": "Unit Converter Pro",
+  "slug": "unitconverterpro",
+  "bundle_id_ios": "com.appfactory.unitconverterpro",
+  "bundle_id_android": "com.appfactory.unitconverterpro",
+  "category": "Utilities",
+  "subcategory": "Converter",
+  "platforms": ["ios", "android"],
+  "ios_account": "ios_001",
+  "android_account": "and_001",
+  "template": "utility_template",
+
+  "description_short": "All-in-one unit converter with 50+ unit types, favorites, and history",
+  "description_full": "Convert anything instantly. Length, weight, temperature, speed, volume, area, data storage, time zones, pressure, energy, fuel economy, cooking measurements, and more. Over 50 unit categories with 500+ individual conversions. Save your most-used conversions as favorites. Full history of every calculation. Works completely offline — no internet needed, ever.",
+
+  "features": [
+    "50+ unit categories covering all common and scientific units",
+    "Categories: Length, Weight, Temperature, Speed, Volume, Area, Data Storage, Time, Pressure, Energy, Power, Fuel Economy, Cooking, Angle, Force, Frequency",
+    "Real-time conversion as you type",
+    "Favorites: star any conversion pair for quick access",
+    "History: last 100 conversions with timestamps",
+    "Search: find any unit by name or abbreviation",
+    "Swap button: instantly reverse conversion direction",
+    "Copy result to clipboard with one tap",
+    "Scientific notation for very large/small values",
+    "Dark mode support"
+  ],
+
+  "ios_frameworks": ["SwiftUI"],
+  "android_frameworks": ["Jetpack Compose"],
+  "requires_server": false,
+  "data_storage": "UserDefaults",
+  "permissions_required": [],
+
+  "ui_spec": {
+    "screens": [
+      {
+        "name": "CategoryList",
+        "description": "Grid or list of unit categories (Length, Weight, etc.) with icons. Search bar at top. Favorites section pinned above categories.",
+        "components": ["Search bar", "Favorites section (horizontal scroll)", "Category grid with icons", "Each category shows top 2 most-used units as subtitle"]
+      },
+      {
+        "name": "ConversionView",
+        "description": "Two-field converter. Top field = input, bottom field = output. Unit pickers on each side. Swap button between them. Keypad or system keyboard.",
+        "components": ["From: value input + unit picker", "Swap direction button", "To: result display + unit picker", "Related conversions list below", "Star/favorite button", "Copy result button"]
+      },
+      {
+        "name": "HistoryView",
+        "description": "Chronological list of past conversions. Tap to re-open. Swipe to delete.",
+        "components": ["List of past conversions", "Each row: value, from unit, to unit, result, timestamp", "Tap to reopen in ConversionView", "Clear all button"]
+      }
+    ],
+    "color_scheme": {
+      "primary": "System indigo",
+      "accent": "System orange (for swap button)",
+      "background": "System background"
+    }
+  },
+
+  "unit_data": {
+    "note": "All conversion factors are hardcoded constants bundled in a JSON file within the app. No API calls.",
+    "source": "NIST reference values for scientific units, common cooking references for kitchen units",
+    "sample_categories": [
+      {"name": "Length", "units": ["meter", "kilometer", "centimeter", "millimeter", "mile", "yard", "foot", "inch", "nautical mile", "micrometer"]},
+      {"name": "Weight", "units": ["kilogram", "gram", "milligram", "pound", "ounce", "stone", "metric ton", "short ton"]},
+      {"name": "Temperature", "units": ["Celsius", "Fahrenheit", "Kelvin"]},
+      {"name": "Speed", "units": ["m/s", "km/h", "mph", "knots", "ft/s", "Mach"]},
+      {"name": "Data", "units": ["bit", "byte", "KB", "MB", "GB", "TB", "PB", "Kbit", "Mbit", "Gbit"]}
+    ]
+  },
+
+  "price_tier": 1,
+  "price_usd": 0.99,
+  "price_by_country": {
+    "us": "$0.99", "gb": "£0.79", "jp": "¥160",
+    "de": "€0.99", "au": "A$1.69", "ca": "C$1.39"
+  },
+  "target_countries": "all_175",
+  "languages": ["en", "ja", "de"],
+
+  "aso": {
+    "title": "Unit Converter Pro",
+    "subtitle": "500+ Conversions Offline",
+    "keywords": "unit converter,metric converter,measurement,convert units,length,weight,temperature,imperial,celsius,fahrenheit,kg to lbs,km to miles,cooking converter",
+    "promotional_text": "Convert anything. 50+ categories, 500+ units, zero internet needed. One-time purchase, no ads forever."
+  },
+
+  "localization": {
+    "ja": {
+      "title": "単位変換プロ",
+      "subtitle": "500以上の変換をオフラインで",
+      "keywords": "単位変換,メートル,キロ,温度,長さ,重さ,面積,速度,データ,換算"
+    },
+    "de": {
+      "title": "Einheitenrechner Pro",
+      "subtitle": "500+ Umrechnungen Offline",
+      "keywords": "einheitenrechner,umrechner,maßeinheiten,länge,gewicht,temperatur,metrisch,imperial,umrechnung"
+    }
+  },
+
+  "privacy_policy": {
+    "collects_data": false,
+    "uses_tracking": false,
+    "third_party_services": []
+  },
+
+  "estimated_build_hours": 3,
+  "score": 48.7,
+  "score_breakdown": {
+    "revenue_potential": 9,
+    "build_speed": 3.3,
+    "low_competition": 2.5,
+    "easy_localization": 10.0,
+    "low_maintenance": 10.0
+  },
+
+  "build_order": 2,
+  "phase": "phase_1_quick_wins",
+  "target_week": "W1",
+  "created_at": "2026-05-22T00:00:00Z",
+  "status": "pending"
+}

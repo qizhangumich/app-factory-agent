@@ -1,0 +1,70 @@
+name: Android Build & Upload
+
+# Builds and uploads one Android app bundle to Google Play (draft track) on a
+# free Linux runner. The human gate promotes the draft to live in Play Console.
+#
+# Required repository secrets:
+#   PLAY_JSON_KEY_BASE64   Google Play service-account JSON, base64-encoded
+#   UPLOAD_KEYSTORE_BASE64 the release upload keystore, base64-encoded
+#   ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD
+# See docs/GITHUB_ACTIONS_SETUP.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      workspace:
+        description: "Workspace folder to build"
+        required: true
+        default: ws_001_tipcalcdeluxe
+        type: choice
+        options:
+          - ws_001_tipcalcdeluxe
+          - ws_002_unitconverterpro
+          - ws_004_qrbarcodescanner
+          - ws_005_pomodorofocus
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Ruby + Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: delivery
+
+      - name: Decode signing secrets
+        run: |
+          mkdir -p config/fastlane_env
+          echo "${{ secrets.PLAY_JSON_KEY_BASE64 }}" | base64 --decode > config/fastlane_env/play.json
+          echo "${{ secrets.UPLOAD_KEYSTORE_BASE64 }}" | base64 --decode > config/fastlane_env/upload.keystore
+
+      - name: Build & upload
+        env:
+          PLAY_JSON_KEY: ${{ github.workspace }}/config/fastlane_env/play.json
+          ANDROID_KEYSTORE_PATH: ${{ github.workspace }}/config/fastlane_env/upload.keystore
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          chmod +x delivery/scripts/deploy_workspace.sh
+          ./delivery/scripts/deploy_workspace.sh "workspaces/${{ inputs.workspace }}"
+
+      - name: Upload .aab artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-${{ inputs.workspace }}
+          path: workspaces/${{ inputs.workspace }}/android/app/build/outputs/bundle/release/*.aab
+          if-no-files-found: warn

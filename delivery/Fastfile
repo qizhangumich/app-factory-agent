@@ -1,0 +1,117 @@
+# App Factory v2 — Master Fastfile (Layer 3: Delivery System).
+#
+# Each app workspace also carries its own thin fastlane/Fastfile, but this
+# master file holds the shared lane logic. A per-app Fastfile may `import`
+# this one. All lanes are parameterised so a single definition serves every
+# app in the factory.
+#
+# Lanes:
+#   ios deploy        build + sign + upload an iOS app to App Store Connect
+#   ios screenshots   generate framed screenshots with snapshot + frameit
+#   android deploy    build + upload an Android app bundle to Google Play
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build, sign, and upload an iOS app to App Store Connect"
+  lane :deploy do |options|
+    app_dir   = options[:app_dir]                      # path to workspace/ios
+    scheme    = options[:scheme]
+    bundle_id = options[:bundle_id]
+
+    # App Store Connect API key auth — CI-friendly, no 2FA. Built from env
+    # vars (set by the GitHub Actions workflow); nil locally, in which case
+    # match/deliver fall back to interactive Apple ID auth.
+    api_key = nil
+    if ENV["ASC_KEY_ID"] && ENV["ASC_ISSUER_ID"] && ENV["ASC_KEY_PATH"]
+      api_key = app_store_connect_api_key(
+        key_id: ENV["ASC_KEY_ID"],
+        issuer_id: ENV["ASC_ISSUER_ID"],
+        key_filepath: ENV["ASC_KEY_PATH"]
+      )
+    end
+
+    # Signing. Two supported modes:
+    #   - match mode: if MATCH_GIT_URL is set, sync shared certificates from
+    #     the private certs repo (best at multi-account scale).
+    #   - automatic mode (default): no certs repo; xcodebuild + the API key
+    #     create and manage signing via -allowProvisioningUpdates below.
+    if ENV["MATCH_GIT_URL"].to_s != ""
+      match(
+        type: "appstore",
+        app_identifier: bundle_id,
+        readonly: true,
+        api_key: api_key
+      )
+    end
+
+    # Build the signed .ipa.
+    gym(
+      scheme: scheme,
+      project: "#{app_dir}/#{scheme}.xcodeproj",
+      output_directory: "#{app_dir}/build",
+      output_name: "#{scheme}.ipa",
+      clean: true,
+      export_method: "app-store",
+      export_team_id: ENV["APPLE_TEAM_ID"],
+      xcargs: "-allowProvisioningUpdates DEVELOPMENT_TEAM=#{ENV['APPLE_TEAM_ID']}"
+    )
+
+    # Upload binary + metadata. submit_for_review stays false: the human
+    # gate clicks the final "Submit for Review" button.
+    deliver(
+      app_identifier: bundle_id,
+      api_key: api_key,
+      ipa: "#{app_dir}/build/#{scheme}.ipa",
+      metadata_path: "#{app_dir}/fastlane/metadata",
+      screenshots_path: "#{app_dir}/fastlane/metadata/screenshots",
+      submit_for_review: false,
+      automatic_release: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      run_precheck_before_submit: true
+    )
+  end
+
+  desc "Generate framed screenshots for an iOS app"
+  lane :screenshots do |options|
+    app_dir = options[:app_dir]
+    snapshot(
+      project: "#{app_dir}/#{options[:scheme]}.xcodeproj",
+      scheme: "#{options[:scheme]}UITests",
+      output_directory: "#{app_dir}/fastlane/metadata/screenshots",
+      languages: ["en-US", "ja", "de-DE", "ko", "zh-Hans"],
+      devices: [
+        "iPhone 15 Pro Max",
+        "iPhone 15 Pro",
+        "iPad Pro (12.9-inch) (6th generation)"
+      ],
+      clear_previous_screenshots: true
+    )
+    frameit(path: "#{app_dir}/fastlane/metadata/screenshots")
+  end
+end
+
+platform :android do
+  desc "Build and upload an Android app bundle to Google Play"
+  lane :deploy do |options|
+    app_dir = options[:app_dir]                        # path to workspace/android
+
+    gradle(
+      project_dir: app_dir,
+      task: "bundle",
+      build_type: "Release"
+    )
+
+    supply(
+      package_name: options[:bundle_id],
+      aab: "#{app_dir}/app/build/outputs/bundle/release/app-release.aab",
+      track: "production",
+      release_status: "draft",   # human gate promotes draft -> live
+      metadata_path: "#{app_dir}/fastlane/metadata",
+      skip_upload_metadata: false,
+      skip_upload_images: false,
+      skip_upload_screenshots: false
+    )
+  end
+end

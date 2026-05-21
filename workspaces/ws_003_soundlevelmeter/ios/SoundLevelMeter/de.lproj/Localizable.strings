@@ -1,0 +1,52 @@
+/* App */
+"app.name" = "Schallpegelmesser";
+
+/* Gauge & readout */
+"gauge.accessibility" = "Schallpegelanzeige";
+"readout.accessibility" = "Aktueller Schallpegel";
+
+/* Noise level labels */
+"level.safe" = "Sicher";
+"level.moderate" = "Mäßig";
+"level.danger" = "Laut — Gehör schützen";
+
+/* Stats row */
+"stat.min" = "MIN";
+"stat.max" = "MAX";
+"stat.avg" = "DURCHSCHN.";
+"stat.peak" = "SPITZE";
+"stat.reset" = "Statistik zurücksetzen";
+
+/* NIOSH exposure */
+"exposure.heading" = "LÄRMBELASTUNG";
+"exposure.safe" = "Sicher für 8+ Stunden";
+"exposure.limitHours %d" = "Belastung auf etwa %d Stunden begrenzen";
+"exposure.limitMinutes %d" = "Belastung auf etwa %d Minuten begrenzen";
+"exposure.limitSeconds %d" = "Belastung auf etwa %d Sekunden begrenzen";
+
+/* Session chart */
+"chart.title" = "Sitzungsverlauf";
+"chart.empty" = "Messung läuft… der Verlauf erscheint hier.";
+
+/* Controls */
+"control.pause" = "Pause";
+"control.resume" = "Fortsetzen";
+
+/* Calibration */
+"calibration.title" = "Kalibrierung";
+"calibration.section" = "Mikrofonkalibrierung";
+"calibration.offset" = "Versatz";
+"calibration.reset" = "Auf 0 dB zurücksetzen";
+"calibration.help" = "Passen Sie den Versatz an eine bekannte Referenzschallquelle an. Die Einstellung wird automatisch gespeichert.";
+
+/* Disclaimer */
+"disclaimer.title" = "Haftungsausschluss";
+"disclaimer.body" = "Die Messwerte sind Näherungswerte. iPhone-Mikrofone sind nicht laborkalibriert; die Werte dürfen nicht für rechtliche, medizinische oder arbeitsschutzrechtliche Zwecke verwendet werden.";
+
+/* Permission */
+"permission.deniedTitle" = "Mikrofonzugriff erforderlich";
+"permission.deniedBody" = "Der Schallpegelmesser benötigt das Mikrofon zur Messung. Es wird kein Audio aufgezeichnet oder gespeichert. Aktivieren Sie den Zugriff in den Einstellungen.";
+"permission.openSettings" = "Einstellungen öffnen";
+
+/* Common */
+"common.done" = "Fertig";

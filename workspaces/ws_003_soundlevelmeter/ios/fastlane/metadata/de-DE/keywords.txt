@@ -1,0 +1,1 @@
+dezibel,schallpegel,lärmmesser,db messer,geräuschmessung,lautstärke,schall

@@ -1,0 +1,19 @@
+{
+  "updated_at": "2026-05-21T16:45:45Z",
+  "decisions": [
+    {
+      "at": "2026-05-22T00:00:00Z",
+      "cycle": 0,
+      "type": "system_init",
+      "decision": "Initialized App Factory v2 with 12 accounts (6 iOS + 6 Android), $800 budget, $56 reserve.",
+      "reasoning": "Phase 0 setup per APP_FACTORY_INSTRUCTION_BOOK_V2. Pre-loaded build queue with first 5 specs (Phase 1 quick wins) from instruction manifest."
+    },
+    {
+      "at": "2026-05-21T16:45:45Z",
+      "cycle": 1,
+      "type": "cycle_complete",
+      "decision": "Cycle 1: +0 specs, 0 killed, 0 boosted.",
+      "reasoning": "Revenue $0. Breakeven reached: False."
+    }
+  ]
+}

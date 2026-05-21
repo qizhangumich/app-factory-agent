@@ -1,0 +1,6 @@
+# Fastlane Appfile — Pomodoro Focus Timer (Android)
+# Credentials are read from environment variables; no secrets in the repo.
+# Account: android_001
+
+json_key_file(ENV["ANDROID_JSON_KEY_FILE"])
+package_name(ENV["ANDROID_PACKAGE_NAME"] || "com.appfactory.pomodorofocus")

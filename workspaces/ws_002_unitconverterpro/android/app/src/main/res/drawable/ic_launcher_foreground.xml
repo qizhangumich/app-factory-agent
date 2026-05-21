@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adaptive icon foreground. Drawn on a 108x108dp canvas; the inner 72x72dp
+    is the safe zone. A diagonal ruler with tick marks plus two orange
+    conversion arrows — the same motif as shared/app_icon.svg.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Ruler body, rotated 45 degrees around the canvas centre -->
+    <group
+        android:name="ruler"
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="-45">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M28,46 L80,46 A3,3 0 0 1 83,49 L83,59 A3,3 0 0 1 80,62 L28,62 A3,3 0 0 1 25,59 L25,49 A3,3 0 0 1 28,46 Z" />
+        <!-- Tick marks -->
+        <path android:fillColor="#FF4F46E5" android:pathData="M32,46 h1.6 v7 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M38,46 h1.6 v4.5 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M44,46 h1.6 v7 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M50,46 h1.6 v4.5 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M56,46 h1.6 v7 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M62,46 h1.6 v4.5 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M68,46 h1.6 v7 h-1.6 z" />
+        <path android:fillColor="#FF4F46E5" android:pathData="M74,46 h1.6 v4.5 h-1.6 z" />
+    </group>
+
+    <!-- Conversion arrows -->
+    <path
+        android:strokeColor="#FFF97316"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M34,40 L66,40" />
+    <path
+        android:strokeColor="#FFF97316"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M60,34 L68,40 L60,46" />
+    <path
+        android:strokeColor="#FFF97316"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M74,68 L42,68" />
+    <path
+        android:strokeColor="#FFF97316"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M48,62 L40,68 L48,74" />
+</vector>

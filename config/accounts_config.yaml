@@ -1,0 +1,52 @@
+# App Factory v2 — Account Allocation Strategy
+# Defines how the brain's account_manager distributes apps across the 12 accounts.
+
+allocation:
+  ios:
+    Utilities:        ios_001
+    Productivity:     ios_001
+    Lifestyle:        ios_001
+    Health & Fitness: ios_002
+    Health:           ios_002
+    Education:        ios_003
+    Reference:        ios_003
+    Photography:      ios_004
+    Photo:            ios_004
+    Creative:         ios_004
+    Music:            ios_004
+    Custom:           ios_005
+    _overflow:        ios_006
+  android:
+    Utilities:        android_001
+    Productivity:     android_001
+    Lifestyle:        android_001
+    Health & Fitness: android_002
+    Health:           android_002
+    Education:        android_002
+    Reference:        android_002
+    Photography:      android_003
+    Photo:            android_003
+    Creative:         android_003
+    Music:            android_003
+    Custom:           android_004
+    _overflow:        android_005
+
+# Accounts held in reserve, activated only on revenue justification.
+reserve:
+  ios:     [ios_006]
+  android: [android_005, android_006]
+
+# Per-account safety limits.
+limits:
+  max_apps_per_account: 50
+  min_days_between_submissions: 3
+  freeze_on_zero_revenue_days: 60
+
+# Account ID normalization — specs sometimes use the short "and_00X" form.
+aliases:
+  and_001: android_001
+  and_002: android_002
+  and_003: android_003
+  and_004: android_004
+  and_005: android_005
+  and_006: android_006

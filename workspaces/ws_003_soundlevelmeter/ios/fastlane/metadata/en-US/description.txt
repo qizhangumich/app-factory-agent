@@ -1,0 +1,23 @@
+Turn your iPhone into a professional sound level meter. Measures ambient noise in real-time decibels (dB) using the built-in microphone.
+
+FEATURES
+- Real-time dB measurement at 10 readings per second
+- Large analog-style needle gauge with smooth animation
+- Digital readout: current dB plus min, max, average and peak
+- Peak hold indicator with one-tap reset
+- Noise exposure time calculator based on NIOSH reference levels
+- Color-coded levels: green (safe), orange (moderate), red (dangerous)
+- Scrolling session chart of sound level over time
+- Calibration offset to match a known reference
+- Pause and resume measurement at any time
+- Full dark mode and VoiceOver accessibility
+- Localized in English, Japanese and German
+
+PERFECT FOR
+Musicians checking venue levels, workers assessing workplace noise, parents monitoring nursery sound, or anyone curious about their environment.
+
+PRIVACY FIRST
+The microphone is used only to measure sound levels. No audio is ever recorded, stored, or transmitted. No internet connection is required and no data is collected.
+
+PLEASE NOTE
+iPhone microphones are not laboratory calibrated, so readings are an approximation and should not be used for legal, medical, or occupational compliance.

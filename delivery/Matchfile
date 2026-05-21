@@ -1,0 +1,15 @@
+# App Factory v2 — fastlane match configuration (code signing).
+# match stores signing certificates + provisioning profiles in a private git
+# repo so every account and CI machine signs consistently.
+#
+# The git URL and passphrase come from the per-account .env file
+# (MATCH_GIT_URL, MATCH_PASSWORD) loaded before fastlane runs.
+
+git_url(ENV["MATCH_GIT_URL"])
+storage_mode("git")
+
+type("appstore")          # default; "development" also synced when needed
+
+# app_identifier and username are supplied per app by the deploy script /
+# per-app Appfile, so they are intentionally not hard-coded here.
+readonly(true)            # CI never regenerates certs; humans do that once

@@ -1,0 +1,5 @@
+Erste Version des Schallpegelmessers.
+- Echtzeit-Dezibelmessung mit animierter Zeigeranzeige
+- Min-, Max-, Durchschnitts- und Spitzenwerterfassung mit Spitzenwert-Halten
+- Lärmbelastungswarnungen auf Basis von NIOSH
+- Sitzungsverlaufsdiagramm und Kalibrierungsversatz

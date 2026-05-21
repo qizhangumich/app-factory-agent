@@ -1,0 +1,52 @@
+/* App */
+"app.name" = "Sound Level Meter";
+
+/* Gauge & readout */
+"gauge.accessibility" = "Sound level gauge";
+"readout.accessibility" = "Current sound level";
+
+/* Noise level labels */
+"level.safe" = "Safe";
+"level.moderate" = "Moderate";
+"level.danger" = "Loud — protect your hearing";
+
+/* Stats row */
+"stat.min" = "MIN";
+"stat.max" = "MAX";
+"stat.avg" = "AVG";
+"stat.peak" = "PEAK";
+"stat.reset" = "Reset statistics";
+
+/* NIOSH exposure */
+"exposure.heading" = "NOISE EXPOSURE";
+"exposure.safe" = "Safe for 8+ hours";
+"exposure.limitHours %d" = "Limit exposure to about %d hours";
+"exposure.limitMinutes %d" = "Limit exposure to about %d minutes";
+"exposure.limitSeconds %d" = "Limit exposure to about %d seconds";
+
+/* Session chart */
+"chart.title" = "Session History";
+"chart.empty" = "Measuring… history will appear here.";
+
+/* Controls */
+"control.pause" = "Pause";
+"control.resume" = "Resume";
+
+/* Calibration */
+"calibration.title" = "Calibration";
+"calibration.section" = "Microphone Calibration";
+"calibration.offset" = "Offset";
+"calibration.reset" = "Reset to 0 dB";
+"calibration.help" = "Adjust the offset to match a known reference sound source. The setting is saved automatically.";
+
+/* Disclaimer */
+"disclaimer.title" = "Disclaimer";
+"disclaimer.body" = "Readings are an approximation. iPhone microphones are not laboratory calibrated, so values should not be used for legal, medical, or occupational compliance.";
+
+/* Permission */
+"permission.deniedTitle" = "Microphone Access Needed";
+"permission.deniedBody" = "Sound Level Meter needs the microphone to measure sound levels. No audio is recorded or stored. Enable access in Settings to continue.";
+"permission.openSettings" = "Open Settings";
+
+/* Common */
+"common.done" = "Done";

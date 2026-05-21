@@ -1,0 +1,25 @@
+{
+  "workspace_id": "ws_003",
+  "app_slug": "soundlevelmeter",
+  "app_name": "Sound Level Meter",
+  "bundle_id_ios": "com.appfactory.soundlevelmeter",
+  "bundle_id_android": null,
+  "ios_account": "ios_001",
+  "android_account": null,
+  "platforms": [
+    "ios"
+  ],
+  "created_at": "2026-05-21T16:47:04Z",
+  "status": "building",
+  "pipeline_stage": "factory",
+  "build_history": [
+    {
+      "stage": "spec_created",
+      "at": "2026-05-22T00:00:00Z"
+    },
+    {
+      "stage": "factory_started",
+      "at": "2026-05-21T16:47:04Z"
+    }
+  ]
+}

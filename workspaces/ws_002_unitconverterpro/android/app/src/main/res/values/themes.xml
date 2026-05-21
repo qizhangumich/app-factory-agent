@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Base theme. Compose drives all in-app coloring via MaterialTheme; this
+        XML theme only needs to provide a sensible splash/launch appearance and
+        a Material 3 parent so the Activity window styling is consistent.
+    -->
+    <style name="Theme.UnitConverterPro" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/indigo_primary</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+</resources>

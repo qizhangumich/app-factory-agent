@@ -1,0 +1,50 @@
+{
+  "updated_at": "2026-05-22T00:00:00Z",
+  "apps": [
+    {
+      "workspace_id": "ws_001", "slug": "tipcalcdeluxe", "app_name": "Tip Calculator Deluxe",
+      "category": "Utilities", "platforms": ["ios", "android"],
+      "bundle_id_ios": "com.appfactory.tipcalcdeluxe", "bundle_id_android": "com.appfactory.tipcalcdeluxe",
+      "ios_account": "ios_001", "android_account": "android_001",
+      "price_usd": 0.99, "status": "built", "pipeline_stage": "built",
+      "revenue_total": 0, "downloads_total": 0, "languages": ["en"],
+      "created_at": "2026-05-22T00:00:00Z", "live_at": null, "killed": false
+    },
+    {
+      "workspace_id": "ws_002", "slug": "unitconverterpro", "app_name": "Unit Converter Pro",
+      "category": "Utilities", "platforms": ["ios", "android"],
+      "bundle_id_ios": "com.appfactory.unitconverterpro", "bundle_id_android": "com.appfactory.unitconverterpro",
+      "ios_account": "ios_001", "android_account": "android_001",
+      "price_usd": 0.99, "status": "built", "pipeline_stage": "built",
+      "revenue_total": 0, "downloads_total": 0, "languages": ["en", "ja", "de"],
+      "created_at": "2026-05-22T00:00:00Z", "live_at": null, "killed": false
+    },
+    {
+      "workspace_id": "ws_003", "slug": "soundlevelmeter", "app_name": "Sound Level Meter",
+      "category": "Utilities", "platforms": ["ios"],
+      "bundle_id_ios": "com.appfactory.soundlevelmeter", "bundle_id_android": null,
+      "ios_account": "ios_001", "android_account": null,
+      "price_usd": 1.99, "status": "built", "pipeline_stage": "built",
+      "revenue_total": 0, "downloads_total": 0, "languages": ["en", "ja", "de"],
+      "created_at": "2026-05-22T00:00:00Z", "live_at": null, "killed": false
+    },
+    {
+      "workspace_id": "ws_004", "slug": "qrbarcodescanner", "app_name": "QR & Barcode Scanner+",
+      "category": "Utilities", "platforms": ["ios", "android"],
+      "bundle_id_ios": "com.appfactory.qrbarcodescanner", "bundle_id_android": "com.appfactory.qrbarcodescanner",
+      "ios_account": "ios_001", "android_account": "android_001",
+      "price_usd": 0.99, "status": "built", "pipeline_stage": "built",
+      "revenue_total": 0, "downloads_total": 0, "languages": ["en"],
+      "created_at": "2026-05-22T00:00:00Z", "live_at": null, "killed": false
+    },
+    {
+      "workspace_id": "ws_005", "slug": "pomodorofocus", "app_name": "Pomodoro Focus Timer",
+      "category": "Productivity", "platforms": ["ios", "android"],
+      "bundle_id_ios": "com.appfactory.pomodorofocus", "bundle_id_android": "com.appfactory.pomodorofocus",
+      "ios_account": "ios_001", "android_account": "android_001",
+      "price_usd": 1.99, "status": "built", "pipeline_stage": "built",
+      "revenue_total": 0, "downloads_total": 0, "languages": ["en", "ja"],
+      "created_at": "2026-05-22T00:00:00Z", "live_at": null, "killed": false
+    }
+  ]
+}

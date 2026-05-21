@@ -1,0 +1,420 @@
+{
+  "sourceLanguage" : "en",
+  "version" : "1.0",
+  "strings" : {
+    "app_name" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unit Converter Pro" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "単位変換プロ" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Einheitenrechner Pro" } }
+      }
+    },
+    "tab_convert" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Convert" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変換" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Umrechnen" } }
+      }
+    },
+    "tab_history" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "History" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "履歴" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Verlauf" } }
+      }
+    },
+    "search_prompt" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search categories or units" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "カテゴリーや単位を検索" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kategorien oder Einheiten suchen" } }
+      }
+    },
+    "section_favorites" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Favorites" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "お気に入り" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Favoriten" } }
+      }
+    },
+    "section_categories" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Categories" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "カテゴリー" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kategorien" } }
+      }
+    },
+    "section_unit_results" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Matching Units" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "一致する単位" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Passende Einheiten" } }
+      }
+    },
+    "section_related" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Related Conversions" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "関連する変換" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Verwandte Umrechnungen" } }
+      }
+    },
+    "label_from" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "From" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変換元" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Von" } }
+      }
+    },
+    "label_to" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "To" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変換先" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Nach" } }
+      }
+    },
+    "action_copy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Copy Result" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "結果をコピー" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ergebnis kopieren" } }
+      }
+    },
+    "action_favorite" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Favorite" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "お気に入り" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Favorit" } }
+      }
+    },
+    "action_unfavorite" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Favorited" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "登録済み" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Favorisiert" } }
+      }
+    },
+    "action_clear_all" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear All" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべて消去" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Alle löschen" } }
+      }
+    },
+    "action_cancel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "キャンセル" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Abbrechen" } }
+      }
+    },
+    "confirm_clear_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clear all history?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべての履歴を消去しますか？" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gesamten Verlauf löschen?" } }
+      }
+    },
+    "toast_copied" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Copied to clipboard" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クリップボードにコピーしました" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "In die Zwischenablage kopiert" } }
+      }
+    },
+    "history_empty_title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No History Yet" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "履歴はまだありません" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Noch kein Verlauf" } }
+      }
+    },
+    "history_empty_message" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Conversions you make will appear here." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "実行した変換がここに表示されます。" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Ihre Umrechnungen erscheinen hier." } }
+      }
+    },
+    "a11y_swap" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Swap units" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "単位を入れ替える" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Einheiten tauschen" } }
+      }
+    },
+    "a11y_favorite" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add to favorites" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "お気に入りに追加" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zu Favoriten hinzufügen" } }
+      }
+    },
+    "a11y_unfavorite" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove from favorites" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "お気に入りから削除" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Aus Favoriten entfernen" } }
+      }
+    },
+    "a11y_open_category" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open converter" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "変換ツールを開く" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Umrechner öffnen" } }
+      }
+    },
+    "a11y_unit_picker" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unit picker, currently %@" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "単位選択、現在は%@" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Einheitenauswahl, aktuell %@" } }
+      }
+    },
+    "a11y_favorite_pair" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%1$@ to %2$@, %3$@ category" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%1$@から%2$@、%3$@カテゴリー" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "%1$@ zu %2$@, Kategorie %3$@" } }
+      }
+    },
+    "a11y_history_row" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%1$@ %2$@ equals %3$@ %4$@" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "%1$@ %2$@ は %3$@ %4$@ に等しい" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "%1$@ %2$@ entspricht %3$@ %4$@" } }
+      }
+    },
+    "cat_length" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Length" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "長さ" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Länge" } }
+      }
+    },
+    "cat_weight" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weight" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "重さ" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gewicht" } }
+      }
+    },
+    "cat_temperature" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Temperature" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "温度" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Temperatur" } }
+      }
+    },
+    "cat_speed" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Speed" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "速度" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Geschwindigkeit" } }
+      }
+    },
+    "cat_volume" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Volume" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "体積" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Volumen" } }
+      }
+    },
+    "cat_area" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Area" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "面積" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Fläche" } }
+      }
+    },
+    "cat_data" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data Storage" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "データ容量" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Datenmenge" } }
+      }
+    },
+    "cat_time" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "時間" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zeit" } }
+      }
+    },
+    "cat_pressure" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pressure" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "圧力" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Druck" } }
+      }
+    },
+    "cat_energy" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Energy" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "エネルギー" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Energie" } }
+      }
+    },
+    "cat_power" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Power" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "仕事率" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Leistung" } }
+      }
+    },
+    "cat_angle" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Angle" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "角度" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Winkel" } }
+      }
+    },
+    "cat_force" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Force" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "力" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kraft" } }
+      }
+    },
+    "cat_frequency" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Frequency" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "周波数" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Frequenz" } }
+      }
+    },
+    "cat_fuel" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fuel Economy" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "燃費" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kraftstoffverbrauch" } }
+      }
+    },
+    "cat_cooking" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cooking" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "料理" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kochen" } }
+      }
+    },
+    "u_kilometer" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilometer" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilometer" } } } },
+    "u_meter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Meter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "メートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meter" } } } },
+    "u_centimeter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Centimeter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "センチメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Zentimeter" } } } },
+    "u_millimeter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Millimeter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ミリメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Millimeter" } } } },
+    "u_micrometer" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Micrometer" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイクロメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Mikrometer" } } } },
+    "u_nanometer" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Nanometer" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ナノメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Nanometer" } } } },
+    "u_mile" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Mile" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meile" } } } },
+    "u_yard" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Yard" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヤード" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Yard" } } } },
+    "u_foot" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Foot" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "フィート" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Fuß" } } } },
+    "u_inch" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Inch" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "インチ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Zoll" } } } },
+    "u_nautical_mile" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Nautical Mile" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "海里" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Seemeile" } } } },
+    "u_light_year" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Light Year" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "光年" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Lichtjahr" } } } },
+    "u_metric_ton" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Metric Ton" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "トン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Tonne" } } } },
+    "u_kilogram" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilogram" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キログラム" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilogramm" } } } },
+    "u_gram" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gram" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "グラム" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gramm" } } } },
+    "u_milligram" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Milligram" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ミリグラム" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Milligramm" } } } },
+    "u_microgram" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Microgram" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイクログラム" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Mikrogramm" } } } },
+    "u_pound" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Pound" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ポンド" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Pfund" } } } },
+    "u_ounce" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Ounce" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "オンス" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Unze" } } } },
+    "u_stone" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Stone" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ストーン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Stone" } } } },
+    "u_short_ton" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Short Ton (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "米トン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Short Ton (US)" } } } },
+    "u_long_ton" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Long Ton (UK)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "英トン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Long Ton (UK)" } } } },
+    "u_carat" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Carat" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "カラット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Karat" } } } },
+    "u_celsius" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Celsius" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "摂氏" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Celsius" } } } },
+    "u_fahrenheit" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Fahrenheit" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "華氏" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Fahrenheit" } } } },
+    "u_kelvin" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kelvin" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ケルビン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kelvin" } } } },
+    "u_mps" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Meters per second" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "メートル毎秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meter pro Sekunde" } } } },
+    "u_kmh" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilometers per hour" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロメートル毎時" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilometer pro Stunde" } } } },
+    "u_mph" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Miles per hour" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイル毎時" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meilen pro Stunde" } } } },
+    "u_knot" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Knot" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ノット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Knoten" } } } },
+    "u_fps" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Feet per second" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "フィート毎秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Fuß pro Sekunde" } } } },
+    "u_mach" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Mach" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マッハ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Mach" } } } },
+    "u_cubic_meter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Cubic Meter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "立方メートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kubikmeter" } } } },
+    "u_liter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Liter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "リットル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Liter" } } } },
+    "u_milliliter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Milliliter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ミリリットル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Milliliter" } } } },
+    "u_cubic_cm" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Cubic Centimeter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "立方センチメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kubikzentimeter" } } } },
+    "u_us_gallon" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gallon (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ガロン (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gallone (US)" } } } },
+    "u_us_quart" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Quart (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "クォート (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quart (US)" } } } },
+    "u_us_pint" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Pint (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "パイント (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Pint (US)" } } } },
+    "u_us_cup" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Cup (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "カップ (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Tasse (US)" } } } },
+    "u_us_fl_oz" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Fluid Ounce (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "液量オンス (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Flüssigunze (US)" } } } },
+    "u_imp_gallon" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gallon (UK)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ガロン (英)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gallone (UK)" } } } },
+    "u_cubic_inch" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Cubic Inch" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "立方インチ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kubikzoll" } } } },
+    "u_sq_kilometer" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Kilometer" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方キロメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratkilometer" } } } },
+    "u_hectare" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Hectare" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘクタール" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Hektar" } } } },
+    "u_sq_meter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Meter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方メートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratmeter" } } } },
+    "u_sq_centimeter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Centimeter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方センチメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratzentimeter" } } } },
+    "u_sq_mile" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Mile" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方マイル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratmeile" } } } },
+    "u_acre" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Acre" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "エーカー" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Acre" } } } },
+    "u_sq_yard" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Yard" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方ヤード" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratyard" } } } },
+    "u_sq_foot" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Foot" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方フィート" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratfuß" } } } },
+    "u_sq_inch" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Square Inch" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "平方インチ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Quadratzoll" } } } },
+    "u_bit" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Bit" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Bit" } } } },
+    "u_byte" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Byte" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "バイト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Byte" } } } },
+    "u_kilobit" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilobit" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロビット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilobit" } } } },
+    "u_kilobyte" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilobyte" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロバイト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilobyte" } } } },
+    "u_megabit" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Megabit" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "メガビット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Megabit" } } } },
+    "u_megabyte" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Megabyte" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "メガバイト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Megabyte" } } } },
+    "u_gigabit" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gigabit" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ギガビット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gigabit" } } } },
+    "u_gigabyte" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gigabyte" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ギガバイト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gigabyte" } } } },
+    "u_terabyte" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Terabyte" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "テラバイト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Terabyte" } } } },
+    "u_petabyte" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Petabyte" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ペタバイト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Petabyte" } } } },
+    "u_nanosecond" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Nanosecond" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ナノ秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Nanosekunde" } } } },
+    "u_microsecond" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Microsecond" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイクロ秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Mikrosekunde" } } } },
+    "u_millisecond" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Millisecond" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ミリ秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Millisekunde" } } } },
+    "u_second" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Second" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Sekunde" } } } },
+    "u_minute" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Minute" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "分" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Minute" } } } },
+    "u_hour" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Hour" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "時間" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Stunde" } } } },
+    "u_day" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Day" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "日" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Tag" } } } },
+    "u_week" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Week" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "週" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Woche" } } } },
+    "u_month" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Month" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "月" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Monat" } } } },
+    "u_year" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Year" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "年" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Jahr" } } } },
+    "u_pascal" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Pascal" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "パスカル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Pascal" } } } },
+    "u_kilopascal" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilopascal" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロパスカル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilopascal" } } } },
+    "u_bar" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Bar" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "バール" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Bar" } } } },
+    "u_psi" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "PSI" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "PSI" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "PSI" } } } },
+    "u_atmosphere" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Atmosphere" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "気圧" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Atmosphäre" } } } },
+    "u_torr" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Torr" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "トル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Torr" } } } },
+    "u_mmhg" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Millimeter of Mercury" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "水銀柱ミリメートル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Millimeter Quecksilbersäule" } } } },
+    "u_joule" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Joule" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ジュール" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Joule" } } } },
+    "u_kilojoule" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilojoule" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロジュール" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilojoule" } } } },
+    "u_calorie" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Calorie" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "カロリー" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kalorie" } } } },
+    "u_kilocalorie" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilocalorie" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロカロリー" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilokalorie" } } } },
+    "u_watt_hour" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Watt-hour" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ワット時" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Wattstunde" } } } },
+    "u_kilowatt_hour" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilowatt-hour" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロワット時" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilowattstunde" } } } },
+    "u_electron_volt" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Electronvolt" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "電子ボルト" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Elektronenvolt" } } } },
+    "u_btu" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "British Thermal Unit" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "英熱量" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "British Thermal Unit" } } } },
+    "u_foot_pound" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Foot-pound" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "フィートポンド" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Fuß-Pfund" } } } },
+    "u_watt" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Watt" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ワット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Watt" } } } },
+    "u_kilowatt" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilowatt" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロワット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilowatt" } } } },
+    "u_megawatt" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Megawatt" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "メガワット" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Megawatt" } } } },
+    "u_horsepower" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Horsepower (Mechanical)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "馬力 (機械)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Pferdestärke (mechanisch)" } } } },
+    "u_metric_hp" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Horsepower (Metric)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "馬力 (メートル法)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Pferdestärke (metrisch)" } } } },
+    "u_btu_per_hour" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "BTU per hour" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "英熱量毎時" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "BTU pro Stunde" } } } },
+    "u_ftlb_per_sec" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Foot-pound per second" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "フィートポンド毎秒" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Fuß-Pfund pro Sekunde" } } } },
+    "u_degree" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Degree" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "度" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Grad" } } } },
+    "u_radian" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Radian" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ラジアン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Radiant" } } } },
+    "u_gradian" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gradian" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "グラード" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gon" } } } },
+    "u_arcminute" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Arcminute" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "分 (角度)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Bogenminute" } } } },
+    "u_arcsecond" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Arcsecond" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "秒 (角度)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Bogensekunde" } } } },
+    "u_revolution" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Revolution" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "回転" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Umdrehung" } } } },
+    "u_newton" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Newton" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ニュートン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Newton" } } } },
+    "u_kilonewton" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilonewton" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロニュートン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilonewton" } } } },
+    "u_dyne" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Dyne" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ダイン" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Dyn" } } } },
+    "u_pound_force" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Pound-force" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "重量ポンド" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Pound-force" } } } },
+    "u_kilogram_force" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilogram-force" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "重量キログラム" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilopond" } } } },
+    "u_ounce_force" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Ounce-force" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "重量オンス" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Ounce-force" } } } },
+    "u_hertz" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Hertz" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘルツ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Hertz" } } } },
+    "u_kilohertz" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilohertz" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロヘルツ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilohertz" } } } },
+    "u_megahertz" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Megahertz" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "メガヘルツ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Megahertz" } } } },
+    "u_gigahertz" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Gigahertz" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "ギガヘルツ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Gigahertz" } } } },
+    "u_rpm" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Revolutions per minute" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "回転毎分" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Umdrehungen pro Minute" } } } },
+    "u_km_per_liter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Kilometers per liter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "キロメートル毎リットル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Kilometer pro Liter" } } } },
+    "u_mpg_us" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Miles per gallon (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイル毎ガロン (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meilen pro Gallone (US)" } } } },
+    "u_mpg_uk" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Miles per gallon (UK)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイル毎ガロン (英)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meilen pro Gallone (UK)" } } } },
+    "u_miles_per_liter" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Miles per liter" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイル毎リットル" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Meilen pro Liter" } } } },
+    "u_teaspoon" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Teaspoon" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "小さじ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Teelöffel" } } } },
+    "u_tablespoon" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Tablespoon" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "大さじ" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Esslöffel" } } } },
+    "u_cup_us" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Cup (US)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "カップ (米)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Tasse (US)" } } } },
+    "u_cup_metric" : { "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Cup (Metric)" } }, "ja" : { "stringUnit" : { "state" : "translated", "value" : "カップ (メートル法)" } }, "de" : { "stringUnit" : { "state" : "translated", "value" : "Tasse (metrisch)" } } } }
+  }
+}

@@ -1,0 +1,31 @@
+Master your focus with the Pomodoro Technique. Work in focused bursts (default 25 minutes), then take short breaks (5 minutes). After 4 sessions, take a long break (15 minutes). Fully customizable intervals. Track your daily sessions, build streaks, and see your focus statistics over time. Local notifications remind you when breaks start and end. No account required, no internet needed, no ads ever.
+
+WHY POMODORO FOCUS TIMER
+
+- Classic 25 / 5 / 15 minute cycle, ready out of the box
+- Fully customizable: focus 1-60 min, short break 1-30 min, long break 1-60 min
+- Choose how many sessions you complete before a long break
+- Optional auto-start so you flow from one session to the next
+- A large circular progress ring keeps your remaining time front and center
+- Session dots show your progress toward the next long break at a glance
+
+STAY MOTIVATED
+
+- Daily streak tracking with a 90-day calendar heat map
+- Statistics for today, this week, this month, and all time
+- See total focus minutes, completed sessions, and your best streak ever
+
+DESIGNED FOR DEEP WORK
+
+- Local notifications alert you the moment a timer ends, even in the background
+- The timer keeps perfect time after you lock your phone or switch apps
+- Optional focus sounds: gentle ticking, white noise, or rain
+- A gentle haptic pulse marks every session transition
+- Beautiful dark mode with a true-black OLED option to save battery
+
+PRIVACY FIRST
+
+Pomodoro Focus Timer works completely offline. It collects no data, has no
+accounts, no tracking, and no ads. Everything you record stays on your device.
+
+Start your first focus session today and build a habit that lasts.

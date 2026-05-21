@@ -1,0 +1,9 @@
+First release of Pomodoro Focus Timer.
+
+- Classic Pomodoro timer with fully customizable intervals
+- Daily streaks and a 90-day focus heat map
+- Statistics for today, this week, this month, and all time
+- Background-safe timer with local notifications
+- Optional focus sounds and a true-black dark mode
+
+Thanks for focusing with us!

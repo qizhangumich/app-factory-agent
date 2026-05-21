@@ -1,0 +1,9 @@
+# App Factory v2 — default deliver configuration (App Store Connect uploads).
+# Per-app values (app_identifier, metadata_path) are passed by the deploy
+# lane; this file only holds factory-wide defaults.
+
+submit_for_review(false)      # human gate performs the final submit
+automatic_release(false)
+force(true)                   # skip the HTML metadata preview prompt
+precheck_include_in_app_purchases(false)
+overwrite_screenshots(true)

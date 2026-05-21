@@ -1,0 +1,13 @@
+# Fastlane Appfile — Pomodoro Focus Timer (iOS)
+# Credentials are read from environment variables so no secrets live in the repo.
+# Account: ios_001
+
+app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.appfactory.pomodorofocus")
+apple_id(ENV["IOS_APPLE_ID"])
+itc_team_id(ENV["IOS_ITC_TEAM_ID"])
+team_id(ENV["IOS_TEAM_ID"])
+
+# App Store Connect API key (preferred over Apple ID auth in CI):
+#   APP_STORE_CONNECT_API_KEY_ID
+#   APP_STORE_CONNECT_API_ISSUER_ID
+#   APP_STORE_CONNECT_API_KEY  (path to the .p8 file)

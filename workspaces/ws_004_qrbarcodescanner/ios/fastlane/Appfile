@@ -1,0 +1,15 @@
+# Appfile — QR & Barcode Scanner+ (iOS)
+# Credentials are supplied via environment variables; nothing secret is
+# committed. Account: ios_001.
+
+app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.appfactory.qrbarcodescanner")
+apple_id(ENV["IOS_001_APPLE_ID"])
+itc_team_id(ENV["IOS_001_ITC_TEAM_ID"])
+team_id(ENV["IOS_001_TEAM_ID"])
+
+# App Store Connect API key (preferred over Apple ID for CI):
+#   IOS_001_API_KEY_ID, IOS_001_API_ISSUER_ID, IOS_001_API_KEY_PATH
+for_platform :ios do
+  # Account label for the factory pipeline.
+  # account: ios_001
+end

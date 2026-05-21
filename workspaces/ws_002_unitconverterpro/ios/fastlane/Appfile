@@ -1,0 +1,9 @@
+# Fastlane Appfile — iOS
+# Credentials are supplied via environment variables (account: ios_001).
+
+app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.appfactory.unitconverterpro")
+apple_id(ENV["IOS_APPLE_ID"])
+itc_team_id(ENV["IOS_ITC_TEAM_ID"])
+team_id(ENV["IOS_TEAM_ID"])
+
+# Factory account reference: ios_001

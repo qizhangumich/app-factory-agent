@@ -1,0 +1,152 @@
+{
+  "spec_version": "2.1",
+  "workspace_id": "ws_005",
+  "app_name": "Pomodoro Focus Timer",
+  "slug": "pomodorofocus",
+  "bundle_id_ios": "com.appfactory.pomodorofocus",
+  "bundle_id_android": "com.appfactory.pomodorofocus",
+  "category": "Productivity",
+  "subcategory": "Timer",
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "ios_account": "ios_001",
+  "android_account": "and_001",
+  "template": "timer_template",
+  "description_short": "Pomodoro timer with customizable intervals, session streaks, and focus statistics",
+  "description_full": "Master your focus with the Pomodoro Technique. Work in focused bursts (default 25 minutes), then take short breaks (5 minutes). After 4 sessions, take a long break (15 minutes). Fully customizable intervals. Track your daily sessions, build streaks, and see your focus statistics over time. Local notifications remind you when breaks start and end. No account required, no internet needed, no ads ever.",
+  "features": [
+    "Classic Pomodoro timer: 25min work / 5min break / 15min long break",
+    "Fully customizable intervals (work: 1-60min, short break: 1-30min, long break: 1-60min)",
+    "Sessions until long break: configurable (default 4)",
+    "Auto-start next session option",
+    "Session counter: shows current session number and progress toward long break",
+    "Daily streak tracking with calendar heat map",
+    "Statistics: total focus minutes today/week/month, sessions completed, longest streak",
+    "Local notifications when timer ends (works in background)",
+    "Focus sounds: optional ticking, white noise, or silent mode",
+    "Persistent timer: survives app backgrounding and reopening",
+    "Dark mode with OLED-optimized true black option",
+    "Haptic pulse at session transitions"
+  ],
+  "ios_frameworks": [
+    "SwiftUI",
+    "UserNotifications",
+    "AVFoundation"
+  ],
+  "android_frameworks": [
+    "Jetpack Compose",
+    "WorkManager",
+    "NotificationCompat"
+  ],
+  "requires_server": false,
+  "data_storage": "CoreData (iOS) / Room (Android)",
+  "permissions_required": [
+    "notifications"
+  ],
+  "ui_spec": {
+    "screens": [
+      {
+        "name": "TimerView",
+        "description": "Large circular timer at center. Session dots below showing progress toward long break. Start/Pause/Reset buttons. Current mode label (Focus / Short Break / Long Break).",
+        "components": [
+          "Circular progress ring (large, 250pt diameter)",
+          "Time remaining in center (MM:SS, 48pt font)",
+          "Mode label above timer: FOCUS / SHORT BREAK / LONG BREAK",
+          "Session progress dots: ● ● ○ ○ (filled = completed, 4 dots default)",
+          "Start/Pause button (large, centered below timer)",
+          "Reset button (small, next to start)",
+          "Skip button (advance to next phase)",
+          "Settings gear icon (top-right)"
+        ]
+      },
+      {
+        "name": "StatsView",
+        "description": "Tab or swipe to access. Calendar heat map at top (GitHub contribution style). Stats cards below: today's sessions, this week, this month, all time. Streak counter.",
+        "components": [
+          "Calendar heat map (90-day view, darker = more sessions)",
+          "Today card: sessions completed, total focus minutes",
+          "This week card: sessions, minutes, daily average",
+          "Current streak: consecutive days with at least 1 session",
+          "Best streak: longest consecutive run"
+        ]
+      },
+      {
+        "name": "SettingsView",
+        "description": "Configure all timer parameters. Presented as sheet from TimerView.",
+        "components": [
+          "Focus duration stepper (1-60 min, default 25)",
+          "Short break stepper (1-30 min, default 5)",
+          "Long break stepper (1-60 min, default 15)",
+          "Sessions until long break stepper (1-10, default 4)",
+          "Auto-start next toggle",
+          "Sound picker: Silent / Tick / White Noise / Rain",
+          "Notifications toggle",
+          "True black mode toggle"
+        ]
+      }
+    ],
+    "color_scheme": {
+      "focus": "#FF6B6B (warm red for focus mode)",
+      "short_break": "#4ECDC4 (teal for short break)",
+      "long_break": "#45B7D1 (blue for long break)",
+      "background": "System background (or true black if enabled)",
+      "streak_heat": "Green ramp from light to dark based on session count"
+    }
+  },
+  "technical_notes": {
+    "background_timer": "Use a combination of Date-based calculation (store startTime and duration, compute remaining on foreground) and local notifications (schedule notification for timer end time). Do NOT use a background Timer — iOS will suspend it.",
+    "data_model": "Session(id, date, type[focus/short/long], durationSeconds, completedAt). Query by date range for stats.",
+    "notifications": "Schedule UNNotificationRequest with UNTimeIntervalNotificationTrigger for timer completion. Cancel and reschedule on pause/reset."
+  },
+  "price_tier": 2,
+  "price_usd": 1.99,
+  "price_by_country": {
+    "us": "$1.99",
+    "gb": "£1.79",
+    "jp": "¥400",
+    "kr": "₩2,500",
+    "de": "€1.99",
+    "br": "R$7.90",
+    "in": "₹179"
+  },
+  "target_countries": [
+    "us",
+    "gb",
+    "jp",
+    "kr",
+    "de",
+    "br",
+    "in"
+  ],
+  "languages": [
+    "en",
+    "ja"
+  ],
+  "aso": {
+    "title": "Pomodoro Focus Timer",
+    "subtitle": "Study Timer & Focus Streaks",
+    "keywords": "pomodoro timer,focus timer,study timer,productivity timer,pomodoro technique,focus app,work timer,concentration,study focus,time management",
+    "promotional_text": "Build an unbreakable focus habit. Pomodoro timer with streaks, stats, and zero distractions."
+  },
+  "localization": {
+    "ja": {
+      "title": "ポモドーロ集中タイマー",
+      "subtitle": "学習タイマー＆集中力記録",
+      "keywords": "ポモドーロ,集中タイマー,勉強タイマー,作業用タイマー,集中力,タイマー,25分,ポモドーロテクニック"
+    }
+  },
+  "privacy_policy": {
+    "collects_data": false,
+    "uses_tracking": false,
+    "third_party_services": []
+  },
+  "estimated_build_hours": 4,
+  "score": 43.8,
+  "build_order": 5,
+  "phase": "phase_1_quick_wins",
+  "target_week": "W1",
+  "created_at": "2026-05-22T00:00:00Z",
+  "status": "pending"
+}

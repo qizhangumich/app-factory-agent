@@ -1,0 +1,27 @@
+{
+  "accounts": [
+    {"id": "ios_001", "platform": "ios", "cost": 99, "status": "active", "focus": "Utilities+Productivity", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "ios_002", "platform": "ios", "cost": 99, "status": "active", "focus": "Health+Fitness", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "ios_003", "platform": "ios", "cost": 99, "status": "active", "focus": "Education+Reference", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "ios_004", "platform": "ios", "cost": 99, "status": "active", "focus": "Photography+Creative", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "ios_005", "platform": "ios", "cost": 99, "status": "active", "focus": "Custom Apps", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "ios_006", "platform": "ios", "cost": 99, "status": "active", "focus": "Reserve/Overflow", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "android_001", "platform": "android", "cost": 25, "status": "active", "focus": "Mirror Utilities", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "android_002", "platform": "android", "cost": 25, "status": "active", "focus": "Mirror Health+Edu", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "android_003", "platform": "android", "cost": 25, "status": "active", "focus": "Mirror Photo+Creative", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "android_004", "platform": "android", "cost": 25, "status": "active", "focus": "Custom Apps", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "android_005", "platform": "android", "cost": 25, "status": "active", "focus": "Reserve", "apps": [], "total_earned": 0, "last_submission_at": null},
+    {"id": "android_006", "platform": "android", "cost": 25, "status": "active", "focus": "Reserve", "apps": [], "total_earned": 0, "last_submission_at": null}
+  ],
+  "account_aliases": {
+    "and_001": "android_001",
+    "and_002": "android_002",
+    "and_003": "android_003",
+    "and_004": "android_004",
+    "and_005": "android_005",
+    "and_006": "android_006"
+  },
+  "total_invested": 800,
+  "reserve_fund": 56,
+  "updated_at": "2026-05-22T00:00:00Z"
+}

@@ -1,0 +1,5 @@
+Initial release of Sound Level Meter.
+- Real-time decibel measurement with an animated needle gauge
+- Min, max, average and peak tracking with peak hold
+- NIOSH-based noise exposure warnings
+- Session history chart and calibration offset

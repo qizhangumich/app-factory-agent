@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Favorites and history live in SharedPreferences and may be backed up. -->
+    <include domain="sharedpref" path="ucp_prefs.xml" />
+</full-backup-content>

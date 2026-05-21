@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">単位変換プロ</string>
+
+    <string name="tab_convert">変換</string>
+    <string name="tab_history">履歴</string>
+
+    <string name="search_prompt">カテゴリーや単位を検索</string>
+    <string name="section_favorites">お気に入り</string>
+    <string name="section_categories">カテゴリー</string>
+    <string name="section_related">関連する変換</string>
+    <string name="label_from">変換元</string>
+    <string name="label_to">変換先</string>
+    <string name="action_copy">結果をコピー</string>
+    <string name="action_favorite">お気に入り</string>
+    <string name="action_unfavorite">登録済み</string>
+    <string name="action_clear_all">すべて消去</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_back">戻る</string>
+    <string name="confirm_clear_title">すべての履歴を消去しますか？</string>
+    <string name="toast_copied">クリップボードにコピーしました</string>
+    <string name="history_empty_title">履歴はまだありません</string>
+    <string name="history_empty_message">実行した変換がここに表示されます。</string>
+
+    <string name="a11y_swap">単位を入れ替える</string>
+    <string name="a11y_favorite">お気に入りに追加</string>
+    <string name="a11y_unfavorite">お気に入りから削除</string>
+    <string name="a11y_delete">項目を削除</string>
+
+    <string name="cat_length">長さ</string>
+    <string name="cat_weight">重さ</string>
+    <string name="cat_temperature">温度</string>
+    <string name="cat_speed">速度</string>
+    <string name="cat_volume">体積</string>
+    <string name="cat_area">面積</string>
+    <string name="cat_data">データ容量</string>
+    <string name="cat_time">時間</string>
+    <string name="cat_pressure">圧力</string>
+    <string name="cat_energy">エネルギー</string>
+    <string name="cat_power">仕事率</string>
+    <string name="cat_angle">角度</string>
+    <string name="cat_force">力</string>
+    <string name="cat_frequency">周波数</string>
+    <string name="cat_fuel">燃費</string>
+    <string name="cat_cooking">料理</string>
+
+    <string name="u_kilometer">キロメートル</string>
+    <string name="u_meter">メートル</string>
+    <string name="u_centimeter">センチメートル</string>
+    <string name="u_millimeter">ミリメートル</string>
+    <string name="u_micrometer">マイクロメートル</string>
+    <string name="u_nanometer">ナノメートル</string>
+    <string name="u_mile">マイル</string>
+    <string name="u_yard">ヤード</string>
+    <string name="u_foot">フィート</string>
+    <string name="u_inch">インチ</string>
+    <string name="u_nautical_mile">海里</string>
+    <string name="u_light_year">光年</string>
+
+    <string name="u_metric_ton">トン</string>
+    <string name="u_kilogram">キログラム</string>
+    <string name="u_gram">グラム</string>
+    <string name="u_milligram">ミリグラム</string>
+    <string name="u_microgram">マイクログラム</string>
+    <string name="u_pound">ポンド</string>
+    <string name="u_ounce">オンス</string>
+    <string name="u_stone">ストーン</string>
+    <string name="u_short_ton">米トン</string>
+    <string name="u_long_ton">英トン</string>
+    <string name="u_carat">カラット</string>
+
+    <string name="u_celsius">摂氏</string>
+    <string name="u_fahrenheit">華氏</string>
+    <string name="u_kelvin">ケルビン</string>
+
+    <string name="u_mps">メートル毎秒</string>
+    <string name="u_kmh">キロメートル毎時</string>
+    <string name="u_mph">マイル毎時</string>
+    <string name="u_knot">ノット</string>
+    <string name="u_fps">フィート毎秒</string>
+    <string name="u_mach">マッハ</string>
+
+    <string name="u_cubic_meter">立方メートル</string>
+    <string name="u_liter">リットル</string>
+    <string name="u_milliliter">ミリリットル</string>
+    <string name="u_cubic_cm">立方センチメートル</string>
+    <string name="u_us_gallon">ガロン (米)</string>
+    <string name="u_us_quart">クォート (米)</string>
+    <string name="u_us_pint">パイント (米)</string>
+    <string name="u_us_cup">カップ (米)</string>
+    <string name="u_us_fl_oz">液量オンス (米)</string>
+    <string name="u_imp_gallon">ガロン (英)</string>
+    <string name="u_cubic_inch">立方インチ</string>
+
+    <string name="u_sq_kilometer">平方キロメートル</string>
+    <string name="u_hectare">ヘクタール</string>
+    <string name="u_sq_meter">平方メートル</string>
+    <string name="u_sq_centimeter">平方センチメートル</string>
+    <string name="u_sq_mile">平方マイル</string>
+    <string name="u_acre">エーカー</string>
+    <string name="u_sq_yard">平方ヤード</string>
+    <string name="u_sq_foot">平方フィート</string>
+    <string name="u_sq_inch">平方インチ</string>
+
+    <string name="u_bit">ビット</string>
+    <string name="u_byte">バイト</string>
+    <string name="u_kilobit">キロビット</string>
+    <string name="u_kilobyte">キロバイト</string>
+    <string name="u_megabit">メガビット</string>
+    <string name="u_megabyte">メガバイト</string>
+    <string name="u_gigabit">ギガビット</string>
+    <string name="u_gigabyte">ギガバイト</string>
+    <string name="u_terabyte">テラバイト</string>
+    <string name="u_petabyte">ペタバイト</string>
+
+    <string name="u_nanosecond">ナノ秒</string>
+    <string name="u_microsecond">マイクロ秒</string>
+    <string name="u_millisecond">ミリ秒</string>
+    <string name="u_second">秒</string>
+    <string name="u_minute">分</string>
+    <string name="u_hour">時間</string>
+    <string name="u_day">日</string>
+    <string name="u_week">週</string>
+    <string name="u_month">月</string>
+    <string name="u_year">年</string>
+
+    <string name="u_pascal">パスカル</string>
+    <string name="u_kilopascal">キロパスカル</string>
+    <string name="u_bar">バール</string>
+    <string name="u_psi">PSI</string>
+    <string name="u_atmosphere">気圧</string>
+    <string name="u_torr">トル</string>
+    <string name="u_mmhg">水銀柱ミリメートル</string>
+
+    <string name="u_joule">ジュール</string>
+    <string name="u_kilojoule">キロジュール</string>
+    <string name="u_calorie">カロリー</string>
+    <string name="u_kilocalorie">キロカロリー</string>
+    <string name="u_watt_hour">ワット時</string>
+    <string name="u_kilowatt_hour">キロワット時</string>
+    <string name="u_electron_volt">電子ボルト</string>
+    <string name="u_btu">英熱量</string>
+    <string name="u_foot_pound">フィートポンド</string>
+
+    <string name="u_watt">ワット</string>
+    <string name="u_kilowatt">キロワット</string>
+    <string name="u_megawatt">メガワット</string>
+    <string name="u_horsepower">馬力 (機械)</string>
+    <string name="u_metric_hp">馬力 (メートル法)</string>
+    <string name="u_btu_per_hour">英熱量毎時</string>
+    <string name="u_ftlb_per_sec">フィートポンド毎秒</string>
+
+    <string name="u_degree">度</string>
+    <string name="u_radian">ラジアン</string>
+    <string name="u_gradian">グラード</string>
+    <string name="u_arcminute">分 (角度)</string>
+    <string name="u_arcsecond">秒 (角度)</string>
+    <string name="u_revolution">回転</string>
+
+    <string name="u_newton">ニュートン</string>
+    <string name="u_kilonewton">キロニュートン</string>
+    <string name="u_dyne">ダイン</string>
+    <string name="u_pound_force">重量ポンド</string>
+    <string name="u_kilogram_force">重量キログラム</string>
+    <string name="u_ounce_force">重量オンス</string>
+
+    <string name="u_hertz">ヘルツ</string>
+    <string name="u_kilohertz">キロヘルツ</string>
+    <string name="u_megahertz">メガヘルツ</string>
+    <string name="u_gigahertz">ギガヘルツ</string>
+    <string name="u_rpm">回転毎分</string>
+
+    <string name="u_km_per_liter">キロメートル毎リットル</string>
+    <string name="u_mpg_us">マイル毎ガロン (米)</string>
+    <string name="u_mpg_uk">マイル毎ガロン (英)</string>
+    <string name="u_miles_per_liter">マイル毎リットル</string>
+
+    <string name="u_teaspoon">小さじ</string>
+    <string name="u_tablespoon">大さじ</string>
+    <string name="u_cup_us">カップ (米)</string>
+    <string name="u_cup_metric">カップ (メートル法)</string>
+</resources>

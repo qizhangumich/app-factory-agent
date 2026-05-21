@@ -1,0 +1,85 @@
+name: iOS Build & Upload
+
+# Builds, signs, and uploads one iOS app to App Store Connect using GitHub's
+# hosted macOS runners — no Mac purchase required.
+#
+# Trigger: Actions tab -> "iOS Build & Upload" -> Run workflow -> pick a
+# workspace. The human gate still performs the final "Submit for Review"
+# click in App Store Connect (uploads land as a non-submitted build).
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   ASC_KEY_ID         App Store Connect API key ID
+#   ASC_ISSUER_ID      App Store Connect API issuer ID
+#   ASC_KEY_P8_BASE64  the AuthKey_XXXX.p8 file, base64-encoded
+#   APPLE_TEAM_ID      Apple Developer team ID
+#
+# Optional secrets (only if you use fastlane match instead of automatic
+# signing — leave unset to use automatic signing, which needs no certs repo):
+#   MATCH_GIT_URL                  HTTPS URL of the private signing-certs repo
+#   MATCH_PASSWORD                 passphrase that encrypts the match repo
+#   MATCH_GIT_BASIC_AUTHORIZATION  base64 of "username:personal-access-token"
+#
+# See docs/GITHUB_ACTIONS_SETUP.md for how to produce each value.
+
+on:
+  workflow_dispatch:
+    inputs:
+      workspace:
+        description: "Workspace folder to build"
+        required: true
+        default: ws_001_tipcalcdeluxe
+        type: choice
+        options:
+          - ws_001_tipcalcdeluxe
+          - ws_002_unitconverterpro
+          - ws_003_soundlevelmeter
+          - ws_004_qrbarcodescanner
+          - ws_005_pomodorofocus
+
+jobs:
+  build-ios:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Set up Ruby + Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: delivery
+
+      - name: Decode App Store Connect API key
+        run: |
+          mkdir -p config/fastlane_env
+          echo "${{ secrets.ASC_KEY_P8_BASE64 }}" | base64 --decode > config/fastlane_env/AuthKey.p8
+
+      - name: Build, sign & upload
+        env:
+          # App Store Connect API key — consumed by the Fastfile's iOS lane.
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_PATH: ${{ github.workspace }}/config/fastlane_env/AuthKey.p8
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          # fastlane match — private repo holding the signing certificates.
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
+        run: |
+          chmod +x delivery/scripts/deploy_workspace.sh
+          ./delivery/scripts/deploy_workspace.sh "workspaces/${{ inputs.workspace }}"
+
+      - name: Upload .ipa artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-${{ inputs.workspace }}
+          path: workspaces/${{ inputs.workspace }}/ios/build/*.ipa
+          if-no-files-found: warn

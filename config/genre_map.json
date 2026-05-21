@@ -1,0 +1,18 @@
+{
+  "note": "Maps factory categories to App Store / Google Play genres and to the iOS account that owns the category.",
+  "categories": {
+    "Utilities":        {"ios_genre": "Utilities",        "play_category": "TOOLS",         "ios_account": "ios_001", "android_account": "android_001"},
+    "Productivity":     {"ios_genre": "Productivity",     "play_category": "PRODUCTIVITY",  "ios_account": "ios_001", "android_account": "android_001"},
+    "Health & Fitness": {"ios_genre": "Health & Fitness", "play_category": "HEALTH_AND_FITNESS", "ios_account": "ios_002", "android_account": "android_002"},
+    "Health":           {"ios_genre": "Health & Fitness", "play_category": "HEALTH_AND_FITNESS", "ios_account": "ios_002", "android_account": "android_002"},
+    "Education":        {"ios_genre": "Education",        "play_category": "EDUCATION",     "ios_account": "ios_003", "android_account": "android_002"},
+    "Reference":        {"ios_genre": "Reference",        "play_category": "BOOKS_AND_REFERENCE", "ios_account": "ios_003", "android_account": "android_002"},
+    "Photography":      {"ios_genre": "Photo & Video",    "play_category": "PHOTOGRAPHY",   "ios_account": "ios_004", "android_account": "android_003"},
+    "Photo":            {"ios_genre": "Photo & Video",    "play_category": "PHOTOGRAPHY",   "ios_account": "ios_004", "android_account": "android_003"},
+    "Creative":         {"ios_genre": "Graphics & Design","play_category": "ART_AND_DESIGN","ios_account": "ios_004", "android_account": "android_003"},
+    "Music":            {"ios_genre": "Music",            "play_category": "MUSIC_AND_AUDIO","ios_account": "ios_004", "android_account": "android_003"},
+    "Lifestyle":        {"ios_genre": "Lifestyle",        "play_category": "LIFESTYLE",     "ios_account": "ios_001", "android_account": "android_001"},
+    "Custom":           {"ios_genre": "Business",         "play_category": "BUSINESS",      "ios_account": "ios_005", "android_account": "android_004"}
+  },
+  "overflow": {"ios": "ios_006", "android": "android_005"}
+}

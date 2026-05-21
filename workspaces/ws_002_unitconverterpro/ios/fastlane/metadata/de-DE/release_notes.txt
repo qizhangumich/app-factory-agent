@@ -1,0 +1,11 @@
+Willkommen bei Einheitenrechner Pro 1.0!
+
+- 16 Einheitenkategorien mit über 130 Einheiten
+- Echtzeit-Umrechnung während der Eingabe
+- Lieblings-Umrechnungspaare speichern
+- Vollständiger Verlauf der letzten 100 Umrechnungen
+- Jede Einheit nach Name oder Symbol suchen
+- Tauschen und kopieren mit einem Tipp
+- Funktioniert komplett offline
+
+Danke fürs Herunterladen. Wir freuen uns über Ihr Feedback!
