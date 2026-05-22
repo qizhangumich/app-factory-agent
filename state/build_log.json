@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-21T17:10:24Z",
+  "updated_at": "2026-05-22T14:15:14Z",
   "builds": [
     {
       "workspace_id": "ws_001",
@@ -50,6 +50,12 @@
       "workspace_id": "ws_005",
       "event": "built",
       "at": "2026-05-21T17:10:24Z"
+    },
+    {
+      "workspace_id": "ws_001",
+      "event": "android_debug_build_verified",
+      "at": "2026-05-22T14:15:14Z",
+      "detail": "compileDebugKotlin + resources OK on Android Studio"
     }
   ]
 }
