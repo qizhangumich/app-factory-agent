@@ -2,8 +2,8 @@
 
 ## Complete Instruction Book for Claude Code
 
-**Version:** 2.1
-**Date:** 2026-05-22
+**Version:** 2.2
+**Date:** 2026-05-23
 **Budget:** $800 seed capital
 **Purpose:** Single source of truth. Claude Code executes everything without further human permission. Human touchpoints marked `[HUMAN GATE]`.
 
@@ -18,6 +18,7 @@
 5. [Workspace Isolation: One App = One Universe](#5-workspace-isolation)
 6. [Layer 1: Brain Agent](#6-layer-1-brain-agent)
 7. [Layer 2: App Factory](#7-layer-2-app-factory)
+   - [Layer 2.5: Build & Fine-Tune — NEW in v2.2](#75-layer-25-build--fine-tune)
 8. [Layer 3: Delivery System (Fastlane CI/CD)](#8-layer-3-delivery-system)
 9. [Layer 4: Human Gate (5%)](#9-layer-4-human-gate-5)
 10. [Market Intelligence](#10-market-intelligence)
@@ -698,6 +699,228 @@ Same as v1 but now generates BOTH iOS (SwiftUI) and Android (Kotlin/Jetpack Comp
 - Material 3 design system
 - NO networking (exceptions: Custom Apps only)
 - No third-party dependencies beyond AndroidX
+
+---
+
+## 7.5 Layer 2.5: Build & Fine-Tune
+
+**Added in v2.2**, after empirically building the first Android batch
+(ws_001 Tip Calculator, ws_002 Unit Converter, ws_004 QR Scanner,
+ws_005 Pomodoro). This is the missing layer between Factory and Delivery —
+the "four-layer" model is now five.
+
+### Why this layer exists
+
+A Claude Code Factory worker (Layer 2) writes Swift/Kotlin **with no compiler
+in the loop** — it cannot catch type errors, missing imports, stale dependency
+versions, or files truncated by a generation cutoff. Every app in the first
+batch compiled only *after* fixes. Layer 2.5 is the loop that drives a
+generated workspace to a **verified, signed, installable artifact**.
+
+```
+Factory writes code
+   → [2.5: compile → fix → static-scan → verify on device → sign → .aab]
+   → Delivery uploads
+```
+
+Layer 2.5 is run by a Claude Code worker that **executes commands** (the build
+agent). It is not a pure script — fixing arbitrary compile errors needs
+intelligence — but every mechanical step below is scriptable.
+
+### Step 1 — Discover the toolchain (once per machine)
+
+Android builds need a JDK, the Android SDK, and Gradle. Android Studio bundles
+all three; locate them, do not assume PATH:
+
+| Tool | Typical location (Windows) |
+|------|----------------------------|
+| Android SDK | `%LOCALAPPDATA%\Android\Sdk` |
+| JDK (JetBrains Runtime) | `<Android Studio>\jbr` |
+| Gradle distribution | `~/.gradle/wrapper/dists/gradle-<ver>-bin/<hash>/gradle-<ver>` |
+| adb | `<SDK>\platform-tools\adb.exe` |
+| emulator | `<SDK>\emulator\emulator.exe` |
+
+Generated workspaces ship `gradlew` + `gradle-wrapper.properties` but **not**
+the binary `gradle-wrapper.jar` (it cannot be stored as source). Either run
+`gradle wrapper` once with the located Gradle, or invoke that Gradle directly
+with `-p <project>`.
+
+### Step 2 — Build directly from the command line
+
+Do not use the IDE. Android Studio is a front-end for Gradle; the agent
+invokes Gradle itself for exact error text and a tight fix loop:
+
+```bash
+export JAVA_HOME="<Android Studio>/jbr"
+export ANDROID_HOME="<SDK path>"
+<gradle> -p workspaces/<ws>/android :app:bundleRelease --console=plain --warning-mode=none
+```
+
+`bundleRelease` compiles the release variant, runs R8, and packages the
+`.aab`. Compile errors surface before R8 — fast.
+
+### Step 3 — Error catalog (empirically observed — recognise and fix directly)
+
+| Error message (substring) | Root cause | Fix |
+|---|---|---|
+| `Failed to parse XML file … must be contained in … same entity` | a generated resource XML (e.g. a vector drawable) is **truncated** — missing its closing tag | add the missing closing tag |
+| `Unresolved reference: remember` | missing `import androidx.compose.runtime.remember` | add the import |
+| `Type 'State<…>' has no method 'getValue(…)' … cannot serve as a delegate` | a `by animate*AsState` / `by remember` delegate without `import androidx.compose.runtime.getValue` (and `setValue` for a `var`) | add the getValue/setValue import(s) |
+| `This material API is experimental` reported as an **error** | use of `SegmentedButton`, `TopAppBar`, `ModalBottomSheet`, … | add `@file:OptIn(ExperimentalMaterial3Api::class)` at the top of the file + `import androidx.compose.material3.ExperimentalMaterial3Api` |
+| `Overload resolution ambiguity: public fun Text(…)` | usually a **cascade** — a variable's type is unknown due to an earlier unresolved reference | fix the root unresolved reference; the ambiguity vanishes |
+| `None of the following candidates is applicable` on `N * X.dp` | Kotlin has no `Int.times(Dp)` operator | reorder to `X.dp * N` |
+| `checkReleaseAarMetadata FAILED … requires Android Gradle plugin X or higher` | a dependency needs a newer AGP than declared | bump AGP in the workspace's **root** `build.gradle.kts` |
+| 16 KB `PageSizeMismatchDialog` / `LOAD segment not aligned` | a native library is not 16 KB page-aligned — **Google Play rejects this** for apps targeting Android 15+ | upgrade the offending library (see Dependency Policy) |
+| `lowmemorykiller: Kill '<pkg>'` | the **emulator** is RAM-starved — NOT an app bug | free memory and relaunch; do not "fix" the app |
+
+### Step 4 — Pre-flight static scans (catch errors before compiling)
+
+Two failure classes are systematic (the factory writes without a compiler).
+Scan every new workspace up front:
+
+1. **Truncation** — parse every `res/**/*.xml` + `AndroidManifest.xml` with an
+   XML parser; flag any that fail. Scan every `.kt` for balanced `{}` / `()`.
+2. **Missing imports** — flag any file using `remember`, `mutableStateOf`,
+   `getValue`/`setValue` (for `by` delegates), `collectAsState`, … without the
+   matching `androidx.compose.runtime` import.
+3. **Unguarded experimental APIs** — flag any file using `SegmentedButton` /
+   `TopAppBar` / `ModalBottomSheet` / … without an `ExperimentalMaterial3Api`
+   opt-in.
+
+A short Python script (glob + `xml.dom.minidom` + regex) produces a clean
+pass/fail list in seconds — run it before the first build.
+
+### Step 5 — Verify on a device (compiling ≠ working)
+
+`BUILD SUCCESSFUL` does not mean the app runs. Smoke-test every app on an
+emulator or device:
+
+1. Build the **debug** APK: `:app:assembleDebug` (fast — no R8).
+2. `adb install -r <app-debug.apk>`.
+3. Pre-grant runtime permissions: `adb shell pm grant <pkg> android.permission.CAMERA` (etc.).
+4. Launch: `adb shell monkey -p <pkg> -c android.intent.category.LAUNCHER 1`.
+5. Wait, then `adb exec-out screencap -p > shot.png` and **inspect the
+   screenshot** — confirm the real UI rendered, not a splash or blank screen.
+6. `adb logcat -d` — distinguish `FATAL`/`AndroidRuntime` (real crash) from
+   `lowmemorykiller` (emulator memory — not a bug).
+7. Exercise one core action (tap into a screen, check a computed result) and
+   screenshot again.
+
+Caveats learned:
+- A debug build with `applicationIdSuffix = ".debug"` installs under
+  `<pkg>.debug`; use that package for `pm grant`/launch. The Activity class
+  keeps the original namespace, so prefer `monkey` over `am start -n`.
+- The emulator's low-memory killer kills apps when several are resident —
+  `adb shell am kill-all`, force-stop others, relaunch. Not an app defect.
+- A stale system dialog (e.g. the 16 KB warning) can overlay the app —
+  dismiss it (`adb shell input tap`) and re-screenshot.
+
+### Step 6 — Release signing
+
+A Play-ready `.aab` must be signed. Wire each `app/build.gradle.kts` to read a
+**gitignored** `keystore.properties`, so secrets never enter version control:
+
+```kotlin
+import java.util.Properties
+// after the plugins { } block:
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { load(it) }
+}
+// inside android { }, before buildTypes:
+signingConfigs {
+    create("release") {
+        if (keystorePropsFile.exists()) {
+            storeFile = file(keystoreProps.getProperty("storeFile"))
+            storePassword = keystoreProps.getProperty("storePassword")
+            keyAlias = keystoreProps.getProperty("keyAlias")
+            keyPassword = keystoreProps.getProperty("keyPassword")
+        }
+    }
+}
+// inside buildTypes.release:
+signingConfig = signingConfigs.getByName("release")
+```
+
+`keystore.properties` (gitignored, one per workspace):
+```
+storeFile=<absolute path to the upload keystore>
+keyAlias=<this app's key alias>
+storePassword=<filled by the human, once>
+keyPassword=<filled by the human, once>
+```
+
+`[HUMAN GATE]` — creating the upload keystore (`keytool -genkeypair …`) and
+entering its password once. One keystore can hold one key alias per app. Under
+Google Play App Signing this is the *upload* key (resettable); Google holds
+the real app-signing key.
+
+### Step 7 — Produce the signed AAB
+
+`<gradle> -p workspaces/<ws>/android :app:bundleRelease`
+→ `app/build/outputs/bundle/release/app-release.aab`.
+Update `status.json`: `build` and `sign` → `complete`.
+
+### Dependency version policy (learned)
+
+The factory's training data emits dependency versions that may be **stale**.
+Layer 2.5 must verify and bump:
+
+- **CameraX**: use **1.5.x+** (16 KB-aligned). 1.5.x requires **AGP 8.6+**.
+- **AGP ↔ Gradle pairing**: AGP 8.6 ↔ Gradle 8.7; AGP 8.7 ↔ Gradle 8.9. Bump
+  them together, or the build fails at configuration.
+- **Any native-code dependency** (CameraX, ML Kit, …): confirm 16 KB alignment
+  — the `PageSizeMismatchDialog` must not appear on an Android 15 emulator.
+- Check versions against Google's Maven
+  (`https://dl.google.com/android/maven2/<group-path>/maven-metadata.xml`)
+  rather than trusting generated values.
+
+### Step 8 — Automated Google Play upload
+
+Once a signed `.aab` exists, publishing is automated with **fastlane `supply`**
+(`delivery/Fastfile` `android deploy` lane + `.github/workflows/android_deploy.yml`):
+
+```ruby
+supply(
+  package_name: "<applicationId>",
+  aab: "<ws>/android/app/build/outputs/bundle/release/app-release.aab",
+  track: "internal",          # internal → closed → production
+  release_status: "draft",
+  json_key: ENV["PLAY_JSON_KEY"]
+)
+```
+
+`supply` automates: uploading the `.aab`, the store-listing text, and
+screenshots to a chosen track — and every subsequent update.
+
+`[HUMAN GATE]` — Google-imposed, **cannot** be automated away:
+1. Creating the Play Developer account ($25, identity verification — days).
+2. Creating the app entry in Play Console once (name + package). `supply`
+   uploads into an existing app; it cannot create one.
+3. A **service account** JSON key with release permission, linked under
+   Play Console → Users & permissions.
+4. New **personal** developer accounts: a closed test with **≥12 testers for
+   14 continuous days** before production access is granted (a company account
+   is exempt). Until then, `supply` can still publish to the internal track.
+5. One-time per app: content-rating questionnaire, data-safety form, and the
+   Play-specific assets — a 512×512 icon, a 1024×500 feature graphic, and
+   2–8 phone screenshots.
+
+Recommended flow for a new app: `supply` to **internal** testing automatically
+the moment the `.aab` is built; a human promotes internal → production after
+review. This makes the pipeline fully automated up to the last policy gate.
+
+### Output of Layer 2.5
+
+A workspace whose `status.json` shows `build: complete`, `sign: complete`, a
+signed `.aab` in `app/build/outputs/bundle/release/`, verified running on a
+device, and — once the Play account exists — uploaded to an internal track.
+The workspace is then ready for the Layer 4 human gate.
+
+> iOS follows the same fine-tune discipline, but the build agent cannot run
+> Xcode on Windows — it drives the build on a hosted macOS runner via
+> `.github/workflows/ios_deploy.yml` (see Layer 3). The error-catalog and
+> verify-on-device principles are identical.
 
 ---
 
