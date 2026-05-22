@@ -77,7 +77,9 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
 
     // --- CameraX (AndroidX) for the camera preview + analysis pipeline ---
-    val cameraxVersion = "1.3.4"
+    // 1.5.x ships 16 KB page-size aligned native libraries (Google Play
+    // requirement for apps targeting Android 15+).
+    val cameraxVersion = "1.5.3"
     implementation("androidx.camera:camera-core:$cameraxVersion")
     implementation("androidx.camera:camera-camera2:$cameraxVersion")
     implementation("androidx.camera:camera-lifecycle:$cameraxVersion")
