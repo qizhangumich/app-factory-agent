@@ -47,11 +47,16 @@ object ConversionEngine {
         if (value.isInfinite()) return if (value > 0) "∞" else "-∞"
         if (value == 0.0) return "0"
 
-        val magnitude = abs(value)
+        // Round to 12 significant figures first — strips floating-point
+        // noise so e.g. 999999999999.9999 reads as a clean 1E12.
+        val clean = java.math.BigDecimal(value)
+            .round(java.math.MathContext(12))
+            .toDouble()
+        val magnitude = abs(clean)
         return if (magnitude >= 1e12 || magnitude < 1e-6) {
-            DecimalFormat("0.######E0").format(value)
+            DecimalFormat("0.######E0").format(clean)
         } else {
-            DecimalFormat("#,##0.########").format(value)
+            DecimalFormat("#,##0.########").format(clean)
         }
     }
 

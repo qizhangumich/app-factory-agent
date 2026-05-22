@@ -1,4 +1,7 @@
 # --- Secrets (never commit) ---------------------------------------------
+keystore.properties
+*.jks
+*.keystore
 config/fastlane_env/*.env
 config/fastlane_env/*.p8
 config/fastlane_env/*.json
