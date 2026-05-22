@@ -84,7 +84,7 @@ private fun HeatMapCard(stats: StatsSummary) {
             rows = GridCells.Fixed(7),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(7 * 17.dp),
+                .height(17.dp * 7),
             horizontalArrangement = Arrangement.spacedBy(3.dp),
             verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
