@@ -38,6 +38,12 @@ Thumbs.db
 
 # --- Editor / tooling local config --------------------------------------
 .claude/settings.local.json
+.idea/
+**/.idea/
+local.properties
+**/local.properties
+.gradle/
+**/.gradle/
 
 # --- Local verification artifacts (emulator screenshots) -----------------
 .verify/
