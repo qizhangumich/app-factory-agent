@@ -48,3 +48,4 @@ local.properties
 
 # --- Local verification artifacts (emulator screenshots) -----------------
 .verify/
+.privacy_site/

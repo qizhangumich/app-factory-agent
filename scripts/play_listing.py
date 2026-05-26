@@ -22,11 +22,18 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent.resolve()
 
-# GitHub Pages base URL for privacy policies.
-# Update GITHUB_USERNAME once repo is on GitHub with Pages enabled.
-GITHUB_USERNAME = "linkwave-pte"   # update this
-GITHUB_REPO     = "app-factory-agent"
+# GitHub Pages base URL for privacy policies (one HTML per app).
+GITHUB_USERNAME = "qizhangumich"
+GITHUB_REPO     = "app-privacy"
 PAGES_BASE      = f"https://{GITHUB_USERNAME}.github.io/{GITHUB_REPO}"
+
+# Per-app privacy policy filename (matches the .privacy_site/*.html files).
+PRIVACY_FILE = {
+    "ws_001_tipcalcdeluxe":    "tipcalcdeluxe.html",
+    "ws_002_unitconverterpro": "unitconverterpro.html",
+    "ws_004_qrbarcodescanner": "qrbarcodescanner.html",
+    "ws_005_pomodorofocus":    "pomodorofocus.html",
+}
 
 APPS = [
     {
@@ -87,7 +94,7 @@ def read_text(path):
     return path.read_text(encoding="utf-8").strip() if path.exists() else ""
 
 def privacy_url(ws):
-    return f"{PAGES_BASE}/workspaces/{ws}/shared/privacy_policy.html"
+    return f"{PAGES_BASE}/{PRIVACY_FILE[ws]}"
 
 
 def upload_image(service, pkg, edit_id, image_type, image_path):
