@@ -1085,6 +1085,92 @@ Apple review (1-3 days)
 | Submit for review | ⚠️ Can be automated | Recommend human approval |
 | Handle rejections | ❌ | Human reads, triggers fix |
 
+### 8.5 Two-Step Android Delivery Layer (v2.3)
+
+The delivery layer is split into two idempotent steps so a brain agent can
+ship a new Android app autonomously after a one-time per-app Play Console
+setup. Both scripts authenticate with the same OAuth2 token (gitignored
+`config/play_oauth_token.json`, generated once by `scripts/play_auth_setup.py`).
+
+#### Step 1 — Upload binary (`scripts/play_deliver.py`)
+
+```bash
+python scripts/play_deliver.py
+```
+
+For each app in the APPS list:
+1. Open a Play API edit
+2. Upload the signed `app-release.aab` (resumable, chunked, 5 min timeout)
+3. Assign the bundle to the **internal** track as a draft
+4. Commit the edit
+
+Network timeouts → automatically retried with smaller chunk sizes.
+Already-uploaded versionCodes → bump `versionCode` in `build.gradle.kts`
+and re-run.
+
+#### Step 2 — Upload store listing (`scripts/play_listing.py`)
+
+```bash
+python scripts/play_listing.py            # metadata + images only
+python scripts/play_listing.py --submit   # also promote to production
+```
+
+For each app:
+1. Open a Play API edit
+2. Upload `title`, `shortDescription`, `fullDescription` from
+   `fastlane/metadata/android/en-US/`
+3. Set `contactEmail` and `contactWebsite` (privacy policy URL)
+4. Upload 512×512 icon, 1024×500 feature graphic, three 1080×1920
+   phone screenshots from `fastlane/metadata/android/en-US/images/`
+5. With `--submit`: promote the internal-track release to `production`
+   with status `inReview`
+6. Commit the edit
+
+#### Asset generation (`scripts/generate_store_assets.py`)
+
+Playwright renders each app's SVG icon into the three Play Store image
+formats. Brand colors and tagline come from the script's APPS list.
+Re-run any time the brand or icon changes.
+
+#### Standard content declarations
+
+The 10 "App content" declarations Google requires (Privacy, Ads, App
+access, Content rating, Target audience, Data safety, Advertising ID,
+Government, Financial, Special categories) are encoded in
+`config/play_content_declarations.yaml`. All factory apps default to:
+
+- No ads, no IAP, no data collection
+- 18+ target audience
+- Everyone / PEGI 3 / 4+ content rating
+- Privacy policy hosted at `https://qizhangumich.github.io/app-privacy/<slug>.html`
+
+Per-app deviations (e.g. an app that uses the camera) go in the
+`overrides:` block of that YAML. `scripts/print_declarations.py` prints
+a copy-paste sheet from this YAML for the human (or LLM) doing the
+one-time Play Console clickthrough.
+
+When Google exposes content declarations in the Play Developer API, the
+listing script will read this YAML directly and the clickthrough goes
+away entirely.
+
+#### Privacy policies
+
+Hosted as static HTML in a separate public repo at
+`github.com/qizhangumich/app-privacy` (GitHub Pages, gitignored
+`.privacy_site/` directory in this repo holds the working copies). One
+HTML per app, filename = app slug.
+
+#### Per-app one-time Play Console UI work (the remaining 5%)
+
+| Step | Time | Frequency |
+|------|------|-----------|
+| Create app listing | ~1 min | Once per app |
+| Fill 10 App content declarations | ~10 min | Once per app |
+| Promote draft to production after upload | 1 click | Per release |
+
+Everything else (signed AAB build, binary upload, listing text + images,
+release notes, submit-for-review) is automated end-to-end.
+
 ---
 
 ## 9. Layer 4: Human Gate (5%)

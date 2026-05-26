@@ -1,0 +1,122 @@
+# App Factory v2 — Standard Play Store Content Declarations
+# ===========================================================
+# This is the canonical answer sheet for the 10 Play Console "App content"
+# declarations. Every App Factory app follows this template by default,
+# because they are all built to a consistent profile:
+#
+#   - Free, utility apps
+#   - No ads, no IAP
+#   - No data collection, no analytics, no accounts
+#   - Offline-first (except features that obviously need a network)
+#   - 18+ target audience (avoids "designed for families" extra policy)
+#   - Everyone / PEGI 3 / 4+ content rating
+#
+# When Google eventually exposes these declarations through the Play
+# Developer API, scripts/play_listing.py reads this file directly and
+# fills them in. Until then, this file is the agent-facing source of truth
+# that a human (or LLM operator) copies from when filling Play Console UI.
+#
+# For per-app overrides (e.g. an app that uses the camera, or needs a
+# different age group), add an `overrides:` block at the bottom keyed by
+# workspace folder (e.g. ws_004_qrbarcodescanner). Anything not overridden
+# inherits the defaults.
+
+version: 1
+
+# ----------------------------------------------------------------------
+# 1. Privacy policy
+# ----------------------------------------------------------------------
+privacy_policy:
+  base_url: "https://qizhangumich.github.io/app-privacy"
+  # Filename pattern: <slug>.html  (slug derived from workspace name)
+
+# ----------------------------------------------------------------------
+# 2. Ads
+# ----------------------------------------------------------------------
+ads:
+  contains_ads: false
+
+# ----------------------------------------------------------------------
+# 3. App access
+# ----------------------------------------------------------------------
+app_access:
+  restricted: false
+  # All functionality is available without special access
+  note: "All functionality is available without special access"
+
+# ----------------------------------------------------------------------
+# 4. Content ratings (IARC questionnaire)
+# ----------------------------------------------------------------------
+content_rating:
+  category: "Utility, Productivity, Communication, or Other"
+  questions:
+    violence: false
+    sexual_content: false
+    profanity: false
+    crude_humor: false
+    controlled_substances: false
+    gambling: false
+    user_generated_content: false
+    location_sharing: false
+    personal_info_sharing: false
+    digital_purchases: false
+  expected_rating: "Everyone / PEGI 3 / Rated 4+"
+
+# ----------------------------------------------------------------------
+# 5. Target audience and content
+# ----------------------------------------------------------------------
+target_audience:
+  age_groups: ["18 and over"]
+  appeals_to_children: false
+
+# ----------------------------------------------------------------------
+# 6. Data safety
+# ----------------------------------------------------------------------
+data_safety:
+  collects_data:        false
+  shares_data:          false
+  encrypted_in_transit: true   # required even when no data collected
+  users_can_request_deletion: true
+  data_types_collected: []     # empty = none
+  data_types_shared:    []     # empty = none
+
+# ----------------------------------------------------------------------
+# 7. Advertising ID
+# ----------------------------------------------------------------------
+advertising_id:
+  uses_advertising_id: false
+
+# ----------------------------------------------------------------------
+# 8. Government apps
+# ----------------------------------------------------------------------
+government_apps:
+  is_government_app: false
+
+# ----------------------------------------------------------------------
+# 9. Financial features
+# ----------------------------------------------------------------------
+financial_features:
+  provides_financial_features: false
+
+# ----------------------------------------------------------------------
+# 10. News, Health, COVID, etc. (catch-all)
+# ----------------------------------------------------------------------
+special_categories:
+  is_news_app:    false
+  is_health_app:  false
+  is_covid_app:   false
+
+
+# ======================================================================
+# Per-app overrides
+# ======================================================================
+# When an app deviates from the defaults above (camera permission,
+# location, etc.), record the difference here. Empty section = all apps
+# use defaults.
+overrides:
+  # Example: a future app that uses location would override like this
+  # ws_999_someapp:
+  #   data_safety:
+  #     collects_data: true
+  #     data_types_collected: ["Approximate location"]
+  {}
