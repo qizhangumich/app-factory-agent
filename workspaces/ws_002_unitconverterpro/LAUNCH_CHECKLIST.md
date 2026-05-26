@@ -116,7 +116,7 @@ Navigate to: **App → left sidebar → Policy and programmes → App content**
 
 ---
 
-## Step 3 — Ship it
+## Step 3 — Run the pipeline
 
 After every declaration shows green ✅ on the App content page, run:
 
@@ -124,14 +124,33 @@ After every declaration shows green ✅ on the App content page, run:
 python scripts/play_release.py --submit --only ws_002_unitconverterpro
 ```
 
-Or to ship all 4 Phase-1 apps at once:
+This uploads the signed AAB, the listing text, all images (icon,
+feature graphic, phone + 7" + 10" tablet screenshots), sets the privacy
+policy URL and contact email, then creates a production draft.
 
-```bash
-python scripts/play_release.py --submit
-```
+---
 
-Google review takes 1–3 days for first release. After approval, the app
-is live on the Play Store.
+## Step 4 — Three final UI clicks (one-time per app — Google policy)
+
+These cannot be automated for a brand-new app. After the pipeline finishes:
+
+### 4a. Save the Main store listing once
+- Play Console → app → **Grow → Main store listing**
+- Everything is pre-filled by the API. Click in the Full description
+  field, add a space and remove it, then click **Save** (this triggers
+  Play Console to record the listing as "user-confirmed").
+
+### 4b. Select countries/regions
+- App → **Production → Countries/regions** tab
+- Click **Add countries/regions** → tick "Select all" → **Add**.
+
+### 4c. Send for review
+- App → **Publishing overview** (under Dashboard)
+- Click **"Send N changes for review"** (top right, blue button)
+- Confirm
+
+Google review takes 1–3 days for the first release. After approval the
+app goes live automatically (`completed` rollout = 100% by default).
 
 ---
 

@@ -100,6 +100,36 @@ def assets_present(ws):
 
 # ── Auth ────────────────────────────────────────────────────────────────────
 
+def preflight_checks(apps_to_run):
+    """Catch known failure modes before we hit them mid-pipeline."""
+    issues = []
+
+    if not TOKEN_FILE.exists():
+        issues.append("OAuth token missing — run:  python scripts/play_auth_setup.py")
+
+    for app in apps_to_run:
+        ws  = app["workspace"]
+        kp  = REPO_ROOT / "workspaces" / ws / "android" / "keystore.properties"
+        if not kp.exists():
+            issues.append(f"{ws}: missing keystore.properties — copy from another workspace, set keyAlias=key1")
+
+    # GitHub Pages reachability — soft check (don't abort if offline)
+    try:
+        import urllib.request
+        for app in apps_to_run[:1]:  # check one URL is enough
+            url = f"{PRIVACY_URL_BASE}/{app['slug']}.html"
+            urllib.request.urlopen(url, timeout=5)
+    except Exception:
+        issues.append(f"Privacy policy URL unreachable — verify {PRIVACY_URL_BASE}/<slug>.html  "
+                      "(push to .privacy_site repo + enable GitHub Pages)")
+
+    if issues:
+        banner("Preflight issues — please fix before continuing", "!")
+        for i in issues:
+            print(f"  - {i}")
+        sys.exit(1)
+
+
 def build_service():
     if not TOKEN_FILE.exists():
         print(f"\n[ERROR] OAuth token missing: {TOKEN_FILE}")
@@ -217,6 +247,24 @@ def upload_listing(service, app, submit):
     try:
         edit    = service.edits().insert(packageName=pkg, body={}).execute()
         edit_id = edit["id"]
+
+        # Lesson #17: remove any rogue language listings (e.g. en-GB that
+        # appears empty and blocks "Send for review" with "Some languages
+        # have errors"). Only keep en-US until we have real translations.
+        try:
+            existing = service.edits().listings().list(
+                packageName=pkg, editId=edit_id
+            ).execute().get("listings", [])
+            for l in existing:
+                if l["language"] != "en-US":
+                    try:
+                        service.edits().listings().delete(
+                            packageName=pkg, editId=edit_id, language=l["language"]
+                        ).execute()
+                    except Exception:
+                        pass
+        except Exception:
+            pass
 
         # text
         service.edits().listings().update(
@@ -359,6 +407,8 @@ def main():
     print(f"Repo : {REPO_ROOT}")
     print(f"Apps : {', '.join(a['workspace'] for a in apps_to_run)}")
     print(f"Mode : build={args.build}  submit={args.submit}")
+
+    preflight_checks(apps_to_run)
 
     if not args.skip_assets:
         stage_assets(apps_to_run)
