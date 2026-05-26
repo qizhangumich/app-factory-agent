@@ -1,7 +1,6 @@
-# Fastlane Appfile — Android
-# Credentials are supplied via environment variables (account: android_001).
+# Fastlane Appfile — Unit Converter Pro (Android / Google Play)
+# json_key_file points to the Play service account JSON (gitignored).
+# Override with PLAY_JSON_KEY_FILE env var for CI.
 
-json_key_file(ENV["ANDROID_JSON_KEY_FILE"])
-package_name(ENV["ANDROID_PACKAGE_NAME"] || "com.appfactory.unitconverterpro")
-
-# Factory account reference: android_001
+package_name("com.appfactory.unitconverterpro")
+json_key_file(ENV["PLAY_JSON_KEY_FILE"] || File.expand_path("../../../../../config/play_service_account.json", __FILE__))

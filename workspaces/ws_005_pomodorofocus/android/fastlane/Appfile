@@ -1,6 +1,6 @@
-# Fastlane Appfile — Pomodoro Focus Timer (Android)
-# Credentials are read from environment variables; no secrets in the repo.
-# Account: android_001
+# Fastlane Appfile — Pomodoro Focus Timer (Android / Google Play)
+# json_key_file points to the Play service account JSON (gitignored).
+# Override with PLAY_JSON_KEY_FILE env var for CI.
 
-json_key_file(ENV["ANDROID_JSON_KEY_FILE"])
-package_name(ENV["ANDROID_PACKAGE_NAME"] || "com.appfactory.pomodorofocus")
+package_name("com.appfactory.pomodorofocus")
+json_key_file(ENV["PLAY_JSON_KEY_FILE"] || File.expand_path("../../../../../config/play_service_account.json", __FILE__))

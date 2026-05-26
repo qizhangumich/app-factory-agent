@@ -93,25 +93,41 @@ platform :ios do
 end
 
 platform :android do
-  desc "Build and upload an Android app bundle to Google Play"
+  desc "Upload a signed AAB to Google Play internal track (human gate promotes to production)"
+  # options:
+  #   app_dir       – absolute path to workspace/android (e.g. workspaces/ws_001.../android)
+  #   bundle_id     – package name (e.g. com.appfactory.tipcalcdeluxe)
+  #   json_key      – path to Google Play service account JSON key file
+  #   rebuild       – if true, run bundleRelease before uploading (default: false)
   lane :deploy do |options|
-    app_dir = options[:app_dir]                        # path to workspace/android
+    app_dir   = options[:app_dir]
+    bundle_id = options[:bundle_id]
+    json_key  = options[:json_key] || ENV["PLAY_JSON_KEY_FILE"] || "config/play_service_account.json"
+    rebuild   = options.fetch(:rebuild, false)
 
-    gradle(
-      project_dir: app_dir,
-      task: "bundle",
-      build_type: "Release"
-    )
+    # Optional rebuild — skip if the signed AAB already exists.
+    if rebuild
+      gradle(
+        project_dir: app_dir,
+        task: "bundle",
+        build_type: "Release"
+      )
+    end
+
+    aab_path = "#{app_dir}/app/build/outputs/bundle/release/app-release.aab"
+    UI.user_error!("AAB not found: #{aab_path}") unless File.exist?(aab_path)
 
     supply(
-      package_name: options[:bundle_id],
-      aab: "#{app_dir}/app/build/outputs/bundle/release/app-release.aab",
-      track: "production",
-      release_status: "draft",   # human gate promotes draft -> live
-      metadata_path: "#{app_dir}/fastlane/metadata",
-      skip_upload_metadata: false,
-      skip_upload_images: false,
-      skip_upload_screenshots: false
+      package_name:            bundle_id,
+      json_key:                json_key,
+      aab:                     aab_path,
+      track:                   "internal",          # safest first track
+      release_status:          "draft",             # human gate promotes draft -> live
+      metadata_path:           "#{app_dir}/fastlane/metadata/android",
+      skip_upload_metadata:    false,
+      skip_upload_images:      true,                # no Play images yet; add later
+      skip_upload_screenshots: true,                # screenshots generated separately
+      version_code_auto_increment: false            # version code set in build.gradle.kts
     )
   end
 end

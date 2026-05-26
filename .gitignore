@@ -8,6 +8,7 @@ config/fastlane_env/*.json
 config/fastlane_env/*.keystore
 !config/fastlane_env/*.example
 !config/fastlane_env/README.md
+config/play_service_account.json
 
 # --- Build artifacts -----------------------------------------------------
 workspaces/*/ios/build/
