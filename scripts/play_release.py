@@ -89,7 +89,12 @@ def read_text(path):
     return path.read_text(encoding="utf-8").strip() if path.exists() else ""
 
 def assets_present(ws):
-    needed = ["icon.png", "feature.png", "screen_1.png", "screen_2.png", "screen_3.png"]
+    needed = (
+        ["icon.png", "feature.png"]
+        + [f"screen_{i}.png"   for i in range(1, 4)]
+        + [f"tablet7_{i}.png"  for i in range(1, 4)]
+        + [f"tablet10_{i}.png" for i in range(1, 4)]
+    )
     return all((images_dir(ws) / n).exists() for n in needed)
 
 
@@ -232,7 +237,8 @@ def upload_listing(service, app, submit):
         ).execute()
 
         # clear + re-upload images
-        for img_type in ["icon", "featureGraphic", "phoneScreenshots"]:
+        for img_type in ["icon", "featureGraphic", "phoneScreenshots",
+                         "sevenInchScreenshots", "tenInchScreenshots"]:
             try:
                 service.edits().images().deleteall(
                     packageName=pkg, editId=edit_id,
@@ -254,7 +260,9 @@ def upload_listing(service, app, submit):
         upload_img("icon",            "icon.png")
         upload_img("featureGraphic",  "feature.png")
         for i in range(1, 4):
-            upload_img("phoneScreenshots", f"screen_{i}.png")
+            upload_img("phoneScreenshots",      f"screen_{i}.png")
+            upload_img("sevenInchScreenshots",  f"tablet7_{i}.png")
+            upload_img("tenInchScreenshots",    f"tablet10_{i}.png")
 
         # promote to production if asked
         promoted = False

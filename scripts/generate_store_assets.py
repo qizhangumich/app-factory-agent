@@ -177,12 +177,26 @@ async def generate_all() -> None:
                                              app["color1"], app["color2"]),
                          1024, 500, od / "feature.png")
 
-            # 3 screenshots 1080x1920
+            # 3 phone screenshots 1080x1920
             for i in range(1, 4):
                 await render(page,
                              screenshot_html(svg_raw, app["name"], app["tagline"],
                                              app["features"], app["color1"], app["color2"], i),
                              1080, 1920, od / f"screen_{i}.png")
+
+            # 3 seven-inch tablet screenshots 1200x1920
+            for i in range(1, 4):
+                await render(page,
+                             screenshot_html(svg_raw, app["name"], app["tagline"],
+                                             app["features"], app["color1"], app["color2"], i),
+                             1200, 1920, od / f"tablet7_{i}.png")
+
+            # 3 ten-inch tablet screenshots 1600x2560
+            for i in range(1, 4):
+                await render(page,
+                             screenshot_html(svg_raw, app["name"], app["tagline"],
+                                             app["features"], app["color1"], app["color2"], i),
+                             1600, 2560, od / f"tablet10_{i}.png")
 
         await browser.close()
 
