@@ -66,6 +66,7 @@ JAVA_HOME    = "C:/Program Files/Android/Android Studio/jbr"
 ANDROID_HOME = "C:/Users/user/AppData/Local/Android/Sdk"
 
 PRIVACY_URL_BASE = "https://qizhangumich.github.io/app-privacy"
+DEVELOPER_EMAIL  = "developer_apple@linkwave.one"
 
 
 # ── Helpers ─────────────────────────────────────────────────────────────────
@@ -227,7 +228,7 @@ def upload_listing(service, app, submit):
         service.edits().details().update(
             packageName=pkg, editId=edit_id,
             body={"defaultLanguage": "en-US", "contactWebsite": priv_url,
-                  "contactEmail": "jeremy4crypto@gmail.com"}
+                  "contactEmail": DEVELOPER_EMAIL}
         ).execute()
 
         # clear + re-upload images
@@ -264,18 +265,38 @@ def upload_listing(service, app, submit):
             releases = tracks.get("releases", [])
             if releases:
                 vc = releases[0].get("versionCodes", ["1"])
+                # Detect if the app has ever been published to production.
+                # If not, the API only accepts "draft" status — the human
+                # then clicks "Send for review" in Play Console UI once.
+                # After that first review, future releases use "completed".
+                prod_tracks = service.edits().tracks().get(
+                    packageName=pkg, editId=edit_id, track="production"
+                ).execute()
+                # "ever published" = has a release that left draft state.
+                # A draft on production doesn't count — the app is still
+                # in "draft app" mode until Play has approved a release.
+                ever_published = any(
+                    r.get("status") in ("completed", "inProgress", "halted")
+                    for r in prod_tracks.get("releases", [])
+                )
+                status = "completed" if ever_published else "draft"
+
                 service.edits().tracks().update(
                     packageName=pkg, editId=edit_id, track="production",
                     body={"track": "production", "releases": [{
-                        "status": "inReview",
+                        "status": status,
                         "versionCodes": vc,
                         "releaseNotes": [{"language": "en-US", "text": "Initial release"}]
                     }]}
                 ).execute()
-                promoted = True
+                promoted = status
 
         service.edits().commit(packageName=pkg, editId=edit_id).execute()
-        return True, "submitted for production review" if promoted else "listing updated"
+        if promoted == "completed":
+            return True, "submitted for production review (rollout 100%)"
+        elif promoted == "draft":
+            return True, "production draft created — click 'Send for review' in Play Console"
+        return True, "listing updated"
 
     except Exception as e:
         try:

@@ -158,7 +158,7 @@ def upload_app_listing(service, app) -> bool:
             editId=edit_id,
             body={
                 "defaultLanguage": "en-US",
-                "contactEmail":    "jeremy4crypto@gmail.com",
+                "contactEmail":    "developer_apple@linkwave.one",
                 "contactWebsite":  priv_url,
             }
         ).execute()
