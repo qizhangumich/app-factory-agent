@@ -2,7 +2,7 @@
 # All identifying values are read from environment variables so no
 # secrets are committed to the repository.
 
-app_identifier(ENV["APP_IDENTIFIER_IOS_001"] || "com.appfactory.tipcalcdeluxe")
+app_identifier(ENV["APP_IDENTIFIER_IOS_001"] || "com.linkwave.tipcalcdeluxe")
 apple_id(ENV["APPLE_ID_IOS_001"])
 team_id(ENV["TEAM_ID_IOS_001"])
 itc_team_id(ENV["ITC_TEAM_ID_IOS_001"])

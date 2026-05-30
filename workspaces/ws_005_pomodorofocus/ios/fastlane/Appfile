@@ -2,7 +2,7 @@
 # Credentials are read from environment variables so no secrets live in the repo.
 # Account: ios_001
 
-app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.appfactory.pomodorofocus")
+app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.linkwave.pomodorofocus")
 apple_id(ENV["IOS_APPLE_ID"])
 itc_team_id(ENV["IOS_ITC_TEAM_ID"])
 team_id(ENV["IOS_TEAM_ID"])

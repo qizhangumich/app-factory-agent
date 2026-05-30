@@ -2,7 +2,7 @@
 # Credentials are supplied via environment variables; nothing secret is
 # committed. Account: ios_001.
 
-app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.appfactory.qrbarcodescanner")
+app_identifier(ENV["IOS_APP_IDENTIFIER"] || "com.linkwave.qrbarcodescanner")
 apple_id(ENV["IOS_001_APPLE_ID"])
 itc_team_id(ENV["IOS_001_ITC_TEAM_ID"])
 team_id(ENV["IOS_001_TEAM_ID"])

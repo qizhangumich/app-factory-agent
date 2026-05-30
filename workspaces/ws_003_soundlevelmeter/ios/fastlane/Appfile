@@ -1,7 +1,7 @@
 # Fastlane Appfile — App Factory v2, iOS account ios_001.
 # Credentials are supplied via environment variables; no secrets in source.
 
-app_identifier(ENV["SLM_APP_IDENTIFIER"] || "com.appfactory.soundlevelmeter")
+app_identifier(ENV["SLM_APP_IDENTIFIER"] || "com.linkwave.soundlevelmeter")
 apple_id(ENV["SLM_APPLE_ID"])
 itc_team_id(ENV["SLM_ITC_TEAM_ID"])
 team_id(ENV["SLM_TEAM_ID"])
