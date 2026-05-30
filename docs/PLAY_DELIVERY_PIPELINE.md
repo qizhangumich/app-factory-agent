@@ -257,6 +257,10 @@ Every item here is encoded somewhere in the pipeline scripts now.
     privacy policy URL when the dedicated field is blank.
 20. **Privacy file slug must match the app's slug.** Use a single source
     of truth (the slug in `APPS` list).
+20a. **Privacy policy MUST name the publishing entity** (e.g. "LINKWAVE
+    PTE.LTD.") and the app by name, with a working contact email.
+    Generic "App Factory" / placeholder emails will be rejected during
+    review. Generator at `scripts/generate_privacy_policies.py`.
 
 ### Content declarations (the 10/11 manual checklist)
 21. **No API for**: content rating questionnaire, target audience, data
