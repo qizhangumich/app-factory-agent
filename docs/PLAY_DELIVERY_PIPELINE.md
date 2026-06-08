@@ -187,7 +187,8 @@ Everything else is API-driven.
 | `Add a full description to save` on Main store listing | Tablet screenshots (7" and/or 10") are missing. Run `generate_store_assets.py` then re-run pipeline — generates 1200×1920 and 1600×2560 PNGs. |
 | Save button greyed out on Main store listing | UI thinks nothing changed. Add+delete a space in Full description to mark the form dirty, then Save. |
 | `Native debug symbols not uploaded` warning | Cosmetic. Apps using ML Kit / CameraX include native .so files. Safe to ignore — doesn't block review. |
-| `Violation of Metadata policy` rejection | Description contains a superlative ("fastest", "best", "perfect"), ranking ("#1", "top"), or absolute claim ("ever", "guaranteed"). Run `python scripts/lint_store_metadata.py` to find and fix. Pipeline now runs the linter automatically in preflight. |
+| `Violation of Metadata policy` rejection (text) | Description contains a superlative ("fastest", "best", "perfect"), ranking ("#1", "top"), or absolute claim ("ever", "guaranteed"). Run `python scripts/lint_store_metadata.py` to find and fix. Pipeline now runs the linter automatically in preflight. |
+| `Violation of Metadata policy` rejection (screenshots) | Screenshots are promo/marketing graphics (logo + tagline + feature bullets on gradient) rather than the actual app UI. Google requires screenshots that show what users will see when using the app. Use `scripts/generate_app_screenshots.py` (realistic Android UI mockups) instead of `generate_store_assets.py`'s phone screens. |
 | `Changes cannot be sent for review automatically. Please set the query parameter changesNotSentForReview to true` | Triggers after a rejection — Google requires the human to click "Send for review" via UI. Pipeline now retries the commit with that flag set; the human still has to push the button in Play Console. |
 
 ---
@@ -277,6 +278,14 @@ Every item here is encoded somewhere in the pipeline scripts now.
     automatically." The pipeline retries the commit with
     `changesNotSentForReview=true` so the edit lands; the human then
     clicks "Send for review" once in Play Console UI.
+20d. **Screenshots MUST show the actual app UI**, not promo graphics.
+    Google rejected our first attempt because the screenshots were
+    "icon + tagline on a gradient" style (`generate_store_assets.py`'s
+    phone screens). Use `scripts/generate_app_screenshots.py` instead —
+    it renders realistic Android UI mockups per app (status bar, app
+    bar, real widgets, bottom nav, real data). For new apps in the
+    factory, add a per-app `*_screens()` function returning 3 HTML
+    pages that look like real screens of THAT app.
 
 ### Content declarations (the 10/11 manual checklist)
 21. **No API for**: content rating questionnaire, target audience, data

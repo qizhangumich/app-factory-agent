@@ -176,7 +176,14 @@ def stage_assets(apps_to_run):
         print("All assets present, skipping.")
         return
     print(f"Generating assets for: {', '.join(a['name'] for a in missing)}")
+    # icon + feature graphic only (the marketing-style screens in this
+    # script are rejected by Play). Real UI screenshots come from
+    # generate_app_screenshots.py.
     subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "generate_store_assets.py")],
+                   check=True)
+    # Lesson 20d: Play rejects promo-style screenshots. Always produce
+    # realistic-UI screenshots after the generic asset pass.
+    subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "generate_app_screenshots.py")],
                    check=True)
 
 
