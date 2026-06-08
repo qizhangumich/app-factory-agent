@@ -107,6 +107,19 @@ def preflight_checks(apps_to_run):
     if not TOKEN_FILE.exists():
         issues.append("OAuth token missing — run:  python scripts/play_auth_setup.py")
 
+    # Lesson: superlative claims in descriptions cause "Violation of
+    # Metadata policy" rejections (ws_001 "fastest", ws_005 "perfect"
+    # rejected 2026-05-27). Run the linter before uploading anything.
+    import subprocess
+    linter = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "scripts" / "lint_store_metadata.py")],
+        capture_output=True, text=True
+    )
+    if linter.returncode != 0:
+        issues.append("Metadata Policy violations found — run "
+                      "`python scripts/lint_store_metadata.py` and fix before submit\n"
+                      + linter.stdout)
+
     for app in apps_to_run:
         ws  = app["workspace"]
         kp  = REPO_ROOT / "workspaces" / ws / "android" / "keystore.properties"
@@ -347,7 +360,24 @@ def upload_listing(service, app, submit):
                 ).execute()
                 promoted = status
 
-        service.edits().commit(packageName=pkg, editId=edit_id).execute()
+        # Lesson: after a rejection, the API refuses to send changes for
+        # review automatically. Fall back to committing with
+        # changesNotSentForReview=true so the edit lands but the human
+        # clicks "Send for review" in Play Console UI.
+        try:
+            service.edits().commit(packageName=pkg, editId=edit_id).execute()
+        except Exception as e:
+            err = ""
+            try: err = json.loads(e.content)["error"]["message"]
+            except Exception: err = str(e)
+            if "changesNotSentForReview" in err:
+                service.edits().commit(
+                    packageName=pkg, editId=edit_id,
+                    changesNotSentForReview=True
+                ).execute()
+                return True, "listing updated — click 'Send for review' in Play Console (app had a prior rejection)"
+            raise
+
         if promoted == "completed":
             return True, "submitted for production review (rollout 100%)"
         elif promoted == "draft":

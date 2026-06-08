@@ -3,7 +3,7 @@ Convert anything instantly. Length, weight, temperature, speed, volume, area, da
 Unit Converter Pro covers 16 unit categories with over 130 individual units, all backed by NIST reference values for scientific accuracy. Whether you are cooking, studying, traveling, or working, the answer is one tap away.
 
 EVERYTHING OFFLINE
-No internet connection is needed, ever. Every conversion factor is built into the app. No ads, no tracking, no accounts, no permissions.
+No internet connection is needed. Every conversion factor is built into the app. No ads, no tracking, no accounts, no permissions.
 
 KEY FEATURES
 - Real-time conversion as you type

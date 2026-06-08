@@ -187,6 +187,8 @@ Everything else is API-driven.
 | `Add a full description to save` on Main store listing | Tablet screenshots (7" and/or 10") are missing. Run `generate_store_assets.py` then re-run pipeline — generates 1200×1920 and 1600×2560 PNGs. |
 | Save button greyed out on Main store listing | UI thinks nothing changed. Add+delete a space in Full description to mark the form dirty, then Save. |
 | `Native debug symbols not uploaded` warning | Cosmetic. Apps using ML Kit / CameraX include native .so files. Safe to ignore — doesn't block review. |
+| `Violation of Metadata policy` rejection | Description contains a superlative ("fastest", "best", "perfect"), ranking ("#1", "top"), or absolute claim ("ever", "guaranteed"). Run `python scripts/lint_store_metadata.py` to find and fix. Pipeline now runs the linter automatically in preflight. |
+| `Changes cannot be sent for review automatically. Please set the query parameter changesNotSentForReview to true` | Triggers after a rejection — Google requires the human to click "Send for review" via UI. Pipeline now retries the commit with that flag set; the human still has to push the button in Play Console. |
 
 ---
 
@@ -261,6 +263,20 @@ Every item here is encoded somewhere in the pipeline scripts now.
     PTE.LTD.") and the app by name, with a working contact email.
     Generic "App Factory" / placeholder emails will be rejected during
     review. Generator at `scripts/generate_privacy_policies.py`.
+
+### Metadata policy (description text)
+20b. **Description text MUST NOT contain superlatives, rankings, or
+    awards.** Google rejected the first batch because "The fastest way
+    to split any bill" appears in ws_001's description. Other banned
+    words seen in our content: "best", "perfect", "ever" (in
+    "best ever", "no ads ever"). The factory's `scripts/lint_store_metadata.py` enforces this; it now runs as a
+    preflight gate in `play_release.py`, so a description containing a
+    banned phrase aborts the pipeline before any API call.
+20c. **After a rejection, `edits.commit()` rejects automatic
+    resubmission** with "Changes cannot be sent for review
+    automatically." The pipeline retries the commit with
+    `changesNotSentForReview=true` so the edit lands; the human then
+    clicks "Send for review" once in Play Console UI.
 
 ### Content declarations (the 10/11 manual checklist)
 21. **No API for**: content rating questionnaire, target audience, data

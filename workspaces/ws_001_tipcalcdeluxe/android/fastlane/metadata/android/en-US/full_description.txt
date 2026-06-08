@@ -1,4 +1,4 @@
-The fastest way to split any bill. Enter the total, set your tip percentage, add tax if needed, and instantly see what each person owes. Supports unequal splits for when someone ordered the lobster. Clean, ad-free, works offline. One tap, done.
+A simple, clean way to split any bill. Enter the total, set your tip percentage, add tax if needed, and instantly see what each person owes. Supports unequal splits for when someone ordered the lobster. Clean, ad-free, works offline. One tap, done.
 
 FEATURES
 - Custom tip percentage with a smooth 0-50% slider and quick-pick presets
@@ -12,4 +12,4 @@ FEATURES
 - Full dark mode support
 - Haptic feedback for a tactile, responsive feel
 
-No ads. No subscriptions. No account. No data collection. Just fast, accurate math whenever the check arrives.
+No ads. No subscriptions. No account. No data collection. Just clean, accurate math whenever the check arrives.
