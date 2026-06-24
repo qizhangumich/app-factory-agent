@@ -358,7 +358,8 @@ def main():
 
     for app in apps:
         result = register_one(token, app, dry_run=args.dry_run)
-        if result.get("status") in ("created", "already_exists"):
+        if result.get("status") in ("created", "already_exists", "renamed",
+                                     "already_exists_no_rename"):
             by_ws[app["workspace"]] = result
 
     if not args.dry_run:
