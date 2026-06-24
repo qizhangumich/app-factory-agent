@@ -46,6 +46,23 @@ platform :ios do
     end
 
     # Build the signed .ipa.
+    # When using the App Store Connect API key for automatic signing we
+    # must pass the key path/id/issuer to xcodebuild itself — otherwise
+    # xcodebuild complains "No Accounts" before it tries the API key.
+    # The -authenticationKey* flags trigger an API-key-backed signing
+    # flow that creates/updates the provisioning profile on the fly.
+    xcargs_parts = [
+      "-allowProvisioningUpdates",
+      "DEVELOPMENT_TEAM=#{ENV['APPLE_TEAM_ID']}"
+    ]
+    if ENV["ASC_KEY_PATH"] && ENV["ASC_KEY_ID"] && ENV["ASC_ISSUER_ID"]
+      xcargs_parts += [
+        "-authenticationKeyPath '#{ENV['ASC_KEY_PATH']}'",
+        "-authenticationKeyID '#{ENV['ASC_KEY_ID']}'",
+        "-authenticationKeyIssuerID '#{ENV['ASC_ISSUER_ID']}'"
+      ]
+    end
+
     gym(
       scheme: scheme,
       project: "#{app_dir}/#{scheme}.xcodeproj",
@@ -54,7 +71,8 @@ platform :ios do
       clean: true,
       export_method: "app-store",
       export_team_id: ENV["APPLE_TEAM_ID"],
-      xcargs: "-allowProvisioningUpdates DEVELOPMENT_TEAM=#{ENV['APPLE_TEAM_ID']}"
+      api_key: api_key,
+      xcargs: xcargs_parts.join(" ")
     )
 
     # Upload binary + metadata. submit_for_review stays false: the human
