@@ -1,15 +1,3 @@
-# App Factory v2 — Master Fastfile (Layer 3: Delivery System).
-#
-# Each app workspace also carries its own thin fastlane/Fastfile, but this
-# master file holds the shared lane logic. A per-app Fastfile may `import`
-# this one. All lanes are parameterised so a single definition serves every
-# app in the factory.
-#
-# Lanes:
-#   ios deploy        build + sign + upload an iOS app to App Store Connect
-#   ios screenshots   generate framed screenshots with snapshot + frameit
-#   android deploy    build + upload an Android app bundle to Google Play
-
 require "tmpdir"
 require "json"
 
@@ -22,46 +10,78 @@ platform :ios do
     scheme    = options[:scheme]
     bundle_id = options[:bundle_id]
 
-    # App Store Connect API key auth — CI-friendly, no 2FA. Comes from env
-    # vars (set by the GitHub Actions workflow). We deliberately DO NOT
-    # call fastlane's `app_store_connect_api_key` action here, because in
-    # fastlane 2.236+ it stores the key in lane_context and gym then
-    # auto-injects `api_key:` as a parameter — which gym does not accept,
-    # crashing the build. Instead each downstream action builds its own
-    # api_key hash from env vars (see deliver call below).
+    # App Store Connect API key auth — CI-friendly, no 2FA.
+    # We DELIBERATELY do not call fastlane's `app_store_connect_api_key`
+    # action: in fastlane 2.236+ it pollutes lane_context with a key that
+    # gym then auto-injects as `api_key:` — a parameter gym doesn't accept,
+    # which crashes the build before xcodebuild runs. Each downstream
+    # action takes the key via api_key_path (path to JSON) or env vars.
     have_api_key = ENV["ASC_KEY_ID"] && ENV["ASC_ISSUER_ID"] && ENV["ASC_KEY_PATH"]
 
-    # Signing. Two supported modes:
-    #   - match mode: if MATCH_GIT_URL is set, sync shared certificates from
-    #     the private certs repo (best at multi-account scale).
-    #   - automatic mode (default): no certs repo; xcodebuild + the API key
-    #     create and manage signing via -allowProvisioningUpdates below.
+    # Build the JSON form that fastlane's cert / sigh / deliver actions
+    # expect for api_key_path. (Their api_key_path wants a JSON, not the
+    # raw .p8.) Written once, reused by every downstream action.
+    asc_json = nil
+    if have_api_key
+      asc_json = File.join(Dir.tmpdir, "asc_api_key.json")
+      File.write(asc_json, JSON.dump({
+        key_id:    ENV["ASC_KEY_ID"],
+        issuer_id: ENV["ASC_ISSUER_ID"],
+        key:       File.read(ENV["ASC_KEY_PATH"]),
+        duration:  1200,
+        in_house:  false,
+      }))
+    end
+
+    # Match mode is opt-in (set MATCH_GIT_URL). Otherwise we use
+    # cert + sigh below to create the distribution cert + provisioning
+    # profile directly via the API key — no shared certs repo needed.
     if ENV["MATCH_GIT_URL"].to_s != ""
       match(
         type: "appstore",
         app_identifier: bundle_id,
         readonly: true,
-        api_key_path: ENV["ASC_KEY_PATH"]   # match accepts a path here
+        api_key_path: asc_json,
+      )
+    else
+      # 1. Ensure an Apple Distribution certificate exists for this team.
+      #    With api_key + force=false this is idempotent: re-uses an
+      #    existing cert when present, creates one only if missing.
+      cert(
+        api_key_path:        asc_json,
+        development:         false,
+        generate_apple_certs: true,
+        force:               false,
+      )
+
+      # 2. Ensure an App Store provisioning profile exists for this app.
+      #    sigh sets ENV["sigh_<bundle_id>_appstore_profile-path"] and
+      #    ENV["sigh_<bundle_id>_appstore_profile-name"] on success.
+      sigh(
+        api_key_path:    asc_json,
+        app_identifier:  bundle_id,
+        development:     false,
+        adhoc:           false,
+        force:           false,
       )
     end
 
-    # Build the signed .ipa.
-    # When using the App Store Connect API key for automatic signing we
-    # must pass the key path/id/issuer to xcodebuild itself — otherwise
-    # xcodebuild complains "No Accounts" before it tries the API key.
-    # The -authenticationKey* flags trigger an API-key-backed signing
-    # flow that creates/updates the provisioning profile on the fly.
+    # Build the signed .ipa. We use Manual signing here (overriding the
+    # project's CODE_SIGN_STYLE=Automatic via xcargs) because xcodebuild
+    # archive with Automatic + ASC API key keeps trying to provision an
+    # "iOS App Development" profile (which needs registered devices on
+    # the team). Manual signing with the profile sigh just created
+    # bypasses that whole flow.
+    profile_name_env = "sigh_#{bundle_id}_appstore_profile-name"
+    profile_name     = ENV[profile_name_env] || ""
+
     xcargs_parts = [
       "-allowProvisioningUpdates",
-      "DEVELOPMENT_TEAM=#{ENV['APPLE_TEAM_ID']}"
+      "DEVELOPMENT_TEAM=#{ENV['APPLE_TEAM_ID']}",
+      "CODE_SIGN_STYLE=Manual",
+      'CODE_SIGN_IDENTITY="Apple Distribution"',
     ]
-    if ENV["ASC_KEY_PATH"] && ENV["ASC_KEY_ID"] && ENV["ASC_ISSUER_ID"]
-      xcargs_parts += [
-        "-authenticationKeyPath '#{ENV['ASC_KEY_PATH']}'",
-        "-authenticationKeyID '#{ENV['ASC_KEY_ID']}'",
-        "-authenticationKeyIssuerID '#{ENV['ASC_ISSUER_ID']}'"
-      ]
-    end
+    xcargs_parts << "PROVISIONING_PROFILE_SPECIFIER=\"#{profile_name}\"" unless profile_name.empty?
 
     gym(
       scheme: scheme,
@@ -71,7 +91,7 @@ platform :ios do
       clean: true,
       export_method: "app-store",
       export_team_id: ENV["APPLE_TEAM_ID"],
-      xcargs: xcargs_parts.join(" ")
+      xcargs: xcargs_parts.join(" "),
     )
 
     # Upload binary + metadata. submit_for_review stays false: the human
@@ -87,21 +107,7 @@ platform :ios do
       precheck_include_in_app_purchases: false,
       run_precheck_before_submit: true,
     }
-    if have_api_key
-      # deliver expects api_key_path to point at a JSON file shaped like
-      # { key_id, issuer_id, key, duration, in_house }, not the raw .p8.
-      # Generate it on the fly from env vars.
-      require "json"
-      asc_json = File.join(Dir.tmpdir, "asc_api_key.json")
-      File.write(asc_json, JSON.dump({
-        key_id:    ENV["ASC_KEY_ID"],
-        issuer_id: ENV["ASC_ISSUER_ID"],
-        key:       File.read(ENV["ASC_KEY_PATH"]),
-        duration:  1200,
-        in_house:  false,
-      }))
-      deliver_args[:api_key_path] = asc_json
-    end
+    deliver_args[:api_key_path] = asc_json if have_api_key
     deliver(deliver_args)
   end
 
@@ -137,7 +143,6 @@ platform :android do
     json_key  = options[:json_key] || ENV["PLAY_JSON_KEY_FILE"] || "config/play_service_account.json"
     rebuild   = options.fetch(:rebuild, false)
 
-    # Optional rebuild — skip if the signed AAB already exists.
     if rebuild
       gradle(
         project_dir: app_dir,
@@ -153,13 +158,13 @@ platform :android do
       package_name:            bundle_id,
       json_key:                json_key,
       aab:                     aab_path,
-      track:                   "internal",          # safest first track
-      release_status:          "draft",             # human gate promotes draft -> live
+      track:                   "internal",
+      release_status:          "draft",
       metadata_path:           "#{app_dir}/fastlane/metadata/android",
       skip_upload_metadata:    false,
-      skip_upload_images:      true,                # no Play images yet; add later
-      skip_upload_screenshots: true,                # screenshots generated separately
-      version_code_auto_increment: false            # version code set in build.gradle.kts
+      skip_upload_images:      true,
+      skip_upload_screenshots: true,
+      version_code_auto_increment: false,
     )
   end
 end
