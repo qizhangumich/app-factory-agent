@@ -2,7 +2,7 @@
   "workspace_id": "ws_004",
   "app_slug": "qrbarcodescanner",
   "app_name": "QR & Barcode Scanner+",
-  "bundle_id_ios": "com.appfactory.qrbarcodescanner",
+  "bundle_id_ios": "com.linkwave.qrbarcodescanner",
   "bundle_id_android": "com.appfactory.qrbarcodescanner",
   "ios_account": "ios_001",
   "android_account": "android_001",

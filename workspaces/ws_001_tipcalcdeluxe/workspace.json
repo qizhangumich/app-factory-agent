@@ -2,7 +2,7 @@
   "workspace_id": "ws_001",
   "app_slug": "tipcalcdeluxe",
   "app_name": "Tip Calculator Deluxe",
-  "bundle_id_ios": "com.appfactory.tipcalcdeluxe",
+  "bundle_id_ios": "com.linkwave.tipcalcdeluxe",
   "bundle_id_android": "com.appfactory.tipcalcdeluxe",
   "ios_account": "ios_001",
   "android_account": "android_001",

@@ -2,7 +2,7 @@
   "workspace_id": "ws_005",
   "app_slug": "pomodorofocus",
   "app_name": "Pomodoro Focus Timer",
-  "bundle_id_ios": "com.appfactory.pomodorofocus",
+  "bundle_id_ios": "com.linkwave.pomodorofocus",
   "bundle_id_android": "com.appfactory.pomodorofocus",
   "ios_account": "ios_001",
   "android_account": "android_001",

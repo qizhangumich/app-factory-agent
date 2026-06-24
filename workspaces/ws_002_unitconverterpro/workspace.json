@@ -2,7 +2,7 @@
   "workspace_id": "ws_002",
   "app_slug": "unitconverterpro",
   "app_name": "Unit Converter Pro",
-  "bundle_id_ios": "com.appfactory.unitconverterpro",
+  "bundle_id_ios": "com.linkwave.unitconverterpro",
   "bundle_id_android": "com.appfactory.unitconverterpro",
   "ios_account": "ios_001",
   "android_account": "android_001",
