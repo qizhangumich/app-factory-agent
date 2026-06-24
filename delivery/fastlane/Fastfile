@@ -71,7 +71,6 @@ platform :ios do
       clean: true,
       export_method: "app-store",
       export_team_id: ENV["APPLE_TEAM_ID"],
-      api_key: api_key,
       xcargs: xcargs_parts.join(" ")
     )
 
