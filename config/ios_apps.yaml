@@ -14,13 +14,20 @@ apps:
     bundle_id:  com.linkwave.tipcalcdeluxe
     sku:        tipcalc-001
     primary_locale: en-US
+    # Tip-calc namespace is heavily saturated. Distinctive names needed.
     name_options:
       - Tip Calculator Deluxe
       - Tip Calc Deluxe
-      - Tip Calculator Deluxe+
-      - Deluxe Tip Calculator
-      - TipMate Deluxe
-      - Bill Tip Calculator Deluxe
+      - Linkwave Tip Splitter
+      - TipSnap Deluxe
+      - Bill Tip & Split
+      - Tip Wizard Pro
+      - Smart Tip Splitter
+      - TipCheck Plus
+      - Quick Tip & Split
+      - Tip Helper Deluxe
+      - Restaurant Tip & Split
+      - TipMath Deluxe
 
   - workspace:  ws_002_unitconverterpro
     bundle_id:  com.linkwave.unitconverterpro
@@ -50,6 +57,9 @@ apps:
     bundle_id:  com.linkwave.qrbarcodescanner
     sku:        qrscan-001
     primary_locale: en-US
+    # Developer-portal name has special-char restrictions (no '+', '&', etc).
+    # Use a plain-ASCII variant. Users still see name_options[0].
+    developer_portal_name: QR Barcode Scanner Plus
     name_options:
       - QR & Barcode Scanner+
       - QR Barcode Reader Plus

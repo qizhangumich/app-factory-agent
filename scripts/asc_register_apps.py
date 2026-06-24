@@ -93,6 +93,98 @@ def find_bundle_id(token, bundle_id_str):
     return None
 
 
+def register_bundle_id(token, bundle_id_str, name):
+    """Create a new App ID (bundle ID) at the Apple Developer level.
+    Equivalent to clicking through developer.apple.com -> Identifiers.
+    Returns (resource_id, error_detail or None).
+
+    Apple's developer-portal name has stricter rules than the App Store
+    display name: no '+', '&', etc. Caller should sanitize.
+    """
+    # sanitize for developer-portal restrictions
+    import re
+    safe_name = re.sub(r"[^A-Za-z0-9 ]", "", name).strip() or "App"
+
+    body = {
+        "data": {
+            "type": "bundleIds",
+            "attributes": {
+                "identifier": bundle_id_str,
+                "name":       safe_name,
+                "platform":   "IOS",   # iOS App ID
+            }
+        }
+    }
+    r = asc_post(token, "/bundleIds", body)
+    if r.status_code == 201:
+        return r.json()["data"]["id"], None
+    try:
+        errs = r.json().get("errors", [])
+        detail = "; ".join(e.get("detail", str(e)) for e in errs)
+    except Exception:
+        detail = r.text[:200]
+    return None, f"HTTP {r.status_code}: {detail}"
+
+
+def asc_patch(token, path, body):
+    import requests
+    r = requests.patch(f"{ASC_BASE}{path}",
+                       headers={"Authorization": f"Bearer {token}",
+                                "Content-Type": "application/json"},
+                       json=body, timeout=30)
+    return r
+
+
+def get_editable_localization_id(token, app_id, locale="en-US"):
+    """Find the AppInfoLocalization for the editable AppInfo (state
+    PREPARE_FOR_SUBMISSION or READY_FOR_REVIEW). Returns (loc_id, current_name)."""
+    r = asc_get(token, f"/apps/{app_id}/appInfos")
+    if r.status_code != 200:
+        return None, None
+    # Prefer editable state
+    editable_states = ("PREPARE_FOR_SUBMISSION", "READY_FOR_REVIEW",
+                        "DEVELOPER_REJECTED", "REJECTED", "METADATA_REJECTED",
+                        "WAITING_FOR_REVIEW", "INVALID_BINARY")
+    candidates = []
+    for info in r.json().get("data", []):
+        state = info["attributes"].get("appStoreState", "")
+        candidates.append((state in editable_states, info["id"]))
+    candidates.sort(reverse=True)  # editable first
+    for _, info_id in candidates:
+        r2 = asc_get(token, f"/appInfos/{info_id}/appInfoLocalizations")
+        if r2.status_code != 200:
+            continue
+        for loc in r2.json().get("data", []):
+            if loc["attributes"].get("locale") == locale:
+                return loc["id"], loc["attributes"].get("name")
+    return None, None
+
+
+def rename_app(token, app_id, new_name, locale="en-US"):
+    """Rename an app's en-US display name. Apple stores this on
+    AppInfoLocalization, not on the App itself. Returns (success_bool, error_or_None)."""
+    loc_id, _ = get_editable_localization_id(token, app_id, locale)
+    if not loc_id:
+        return False, "no editable AppInfoLocalization found for this app"
+
+    body = {
+        "data": {
+            "type": "appInfoLocalizations",
+            "id":   loc_id,
+            "attributes": {"name": new_name},
+        }
+    }
+    r = asc_patch(token, f"/appInfoLocalizations/{loc_id}", body)
+    if r.status_code == 200:
+        return True, None
+    try:
+        errs = r.json().get("errors", [])
+        detail = "; ".join(e.get("detail", str(e)) for e in errs)
+    except Exception:
+        detail = r.text[:200]
+    return False, f"HTTP {r.status_code}: {detail}"
+
+
 def find_app(token, bundle_id_str):
     """Return the app id + current name if the app already exists, else
     (None, None)."""
@@ -152,48 +244,76 @@ def register_one(token, app, dry_run=False):
 
     print(f"\n=== {ws} ({bid}) ===")
 
-    # idempotency: if already created, skip
+    # idempotency: if already created, try to upgrade the name
     existing_id, existing_name = find_app(token, bid)
     if existing_id:
-        print(f"  [skip] already exists: '{existing_name}'  ({existing_id})")
+        # If the current name is already one of our top choices, leave it
+        if existing_name in options:
+            idx = options.index(existing_name)
+            if idx == 0:
+                print(f"  [skip] already named first-choice '{existing_name}'")
+            else:
+                # try to rename to a higher-ranked option
+                for better in options[:idx]:
+                    if dry_run:
+                        print(f"  [dry-run] would try renaming to '{better}'")
+                        continue
+                    print(f"  trying rename to '{better}'...", end="")
+                    ok, err = rename_app(token, existing_id, better)
+                    if ok:
+                        print(f"  -> [OK] renamed")
+                        existing_name = better
+                        break
+                    else:
+                        print(f"  -> taken")
+            return {"workspace": ws, "bundle_id": bid, "app_id": existing_id,
+                    "name": existing_name, "status": "already_exists"}
+        # otherwise (ugly name like "...1"), try every option to upgrade
+        print(f"  current name '{existing_name}' is off-list — trying to upgrade")
+        for better in options:
+            if dry_run:
+                print(f"  [dry-run] would try renaming to '{better}'")
+                continue
+            print(f"  trying rename to '{better}'...", end="")
+            ok, err = rename_app(token, existing_id, better)
+            if ok:
+                print(f"  -> [OK] renamed")
+                return {"workspace": ws, "bundle_id": bid, "app_id": existing_id,
+                        "name": better, "status": "renamed"}
+            else:
+                print(f"  -> taken")
+        # no rename worked — keep the original name
         return {"workspace": ws, "bundle_id": bid, "app_id": existing_id,
-                "name": existing_name, "status": "already_exists"}
+                "name": existing_name, "status": "already_exists_no_rename"}
 
-    # need the bundleIds resource id (registered separately via the
-    # Identifiers UI or POST /bundleIds — assume it exists since the
-    # human has to register App IDs at developer.apple.com first)
+    # Find or auto-create the bundleIds resource. Apple's API allows
+    # programmatic creation of App IDs, so we don't need to click
+    # through developer.apple.com -> Identifiers manually.
     bres = find_bundle_id(token, bid)
     if not bres:
-        print(f"  [error] Bundle ID '{bid}' not yet registered at "
-              "developer.apple.com -> Identifiers -> App IDs. "
-              "Register it first (see docs/IOS_PIPELINE.md), then re-run.")
-        return {"workspace": ws, "bundle_id": bid, "status": "missing_bundle_id"}
+        # auto-register the App ID. Name = first option (used as
+        # internal description in the Apple Developer portal — users
+        # never see this).
+        print(f"  registering App ID '{bid}'...", end="")
+        bres, err = register_bundle_id(token, bid, options[0])
+        if not bres:
+            print(f"  -> [error] {err}")
+            return {"workspace": ws, "bundle_id": bid, "status": "bundle_id_error",
+                    "error": err}
+        print(f"  -> [OK] ({bres})")
 
-    for i, name in enumerate(options, 1):
-        if dry_run:
-            print(f"  [dry-run] would try #{i}: '{name}'")
-            continue
-
-        print(f"  trying #{i}: '{name}'", end="")
-        code, detail = create_app(token, name, bres, sku, locale)
-
-        if code == 201:
-            print(f"  -> [OK] created (app id {detail})")
-            return {"workspace": ws, "bundle_id": bid, "app_id": detail,
-                    "name": name, "status": "created"}
-        elif "name" in detail.lower() and ("unique" in detail.lower() or "taken" in detail.lower() or "already" in detail.lower()):
-            print(f"  -> name taken")
-            continue
-        elif code == 409:
-            print(f"  -> conflict ({detail[:100]})")
-            continue
-        else:
-            print(f"  -> [error {code}] {detail[:200]}")
-            return {"workspace": ws, "bundle_id": bid, "status": "error",
-                    "error": detail}
-
-    print(f"  [FAIL] none of {len(options)} name options worked")
-    return {"workspace": ws, "bundle_id": bid, "status": "all_names_taken"}
+    # NOTE: Apple removed the POST /apps endpoint around 2020 to prevent
+    # spam app creation. The app entry MUST be created via App Store
+    # Connect web UI by a human. After it's created, re-run this script
+    # to auto-rename to the best available name from the options list.
+    print(f"  [action needed] Bundle ID is registered. Now go to:")
+    print(f"    https://appstoreconnect.apple.com/apps")
+    print(f"  Click '+' -> New App -> select platform 'iOS' ->")
+    print(f"  pick Bundle ID '{bid}' from the dropdown ->")
+    print(f"  use ANY placeholder name (e.g. 'Untitled') + SKU '{sku}'.")
+    print(f"  Re-run this script and it will auto-rename to a better name.")
+    return {"workspace": ws, "bundle_id": bid, "bundle_id_resource": bres,
+            "status": "needs_ui_creation"}
 
 
 # ── Main ────────────────────────────────────────────────────────────────────
