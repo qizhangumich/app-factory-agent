@@ -1,0 +1,71 @@
+# App Factory v2 — iOS App Registration Config
+# ===============================================
+# Used by scripts/asc_register_apps.py to programmatically create app
+# entries in App Store Connect. For each app, list the preferred name
+# first followed by fallbacks. The script tries them in order and stops
+# at the first one App Store accepts (names are globally unique across
+# all Apple developers — common names are often taken).
+#
+# bundle_id stays the same regardless of which display name wins.
+# sku is the developer's internal identifier (not shown to users).
+
+apps:
+  - workspace:  ws_001_tipcalcdeluxe
+    bundle_id:  com.linkwave.tipcalcdeluxe
+    sku:        tipcalc-001
+    primary_locale: en-US
+    name_options:
+      - Tip Calculator Deluxe
+      - Tip Calc Deluxe
+      - Tip Calculator Deluxe+
+      - Deluxe Tip Calculator
+      - TipMate Deluxe
+      - Bill Tip Calculator Deluxe
+
+  - workspace:  ws_002_unitconverterpro
+    bundle_id:  com.linkwave.unitconverterpro
+    sku:        unitconv-001
+    primary_locale: en-US
+    name_options:
+      - Unit Converter Pro
+      - Unit Converter Deluxe
+      - Linkwave Unit Convert
+      - Convert Units Pro
+      - All-in Unit Converter
+      - Unit Conversions Deluxe
+
+  - workspace:  ws_003_soundlevelmeter
+    bundle_id:  com.linkwave.soundlevelmeter
+    sku:        soundmeter-001
+    primary_locale: en-US
+    name_options:
+      - Sound Level Meter
+      - Decibel Meter Deluxe
+      - Sound Meter Plus
+      - dB Sound Meter
+      - Linkwave Sound Meter
+      - Noise Level Meter Plus
+
+  - workspace:  ws_004_qrbarcodescanner
+    bundle_id:  com.linkwave.qrbarcodescanner
+    sku:        qrscan-001
+    primary_locale: en-US
+    name_options:
+      - QR & Barcode Scanner+
+      - QR Barcode Reader Plus
+      - Scan QR Deluxe
+      - QR & Code Scanner
+      - Linkwave QR Scanner
+      - Quick QR Reader Plus
+
+  - workspace:  ws_005_pomodorofocus
+    bundle_id:  com.linkwave.pomodorofocus
+    sku:        pomodoro-001
+    primary_locale: en-US
+    name_options:
+      - Pomodoro Focus Timer
+      - Pomodoro Deluxe
+      - Focus Pomodoro Plus
+      - Pomo Focus Timer
+      - Linkwave Pomodoro
+      - Deep Focus Pomodoro

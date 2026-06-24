@@ -11,6 +11,9 @@ config/fastlane_env/*.keystore
 config/play_service_account.json
 config/play_oauth_client.json
 config/play_oauth_token.json
+config/asc_api_key.json
+config/AuthKey_*.p8
+state/ios_app_names.json
 
 # --- Build artifacts -----------------------------------------------------
 workspaces/*/ios/build/
