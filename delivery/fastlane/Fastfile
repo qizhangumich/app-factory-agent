@@ -33,39 +33,27 @@ platform :ios do
       }))
     end
 
-    # Match mode is opt-in (set MATCH_GIT_URL). Otherwise we use
-    # cert + sigh below to create the distribution cert + provisioning
-    # profile directly via the API key — no shared certs repo needed.
-    if ENV["MATCH_GIT_URL"].to_s != ""
-      match(
-        type: "appstore",
-        app_identifier: bundle_id,
-        readonly: true,
-        api_key_path: asc_json,
-      )
-    else
-      # 1. Ensure an Apple Distribution certificate exists for this team.
-      #    With api_key + force=false this is idempotent: re-uses an
-      #    existing cert when present, creates one only if missing.
-      cert(
-        api_key_path:        asc_json,
-        development:         false,
-        generate_apple_certs: true,
-        force:               false,
-      )
-
-      # 2. Ensure an App Store provisioning profile exists for this app.
-      #    sigh sets ENV["sigh_<bundle_id>_appstore_profile-path"] and
-      #    ENV["sigh_<bundle_id>_appstore_profile-name"] on success.
-      # sigh defaults to App Store profile when neither :development nor
-      # :adhoc is passed. Passing both — even both false — trips a
-      # validator that says "can't enable both" so we omit them.
-      sigh(
-        api_key_path:    asc_json,
-        app_identifier:  bundle_id,
-        force:           false,
-      )
-    end
+    # Match: stores the Apple Distribution certificate and provisioning
+    # profile in a private git repo (qizhangumich/app-factory-certs),
+    # encrypted with MATCH_PASSWORD. Every CI run downloads + decrypts
+    # the same cert.p12 instead of creating a new one — which is what
+    # blew us past Apple's 2-cert limit when we were using cert+sigh.
+    #
+    # match reads MATCH_GIT_URL, MATCH_PASSWORD, and
+    # MATCH_GIT_BASIC_AUTHORIZATION from env vars automatically.
+    # api_key_path makes it use the ASC API key (no 2FA prompts).
+    #
+    # readonly: false so the FIRST run for each new bundle id can
+    # create + push the cert/profile to the encrypted repo. Subsequent
+    # runs reuse it. force: false so we never blow away existing certs
+    # unless we explicitly opt in.
+    match(
+      type:            "appstore",
+      app_identifier:  bundle_id,
+      api_key_path:    asc_json,
+      readonly:        false,
+      force:           false,
+    )
 
     # Build the signed .ipa. We use Manual signing here (overriding the
     # project's CODE_SIGN_STYLE=Automatic via xcargs) because xcodebuild
