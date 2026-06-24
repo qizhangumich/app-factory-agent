@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 """
-App Factory v2 — Patch iOS pbxproj: force distribution signing
+App Factory v2 — Patch iOS pbxproj for CI distribution signing
 ================================================================
-xcodebuild archive defaults to creating an "iOS App Development"
-provisioning profile when CODE_SIGN_IDENTITY isn't pinned. Development
-profiles require at least one registered device on the team, which a
-fresh App-Store-only account doesn't have, so the archive fails with:
+For Xcode 26 + xcodebuild archive + ASC API-key automatic signing:
 
-    Your team has no devices from which to generate a provisioning profile
+The combination that works is:
+  - CODE_SIGN_STYLE = Automatic           (let Xcode manage profiles)
+  - DEVELOPMENT_TEAM = <team id>          (baked into project, not via xcargs;
+                                           Automatic signing needs it set
+                                           at project scope, not as override)
+  - DO NOT set CODE_SIGN_IDENTITY         (conflicts with Automatic)
+  - -allowProvisioningUpdates             (in xcargs)
+  - -authenticationKeyPath / ID / IssuerID (in xcargs)
 
-The fix is to set CODE_SIGN_IDENTITY = "Apple Distribution" on the
-Release configuration so the archive uses an App-Store-Connect-issued
-distribution profile (no device registration needed).
+Earlier I tried setting CODE_SIGN_IDENTITY = "Apple Distribution",
+which causes Xcode to reject the Automatic signing flow with:
+  "automatically signed for development, but a conflicting code signing
+   identity Apple Distribution has been manually specified"
 
-This script idempotently injects the identity into every iOS
-project.pbxproj under workspaces/.
+So this script undoes that bad override and instead bakes the team id
+into the Release config. The team id is not sensitive (visible to anyone
+who runs the App Store app on a device).
 
 Run:  python scripts/fix_ios_signing_identity.py
 """
@@ -23,29 +29,28 @@ import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent.resolve()
+TEAM_ID   = "FNGC54MTDA"   # LINKWAVE PTE.LTD. Apple Developer team id
 
 
 def patch_pbxproj(pbx_path: Path) -> bool:
     text = pbx_path.read_text(encoding="utf-8")
     original = text
 
-    # Find every XCBuildConfiguration whose name is "Release". Inject
-    # CODE_SIGN_IDENTITY[sdk=iphoneos*] = "Apple Distribution" into its
-    # buildSettings block if not already present.
-    #
-    # The pattern: a buildSettings { ... } block, followed by name = Release;
-    pattern = re.compile(
-        r"(buildSettings\s*=\s*\{)([^}]*?)(\};\s*name\s*=\s*Release;)",
-        re.DOTALL,
+    # Step 1: remove the bad CODE_SIGN_IDENTITY = "Apple Distribution" line.
+    text = re.sub(
+        r'\n\s*CODE_SIGN_IDENTITY\s*=\s*"Apple Distribution"\s*;',
+        "",
+        text,
     )
 
-    def insert(match):
+    # Step 2: add DEVELOPMENT_TEAM = <team> to both Debug and Release
+    # configurations (if not already present). We insert it after the
+    # CODE_SIGN_STYLE line.
+    def insert_team(match):
         head, body, tail = match.group(1), match.group(2), match.group(3)
-        if "CODE_SIGN_IDENTITY" in body:
-            return match.group(0)  # already patched
-        # Insert after CODE_SIGN_STYLE = Automatic line if present,
-        # otherwise just append before the closing brace.
-        injection = '\n\t\t\t\tCODE_SIGN_IDENTITY = "Apple Distribution";'
+        if "DEVELOPMENT_TEAM" in body:
+            return match.group(0)
+        injection = f'\n\t\t\t\tDEVELOPMENT_TEAM = {TEAM_ID};'
         if "CODE_SIGN_STYLE" in body:
             body = re.sub(
                 r"(CODE_SIGN_STYLE\s*=\s*[A-Za-z]+\s*;)",
@@ -57,7 +62,11 @@ def patch_pbxproj(pbx_path: Path) -> bool:
             body = body.rstrip() + injection + "\n\t\t\t"
         return head + body + tail
 
-    text = pattern.sub(insert, text)
+    pattern = re.compile(
+        r"(buildSettings\s*=\s*\{)([^}]*?)(\};\s*name\s*=\s*(?:Debug|Release);)",
+        re.DOTALL,
+    )
+    text = pattern.sub(insert_team, text)
 
     if text == original:
         return False
@@ -66,8 +75,7 @@ def patch_pbxproj(pbx_path: Path) -> bool:
 
 
 def main():
-    pbx_files = sorted(REPO_ROOT.glob("workspaces/*/ios/*.xcodeproj/project.pbxproj"))
-    for pbx in pbx_files:
+    for pbx in sorted(REPO_ROOT.glob("workspaces/*/ios/*.xcodeproj/project.pbxproj")):
         rel = pbx.relative_to(REPO_ROOT)
         changed = patch_pbxproj(pbx)
         print(f"  {'[patched]' if changed else '[skip]   '}  {rel}")
