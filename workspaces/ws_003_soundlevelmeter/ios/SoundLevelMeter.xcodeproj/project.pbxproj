@@ -6,10 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		SLM0000000000000000F01 /* Exceptions for SoundLevelMeter */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = SLM0000000000000000060 /* SoundLevelMeter */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		SLM0000000000000000010 /* SoundLevelMeter */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SoundLevelMeter;
+			exceptions = (
+				SLM0000000000000000F01 /* Exceptions for SoundLevelMeter */,
+			);
+path = SoundLevelMeter;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */

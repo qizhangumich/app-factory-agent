@@ -6,10 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A1000000000000000000F01 /* Exceptions for TipCalculatorDeluxe */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A1000000000000000000006 /* TipCalculatorDeluxe */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A1000000000000000000001 /* TipCalculatorDeluxe */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TipCalculatorDeluxe;
+			exceptions = (
+				A1000000000000000000F01 /* Exceptions for TipCalculatorDeluxe */,
+			);
+path = TipCalculatorDeluxe;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */

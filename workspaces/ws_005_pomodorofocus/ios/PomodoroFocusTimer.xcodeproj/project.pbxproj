@@ -13,10 +13,23 @@
 		A10000000000000000000001 /* PomodoroFocusTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroFocusTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A10000000000000000000F01 /* Exceptions for PomodoroFocusTimer */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A10000000000000000000050 /* PomodoroFocusTimer */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A10000000000000000000010 /* PomodoroFocusTimer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PomodoroFocusTimer;
+			exceptions = (
+				A10000000000000000000F01 /* Exceptions for PomodoroFocusTimer */,
+			);
+path = PomodoroFocusTimer;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
