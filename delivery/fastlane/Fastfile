@@ -57,11 +57,12 @@ platform :ios do
       # 2. Ensure an App Store provisioning profile exists for this app.
       #    sigh sets ENV["sigh_<bundle_id>_appstore_profile-path"] and
       #    ENV["sigh_<bundle_id>_appstore_profile-name"] on success.
+      # sigh defaults to App Store profile when neither :development nor
+      # :adhoc is passed. Passing both — even both false — trips a
+      # validator that says "can't enable both" so we omit them.
       sigh(
         api_key_path:    asc_json,
         app_identifier:  bundle_id,
-        development:     false,
-        adhoc:           false,
         force:           false,
       )
     end
