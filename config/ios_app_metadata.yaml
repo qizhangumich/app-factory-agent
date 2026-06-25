@@ -1,0 +1,68 @@
+# App Factory v2 — iOS App Store metadata
+# ==========================================
+# Per-app metadata for scripts/asc_release.py. Mirrors the Android
+# play_release.py inputs but matches App Store Connect's field names.
+#
+# Reuses the Android long descriptions verbatim (lint already verified
+# they contain no banned superlatives), shortens the marketing text to
+# Apple's 30-char subtitle limit, and adds App Store keywords (100 chars
+# total, comma-separated, no spaces, ranked by intent).
+#
+# privacy_policy_url and support_url point at the same GitHub Pages site
+# used for the Android delivery. category_primary uses Apple's category
+# names (different from Play Console — Apple uses "Utilities", not
+# "Tools").
+
+common:
+  primary_locale:    en-US
+  privacy_policy_base: "https://qizhangumich.github.io/app-privacy"
+  support_url_base:    "https://qizhangumich.github.io/app-privacy"
+  marketing_url:       "https://qizhangumich.github.io/app-privacy"
+  copyright:           "2026 LINKWAVE PTE.LTD."
+  release_type:        "MANUAL"        # release after approval, on our schedule
+
+apps:
+  - workspace:        ws_001_tipcalcdeluxe
+    privacy_slug:     tipcalcdeluxe
+    category_primary: "UTILITIES"
+    category_secondary: "FOOD_AND_DRINK"
+    age_rating:       "FOUR_PLUS"
+    subtitle:         "Split bills clean & fast"   # <= 30 chars
+    promotional_text: "Now with custom tips, tax, and per-person breakdown for any group size."
+    keywords:         "tip,split,bill,calculator,restaurant,gratuity,percentage,share,dinner,group"
+
+  - workspace:        ws_002_unitconverterpro
+    privacy_slug:     unitconverterpro
+    category_primary: "UTILITIES"
+    category_secondary: "PRODUCTIVITY"
+    age_rating:       "FOUR_PLUS"
+    subtitle:         "Convert anything, instantly"
+    promotional_text: "16 unit categories, 130+ units, offline, NIST-accurate."
+    keywords:         "convert,units,length,weight,temperature,metric,imperial,cooking,measure,calculator"
+
+  - workspace:        ws_003_soundlevelmeter
+    privacy_slug:     soundlevelmeter
+    category_primary: "UTILITIES"
+    category_secondary: "HEALTH_AND_FITNESS"
+    age_rating:       "FOUR_PLUS"
+    subtitle:         "dB meter with safety bands"
+    promotional_text: "Visual gauge, peak hold, and noise-exposure tracking. Offline."
+    keywords:         "decibel,sound,noise,meter,db,spl,hearing,audio,measure,microphone"
+
+  - workspace:        ws_004_qrbarcodescanner
+    privacy_slug:     qrbarcodescanner
+    category_primary: "UTILITIES"
+    category_secondary: "PRODUCTIVITY"
+    age_rating:       "FOUR_PLUS"
+    subtitle:         "Scan QR & barcodes offline"
+    promotional_text: "Decode QR, EAN, UPC, Wi-Fi, and more. Scan history kept locally."
+    keywords:         "qr,barcode,scanner,reader,upc,ean,code,wifi,decode,inventory"
+
+  - workspace:        ws_005_pomodorofocus
+    privacy_slug:     pomodorofocus
+    category_primary: "PRODUCTIVITY"
+    category_secondary: "HEALTH_AND_FITNESS"
+    age_rating:       "FOUR_PLUS"
+    subtitle:         "Focus with the Pomodoro cycle"
+    promotional_text: "Customizable focus intervals, streaks, and 90-day heat map."
+    keywords:         "pomodoro,focus,timer,productivity,study,work,concentration,deep,break,session"
