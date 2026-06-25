@@ -55,13 +55,24 @@ if [[ "${PLATFORMS}" == *ios* && -n "${IOS_ACCOUNT}" ]]; then
 fi
 
 # --- Android ---------------------------------------------------------------
-if [[ "${PLATFORMS}" == *android* && -n "${ANDROID_ACCOUNT}" ]]; then
+# Android delivery is owned by scripts/play_release.py on the Windows host
+# (where the signed .aab actually lives). Skip on a macOS CI runner where
+# the .aab doesn't exist. Set BUILD_PLATFORM_FILTER=ios in the workflow
+# to be explicit; missing AAB is the implicit fallback.
+AAB_PATH="${ROOT}/${WS_PATH}/android/app/build/outputs/bundle/release/app-release.aab"
+SKIP_ANDROID=0
+[[ "${BUILD_PLATFORM_FILTER:-}" == "ios" ]] && SKIP_ANDROID=1
+[[ ! -f "${AAB_PATH}" ]] && SKIP_ANDROID=1
+
+if [[ "${PLATFORMS}" == *android* && -n "${ANDROID_ACCOUNT}" && "${SKIP_ANDROID}" == "0" ]]; then
   echo "--> Android via account ${ANDROID_ACCOUNT}"
   load_env "${ANDROID_ACCOUNT}"
   ( cd "${ROOT}/delivery" && bundle exec fastlane android deploy \
       app_dir:"${ROOT}/${WS_PATH}/android" \
       bundle_id:"${BUNDLE_ANDROID}" )
   python3 -m brain.update_workspace_status "${WS_ID}" delivering --platform android
+elif [[ "${PLATFORMS}" == *android* && "${SKIP_ANDROID}" == "1" ]]; then
+  echo "--> Android skipped (no AAB at ${AAB_PATH} or BUILD_PLATFORM_FILTER=ios)"
 fi
 
 python3 -m brain.update_workspace_status "${WS_ID}" submitted
