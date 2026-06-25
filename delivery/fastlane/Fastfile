@@ -90,18 +90,28 @@ platform :ios do
       xcargs: xcargs_parts.join(" "),
     )
 
-    # Upload binary + metadata. submit_for_review stays false: the human
-    # gate clicks the final "Submit for Review" button.
+    # Upload binary to App Store Connect. submit_for_review stays false:
+    # the human gate clicks the final "Submit for Review" button.
+    #
+    # NOTE: skip_metadata + skip_screenshots for now. Reason: the iOS
+    # metadata layout deliver expects is
+    #   metadata/<locale>/name.txt, description.txt, …
+    #   metadata/<locale>/screenshots/<DeviceClass>/*.png
+    # but our workspace currently has an Android-style flat structure.
+    # Wiring iOS metadata is a separate step — for now we just push the
+    # signed .ipa so App Store Connect has a build to attach to the
+    # listing the user already created. Listing text + screenshots are
+    # entered via the App Store Connect UI for now (5 apps × 5 min).
     deliver_args = {
-      app_identifier: bundle_id,
-      ipa: "#{app_dir}/build/#{scheme}.ipa",
-      metadata_path: "#{app_dir}/fastlane/metadata",
-      screenshots_path: "#{app_dir}/fastlane/metadata/screenshots",
-      submit_for_review: false,
-      automatic_release: false,
-      force: true,
+      app_identifier:                    bundle_id,
+      ipa:                               "#{app_dir}/build/#{scheme}.ipa",
+      submit_for_review:                 false,
+      automatic_release:                 false,
+      force:                             true,
+      skip_metadata:                     true,
+      skip_screenshots:                  true,
       precheck_include_in_app_purchases: false,
-      run_precheck_before_submit: true,
+      run_precheck_before_submit:        false,
     }
     deliver_args[:api_key_path] = asc_json if have_api_key
     deliver(deliver_args)
