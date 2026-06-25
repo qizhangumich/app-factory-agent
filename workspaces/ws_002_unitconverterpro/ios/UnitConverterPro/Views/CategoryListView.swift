@@ -40,7 +40,7 @@ struct CategoryListView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(store.favorites) { fav in
-                        if let card = favoriteCard(for: fav) { card }
+                        favoriteCard(for: fav)
                     }
                 }
                 .padding(.vertical, 2)

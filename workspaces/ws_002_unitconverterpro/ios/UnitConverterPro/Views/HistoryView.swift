@@ -60,11 +60,22 @@ struct HistoryView: View {
     // MARK: - Empty state
 
     private var emptyState: some View {
-        ContentUnavailableView {
-            Label(L.string("history_empty_title"), systemImage: "clock.arrow.circlepath")
-        } description: {
+        // ContentUnavailableView requires iOS 17. The project deployment
+        // target is iOS 16, so use a hand-rolled equivalent.
+        VStack(spacing: 12) {
+            Image(systemName: "clock.arrow.circlepath")
+                .font(.system(size: 48))
+                .foregroundStyle(.secondary)
+            Text(L.string("history_empty_title"))
+                .font(.title3)
+                .fontWeight(.semibold)
             Text(L.string("history_empty_message"))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
         }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
