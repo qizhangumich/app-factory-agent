@@ -243,7 +243,11 @@ def set_build_export_compliance(token, build_id):
     """Build needs usesNonExemptEncryption set. Our Info.plist already
     declares ITSAppUsesNonExemptEncryption=NO, but Apple still wants the
     attribute set on the Build resource directly. Always false for our
-    utility apps (only standard HTTPS, exempt)."""
+    utility apps (only standard HTTPS, exempt).
+
+    Returns True both when the PATCH writes and when Apple says
+    'cannot update when value is already set' (effectively no-op).
+    """
     body = {
         "data": {
             "type": "builds",
@@ -252,7 +256,99 @@ def set_build_export_compliance(token, build_id):
         }
     }
     r = asc_request("PATCH", token, f"/builds/{build_id}", body=body)
-    return r.status_code == 200
+    if r.status_code == 200:
+        return True
+    # 409 'cannot update when value is already set' is effectively a no-op
+    if r.status_code == 409:
+        try:
+            for e in r.json().get("errors", []):
+                if "already set" in e.get("detail", "").lower():
+                    return True
+        except Exception:
+            pass
+    return False
+
+
+def set_age_rating_declaration(token, app_info_id):
+    """Set every age-rating dimension to 'nothing'. Our utility apps
+    have no objectionable content of any kind. Apple's age rating
+    schema mixes two field types (BOOLEAN vs STRING enum) and the
+    bucketing keeps changing — so we try a starting guess, parse
+    Apple's type-mismatch errors, and re-PATCH with corrected types
+    until the API accepts it.
+
+    The AgeRatingDeclaration resource id == appInfo id.
+    """
+    all_dims = [
+        "advertising", "ageAssurance", "alcoholTobaccoOrDrugUseOrReferences",
+        "contests", "gambling", "gamblingSimulated",
+        "gunsOrOtherWeapons", "healthOrWellnessTopics",
+        "horrorOrFearThemes", "lootBox", "matureOrSuggestiveThemes",
+        "medicalOrTreatmentInformation", "messagingAndChat",
+        "parentalControls", "profanityOrCrudeHumor",
+        "sexualContentGraphicAndNudity", "sexualContentOrNudity",
+        "unrestrictedWebAccess", "userGeneratedContent",
+        "violenceCartoonOrFantasy", "violenceRealistic",
+        "violenceRealisticProlongedGraphicOrSadistic",
+    ]
+    # Best-guess starting types (close to Dec 2026 production):
+    type_map = {d: bool for d in [
+        "advertising", "ageAssurance", "gambling", "healthOrWellnessTopics",
+        "lootBox", "messagingAndChat", "parentalControls",
+        "unrestrictedWebAccess", "userGeneratedContent",
+    ]}
+    for d in all_dims:
+        type_map.setdefault(d, str)
+
+    for _ in range(5):  # converge in <= 5 rounds
+        attrs = {d: (False if type_map[d] is bool else "NONE") for d in all_dims}
+        body = {"data": {"type": "ageRatingDeclarations",
+                          "id": app_info_id, "attributes": attrs}}
+        r = asc_request("PATCH", token,
+                        f"/ageRatingDeclarations/{app_info_id}", body=body)
+        if r.status_code == 200:
+            return True
+
+        flipped = False
+        try:
+            errors = r.json().get("errors", [])
+        except Exception:
+            return False
+        for e in errors:
+            if e.get("code") != "ENTITY_ERROR.ATTRIBUTE.TYPE":
+                continue
+            pointer = (e.get("source") or {}).get("pointer", "")
+            attr = pointer.rsplit("/", 1)[-1]
+            detail = e.get("detail", "")
+            if attr in type_map:
+                # Flip to whichever type Apple says it expects
+                if "Expected a BOOLEAN" in detail:
+                    type_map[attr] = bool
+                elif "Expected a STRING" in detail:
+                    type_map[attr] = str
+                else:
+                    continue
+                flipped = True
+        if not flipped:
+            return False
+    return False
+
+
+def publish_no_data_collected(token, app_id):
+    """App Privacy ('Data Collected' nutrition label).
+
+    As of late 2026, Apple does NOT expose the App Privacy data-usage
+    declaration endpoints publicly — they're admin-console only. The
+    user must answer the questionnaire once per app via the
+    App Store Connect web UI:
+
+      ASC → app → App Privacy → Get Started
+        → "No, we do not collect data from this app" → Save → Publish
+
+    This function returns False to surface the manual step explicitly
+    in the script output; the caller prints a helpful message.
+    """
+    return False
 
 
 def ensure_free_price_schedule(token, app_id):
@@ -711,6 +807,13 @@ def release_one(token, app, common, submit=False, dry_run=False, upload_screens=
         print(f"  content rights:    {'OK' if ok else 'FAIL'}")
         ok = ensure_free_price_schedule(token, app_id)
         print(f"  pricing (free):    {'OK' if ok else 'FAIL'}")
+        # Age rating: all NONE for our utility apps. The declaration
+        # resource id equals the appInfo id.
+        ok = set_age_rating_declaration(token, info_id)
+        print(f"  age rating (NONE): {'OK' if ok else 'FAIL'}")
+        # App Privacy: Apple's API doesn't expose the data-usage
+        # declaration endpoints. One-time web UI task per app.
+        print(f"  app privacy:       MANUAL  (ASC web UI: App Privacy → 'No, we do not collect data')")
 
     # 3c. Version copyright + reviewer contact info
     if not dry_run:
