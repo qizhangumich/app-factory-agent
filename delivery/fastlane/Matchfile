@@ -12,4 +12,9 @@ type("appstore")          # default; "development" also synced when needed
 
 # app_identifier and username are supplied per app by the deploy script /
 # per-app Appfile, so they are intentionally not hard-coded here.
-readonly(true)            # CI never regenerates certs; humans do that once
+#
+# Don't pin readonly here. The Fastfile's match() call passes
+# readonly: false so the first run for each new bundle id can create
+# the per-app provisioning profile in the encrypted repo. The
+# Matchfile used to hardcode readonly(true), which silently overrode
+# the Fastfile and broke first-time setup for new apps.
