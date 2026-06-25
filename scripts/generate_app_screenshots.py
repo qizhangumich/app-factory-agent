@@ -637,9 +637,141 @@ def pomodoro_screens(w, h):
     return [s1, s2, s3]
 
 
+def sound_meter_screens(w, h):
+    base = ":root { --bg:#0E1116; --fg:#FFFFFF; --bar:#0E1116; --accent:#FFB020; --card:#1A2030; }"
+    # Semicircular gauge SVG: 0–130 dB, with safe/moderate/loud/danger bands.
+    def gauge(value_db):
+        # Map 0–130 dB to 180–360 degrees (left half-circle)
+        pct = max(0, min(130, value_db)) / 130.0
+        # 180° sweep starting from 180°
+        end_deg = 180 + pct * 180
+        circumference = 3.14159 * 280  # half circle
+        sweep = pct * circumference
+        return f"""
+        <svg viewBox="0 0 640 360" style="width:100%;height:100%;">
+          <!-- background arc -->
+          <path d="M 40,320 A 280,280 0 0 1 600,320" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="36" stroke-linecap="round"/>
+          <!-- safe (green) -->
+          <path d="M 40,320 A 280,280 0 0 1 168,72" fill="none" stroke="#34C759" stroke-width="36" stroke-linecap="round" opacity="0.85"/>
+          <!-- moderate (yellow) -->
+          <path d="M 168,72 A 280,280 0 0 1 472,72" fill="none" stroke="#FFCC00" stroke-width="36" stroke-linecap="round" opacity="0.85"/>
+          <!-- danger (red) -->
+          <path d="M 472,72 A 280,280 0 0 1 600,320" fill="none" stroke="#FF3B30" stroke-width="36" stroke-linecap="round" opacity="0.85"/>
+          <!-- needle -->
+          <g transform="rotate({end_deg - 180} 320 320)">
+            <line x1="320" y1="320" x2="320" y2="60" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="320" cy="320" r="14" fill="#FFFFFF"/>
+          </g>
+        </svg>
+        """
+
+    s1 = with_chrome(w, h, "Sound Level Meter", base, f"""
+      <div style="position:relative;width:100%;height:380px;margin-bottom:24px;">
+        {gauge(72)}
+      </div>
+      <div style="text-align:center;margin-top:-40px;margin-bottom:32px;">
+        <div style="font-size:120px;font-weight:300;letter-spacing:-2px;line-height:1;">72</div>
+        <div style="font-size:24px;opacity:0.6;margin-top:8px;letter-spacing:4px;">dB SPL</div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:22px;opacity:0.7;">Average</span>
+          <span style="font-size:28px;font-weight:600;">68 dB</span>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:22px;opacity:0.7;">Peak (last 30s)</span>
+          <span style="font-size:28px;font-weight:600;color:#FFCC00;">82 dB</span>
+        </div>
+      </div>
+      <div class="card" style="background:rgba(52,199,89,0.15);border:1.5px solid #34C759;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:22px;color:#34C759;">SAFE</span>
+          <span style="font-size:18px;opacity:0.8;">Below WHO 85 dB limit</span>
+        </div>
+      </div>
+    """, ["Meter", "History", "Settings"], "Meter")
+
+    s2 = with_chrome(w, h, "History", base, """
+      <div class="card" style="margin-bottom:16px;">
+        <div style="font-size:18px;opacity:0.6;margin-bottom:8px;">Today's average</div>
+        <div style="font-size:64px;font-weight:600;color:#FFCC00;">71 dB</div>
+        <div style="font-size:18px;opacity:0.6;">Recorded over 2h 14m of measuring</div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div style="font-size:22px;">Coffee shop session</div><div style="font-size:16px;opacity:0.6;">Today, 09:42 · 45 min</div></div>
+          <div style="text-align:right;"><div style="font-size:26px;font-weight:600;color:#FFCC00;">68 dB</div><div style="font-size:14px;opacity:0.6;">peak 81</div></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div style="font-size:22px;">Construction site</div><div style="font-size:16px;opacity:0.6;">Yesterday, 14:30 · 1h 12m</div></div>
+          <div style="text-align:right;"><div style="font-size:26px;font-weight:600;color:#FF3B30;">94 dB</div><div style="font-size:14px;opacity:0.6;">peak 108</div></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div style="font-size:22px;">Home office</div><div style="font-size:16px;opacity:0.6;">Yesterday, 09:00 · 4h 02m</div></div>
+          <div style="text-align:right;"><div style="font-size:26px;font-weight:600;color:#34C759;">42 dB</div><div style="font-size:14px;opacity:0.6;">peak 61</div></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><div style="font-size:22px;">Restaurant</div><div style="font-size:16px;opacity:0.6;">Mon, 19:15 · 1h 38m</div></div>
+          <div style="text-align:right;"><div style="font-size:26px;font-weight:600;color:#FFCC00;">76 dB</div><div style="font-size:14px;opacity:0.6;">peak 88</div></div>
+        </div>
+      </div>
+    """, ["Meter", "History", "Settings"], "History")
+
+    s3 = with_chrome(w, h, "Settings", base, """
+      <div class="card" style="margin-bottom:16px;">
+        <div style="font-size:22px;font-weight:500;margin-bottom:20px;">Calibration</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <span style="font-size:20px;opacity:0.85;">Offset</span>
+          <span style="font-size:24px;font-weight:600;color:#FFB020;">+2 dB</span>
+        </div>
+        <div style="font-size:14px;opacity:0.55;line-height:1.4;">Adjust if your device reads consistently high or low compared with a known reference.</div>
+      </div>
+      <div class="card" style="margin-bottom:16px;">
+        <div style="font-size:22px;font-weight:500;margin-bottom:20px;">Alert thresholds</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <span style="font-size:20px;opacity:0.85;">Moderate (WHO recommended)</span>
+          <span style="font-size:22px;color:#FFCC00;">70 dB</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <span style="font-size:20px;opacity:0.85;">Loud — hearing risk</span>
+          <span style="font-size:22px;color:#FF9500;">85 dB</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:20px;opacity:0.85;">Dangerous — protect ears</span>
+          <span style="font-size:22px;color:#FF3B30;">100 dB</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:22px;font-weight:500;margin-bottom:20px;">Display</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <span style="font-size:20px;opacity:0.85;">Show peak hold</span>
+          <div style="width:64px;height:36px;background:#FFB020;border-radius:18px;position:relative;">
+            <div style="position:absolute;top:4px;right:4px;width:28px;height:28px;background:white;border-radius:50%;"></div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:20px;opacity:0.85;">Logarithmic scale</span>
+          <div style="width:64px;height:36px;background:#FFB020;border-radius:18px;position:relative;">
+            <div style="position:absolute;top:4px;right:4px;width:28px;height:28px;background:white;border-radius:50%;"></div>
+          </div>
+        </div>
+      </div>
+    """, ["Meter", "History", "Settings"], "Settings")
+    return [s1, s2, s3]
+
+
 APPS = [
     ("ws_001_tipcalcdeluxe",    tipcalc_screens),
     ("ws_002_unitconverterpro", unitconv_screens),
+    ("ws_003_soundlevelmeter",  sound_meter_screens),
     ("ws_004_qrbarcodescanner", qr_screens),
     ("ws_005_pomodorofocus",    pomodoro_screens),
 ]

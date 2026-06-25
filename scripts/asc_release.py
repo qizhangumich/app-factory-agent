@@ -31,7 +31,7 @@ Usage:
     python scripts/asc_release.py --dry-run    # show what would happen
 """
 
-import argparse, json, sys
+import argparse, hashlib, json, sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -47,6 +47,13 @@ EDITABLE_STATES = (
     "DEVELOPER_REJECTED", "REJECTED", "METADATA_REJECTED",
     "WAITING_FOR_REVIEW", "INVALID_BINARY",
 )
+
+# Map our local screenshot file prefix -> Apple's screenshotDisplayType
+# enum value. The pixel dimensions are validated by Apple at upload.
+IOS_SCREENSHOT_TYPES = {
+    "iphone_6_7": "APP_IPHONE_67",
+    "ipad_12_9":  "APP_IPAD_PRO_3GEN_129",
+}
 
 
 # ── Auth ────────────────────────────────────────────────────────────────────
@@ -182,6 +189,145 @@ def patch(token, resource_type, resource_id, attrs):
     return r.status_code == 200, r
 
 
+# ── Screenshot upload (Apple's reserve-then-PUT chunked protocol) ──────────
+
+def list_screenshot_sets(token, version_loc_id):
+    r = asc_request("GET", token,
+                    f"/appStoreVersionLocalizations/{version_loc_id}/appScreenshotSets")
+    if r.status_code != 200:
+        return {}
+    return {
+        s["attributes"]["screenshotDisplayType"]: s["id"]
+        for s in r.json().get("data", [])
+    }
+
+
+def create_screenshot_set(token, version_loc_id, display_type):
+    body = {
+        "data": {
+            "type": "appScreenshotSets",
+            "attributes": {"screenshotDisplayType": display_type},
+            "relationships": {
+                "appStoreVersionLocalization": {
+                    "data": {"type": "appStoreVersionLocalizations",
+                             "id": version_loc_id}
+                }
+            }
+        }
+    }
+    r = asc_request("POST", token, "/appScreenshotSets", body=body)
+    if r.status_code == 201:
+        return r.json()["data"]["id"]
+    return None
+
+
+def delete_screenshots_in_set(token, set_id):
+    """Clear any existing screenshots in the set so we can re-upload."""
+    r = asc_request("GET", token, f"/appScreenshotSets/{set_id}/appScreenshots")
+    if r.status_code != 200:
+        return
+    for s in r.json().get("data", []):
+        asc_request("DELETE", token, f"/appScreenshots/{s['id']}")
+
+
+def upload_one_screenshot(token, set_id, png_path: Path) -> bool:
+    """Reserve → PUT → commit, per Apple's chunked upload protocol."""
+    import requests
+    file_bytes = png_path.read_bytes()
+    file_size  = len(file_bytes)
+    md5_hex    = hashlib.md5(file_bytes).hexdigest()
+
+    # 1) Reserve
+    body = {
+        "data": {
+            "type": "appScreenshots",
+            "attributes": {"fileSize": file_size, "fileName": png_path.name},
+            "relationships": {
+                "appScreenshotSet": {
+                    "data": {"type": "appScreenshotSets", "id": set_id}
+                }
+            }
+        }
+    }
+    r = asc_request("POST", token, "/appScreenshots", body=body)
+    if r.status_code != 201:
+        try:
+            err = r.json().get("errors", [{}])[0].get("detail", r.text[:200])
+        except Exception:
+            err = r.text[:200]
+        print(f"      [reserve fail] {err}")
+        return False
+
+    data = r.json()["data"]
+    sid  = data["id"]
+    ops  = data["attributes"].get("uploadOperations", [])
+
+    # 2) PUT each chunk
+    for op in ops:
+        method  = op.get("method", "PUT")
+        url     = op["url"]
+        headers = {h["name"]: h["value"] for h in op.get("requestHeaders", [])}
+        offset  = op.get("offset", 0)
+        length  = op.get("length", file_size)
+        chunk   = file_bytes[offset : offset + length]
+        try:
+            rr = requests.request(method, url, headers=headers, data=chunk, timeout=120)
+            if rr.status_code not in (200, 201, 204):
+                print(f"      [PUT fail HTTP {rr.status_code}] {rr.text[:200]}")
+                return False
+        except Exception as e:
+            print(f"      [PUT exception] {e}")
+            return False
+
+    # 3) Commit
+    commit_body = {
+        "data": {
+            "type": "appScreenshots",
+            "id":   sid,
+            "attributes": {"uploaded": True, "sourceFileChecksum": md5_hex},
+        }
+    }
+    r = asc_request("PATCH", token, f"/appScreenshots/{sid}", body=commit_body)
+    return r.status_code == 200
+
+
+def upload_screenshots_for_app(token, version_loc_id, ws):
+    """Walk workspaces/<ws>/ios/fastlane/screenshots/en-US/* and upload
+    each PNG to the matching screenshot set. Replaces any existing
+    screenshots in the set so re-runs are idempotent."""
+    src_dir = (REPO_ROOT / "workspaces" / ws / "ios" / "fastlane"
+               / "screenshots" / "en-US")
+    if not src_dir.exists():
+        print(f"      [skip screenshots] no folder {src_dir}")
+        return
+
+    existing_sets = list_screenshot_sets(token, version_loc_id)
+
+    # Group files by display type prefix
+    by_type = {}
+    for png in sorted(src_dir.glob("*.png")):
+        # filename pattern: <prefix>_<n>.png  where prefix matches IOS_SCREENSHOT_TYPES
+        for prefix, display_type in IOS_SCREENSHOT_TYPES.items():
+            if png.name.startswith(prefix + "_"):
+                by_type.setdefault(display_type, []).append(png)
+                break
+
+    for display_type, files in by_type.items():
+        set_id = existing_sets.get(display_type)
+        if not set_id:
+            set_id = create_screenshot_set(token, version_loc_id, display_type)
+            if not set_id:
+                print(f"      [skip {display_type}] set create failed")
+                continue
+        else:
+            delete_screenshots_in_set(token, set_id)
+
+        print(f"      {display_type}: uploading {len(files)} file(s)...")
+        for png in files:
+            ok = upload_one_screenshot(token, set_id, png)
+            print(f"        {'[ok]' if ok else '[FAIL]'} {png.name}")
+
+
 def submit_for_review(token, version_id, dry_run=False):
     if dry_run:
         return True, "DRY_RUN"
@@ -217,7 +363,7 @@ def read_metadata_inputs(app):
     return description
 
 
-def release_one(token, app, common, submit=False, dry_run=False):
+def release_one(token, app, common, submit=False, dry_run=False, upload_screens=False):
     ws        = app["workspace"]
     workspace = REPO_ROOT / "workspaces" / ws
     bundle_id_file = workspace / "workspace.json"
@@ -288,6 +434,11 @@ def release_one(token, app, common, submit=False, dry_run=False):
             except Exception:
                 pass
 
+        # Screenshot upload (chunked protocol)
+        if upload_screens:
+            print(f"  screenshots:")
+            upload_screenshots_for_app(token, vloc_id, ws)
+
     # 5. Optional submit
     if submit:
         ok, detail = submit_for_review(token, version_id)
@@ -307,6 +458,9 @@ def main():
     ap.add_argument("--only", help="run only this workspace")
     ap.add_argument("--submit", action="store_true",
                     help="also POST the submission for review")
+    ap.add_argument("--screenshots", action="store_true",
+                    help="also upload screenshots from "
+                         "workspaces/<ws>/ios/fastlane/screenshots/en-US/")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -335,7 +489,8 @@ def main():
     results = []
     for app in apps:
         results.append(release_one(token, app, common,
-                                    submit=args.submit, dry_run=args.dry_run))
+                                    submit=args.submit, dry_run=args.dry_run,
+                                    upload_screens=args.screenshots))
 
     # Summary
     print("\n" + "=" * 60)
