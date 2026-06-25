@@ -10,6 +10,13 @@ platform :ios do
     scheme    = options[:scheme]
     bundle_id = options[:bundle_id]
 
+    # CI bootstrap: create a temporary, unlocked keychain so codesign
+    # can access the imported certificate without showing a GUI
+    # password prompt. Without this, the macOS runner hangs at the
+    # "Signing X.app" step forever (until the 45-min workflow timeout).
+    # No-op when running locally on a developer Mac.
+    setup_ci if ENV["CI"] == "true"
+
     # App Store Connect API key auth — CI-friendly, no 2FA.
     # We DELIBERATELY do not call fastlane's `app_store_connect_api_key`
     # action: in fastlane 2.236+ it pollutes lane_context with a key that
