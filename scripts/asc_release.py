@@ -352,20 +352,24 @@ def publish_no_data_collected(token, app_id):
 
 
 def ensure_free_price_schedule(token, app_id):
-    """Set the app's price schedule to Free if not already set.
-    Apple's submit gate requires a price schedule even for free apps.
+    """Set the app's price schedule to Free.
+
+    Apple's submit gate requires not just that the AppPriceSchedule
+    resource exists but that it has a baseTerritory + at least one
+    manualPrice attached. New apps come with a stub schedule that
+    GETs as 200 but has empty manualPrices (relationship returns 404).
 
     Uses the v1/appPriceSchedules endpoint with USA as the base
     territory and the USA $0.00 price point. Each app has its own
-    encoded price point ids, so we look it up at runtime.
+    encoded price point ids, so we look them up at runtime.
 
-    Idempotent: if a schedule already exists, GET returns 200 with the
-    existing data and we skip.
+    Idempotent: if a schedule already exists with actual prices, skip.
     """
-    # Check if a schedule already exists (schedule id == app id by Apple's design)
-    r = asc_request("GET", token, f"/appPriceSchedules/{app_id}")
-    if r.status_code == 200:
-        return True
+    # Check if a schedule already has manualPrices (real, not stub)
+    r = asc_request("GET", token,
+                    f"/appPriceSchedules/{app_id}/manualPrices?limit=5")
+    if r.status_code == 200 and r.json().get("data"):
+        return True   # populated; nothing to do
 
     # Look up the USA free price point for this app
     r = asc_request("GET", token,
@@ -701,11 +705,22 @@ def submit_for_review(token, app_id, version_id, dry_run=False):
         }
         r = asc_request("POST", token, "/reviewSubmissionItems", body=item_body)
         if r.status_code != 201:
+            # Apple often returns top-level 409 with a meta.associatedErrors
+            # dict that lists every blocker. Surface them so the human
+            # knows exactly which web UI step to do.
             try:
-                detail = r.json()["errors"][0].get("detail", r.text[:300])
+                payload = r.json()
+                top_detail = payload["errors"][0].get("detail", r.text[:300])
+                lines = [f"attach version HTTP {r.status_code}: {top_detail}"]
+                associated = (payload["errors"][0]
+                              .get("meta", {}).get("associatedErrors", {}))
+                for endpoint, errs in associated.items():
+                    for e in errs:
+                        lines.append(f"    [{endpoint}] {e.get('detail','')}")
+                detail = "\n".join(lines)
             except Exception:
-                detail = r.text[:300]
-            return False, f"attach version HTTP {r.status_code}: {detail}"
+                detail = f"attach version HTTP {r.status_code}: {r.text[:300]}"
+            return False, detail
 
     # 3. Submit
     submit_body = {

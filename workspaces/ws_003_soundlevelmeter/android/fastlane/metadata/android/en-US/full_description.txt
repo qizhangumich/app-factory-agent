@@ -1,0 +1,20 @@
+A clean, accurate decibel meter for your iPhone or iPad. See the sound level around you in real time, with a clear analog gauge marking safe, moderate, loud, and dangerous ranges from 0 to 130 dB SPL.
+
+KEY FEATURES
+
+- Live dB reading with a smooth analog gauge needle
+- Average and peak (last 30 seconds) values shown alongside the live reading
+- Color-coded WHO safety bands so you can see hearing risk at a glance
+- 90-day session history with daily averages and peak readings
+- Logarithmic dB scale, the way sound is actually measured
+- Optional calibration offset so your device reads accurately against a reference
+- Adjustable alert thresholds for moderate / loud / dangerous levels
+- Works completely offline — your microphone audio never leaves the device
+
+WHO HEARING SAFETY
+
+The app marks the World Health Organization's recommended thresholds on the gauge: below 70 dB is safe for unlimited time, 85 dB starts hearing risk after long exposure, and 100 dB is dangerous within minutes. Use it to keep track of workplace noise, concerts, gym classes, restaurants, or any environment where you want to protect your hearing.
+
+PRIVACY FIRST
+
+Sound Level Meter works entirely on your device. It uses the microphone only to measure sound level — audio is never recorded, transmitted, or stored. No data collection, no ads, no account required.
