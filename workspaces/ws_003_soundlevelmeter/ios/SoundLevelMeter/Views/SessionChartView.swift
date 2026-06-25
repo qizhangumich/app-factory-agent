@@ -89,7 +89,7 @@ struct SessionChartView: View {
 #Preview {
     SessionChartView(samples: (0..<40).map {
         SessionSample(elapsed: Double($0) * 0.5,
-                      db: 50 + 30 * sin(Double($0) / 4))
+                      db: 50 + 30 * Foundation.sin(Double($0) / 4))
     })
     .padding()
 }

@@ -82,7 +82,7 @@ struct HeatMapView: View {
 }
 
 #Preview {
-    HeatMapView(days: (0..<90).map {
+    HeatMapView(days: (0..<90).map { _ in
         DayStats(id: Date(),
                  date: Date(),
                  focusSessions: Int.random(in: 0...6),
