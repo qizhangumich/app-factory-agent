@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 /// A semicircular analog gauge (0–130 dB) drawn with SwiftUI `Canvas`.
@@ -46,8 +47,10 @@ struct GaugeView: View {
 
     private func point(center: CGPoint, radius: CGFloat, degrees: Double) -> CGPoint {
         let rad = degrees * .pi / 180
-        return CGPoint(x: center.x + radius * cos(rad),
-                       y: center.y + radius * sin(rad))
+        // Foundation. prefix disambiguates from SwiftUI / SIMD overloads
+        // that confuse Xcode 26's type checker.
+        return CGPoint(x: center.x + radius * CGFloat(Foundation.cos(rad)),
+                       y: center.y + radius * CGFloat(Foundation.sin(rad)))
     }
 
     // MARK: Drawing

@@ -199,8 +199,8 @@ final class AudioMeter: NSObject, ObservableObject {
         guard let recorder, isRunning else { return }
         recorder.updateMeters()
 
-        let power = Double(recorder.averagePowerForChannel(0))
-        let peakPower = Double(recorder.peakPowerForChannel(0))
+        let power = Double(recorder.averagePower(forChannel: 0))
+        let peakPower = Double(recorder.peakPower(forChannel: 0))
 
         let db = clampDB(power + Self.splOffset + calibrationOffset)
         let peak = clampDB(peakPower + Self.splOffset + calibrationOffset)
