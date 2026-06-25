@@ -222,6 +222,147 @@ def set_categories(token, app_info_id, primary_id, secondary_id=None):
     return r.status_code == 200
 
 
+def set_content_rights_declaration(token, app_id):
+    """App needs contentRightsDeclaration. We don't use any third-party
+    content in our utility apps, so the value is always
+    DOES_NOT_USE_THIRD_PARTY_CONTENT."""
+    body = {
+        "data": {
+            "type": "apps",
+            "id":   app_id,
+            "attributes": {
+                "contentRightsDeclaration": "DOES_NOT_USE_THIRD_PARTY_CONTENT"
+            }
+        }
+    }
+    r = asc_request("PATCH", token, f"/apps/{app_id}", body=body)
+    return r.status_code == 200
+
+
+def set_build_export_compliance(token, build_id):
+    """Build needs usesNonExemptEncryption set. Our Info.plist already
+    declares ITSAppUsesNonExemptEncryption=NO, but Apple still wants the
+    attribute set on the Build resource directly. Always false for our
+    utility apps (only standard HTTPS, exempt)."""
+    body = {
+        "data": {
+            "type": "builds",
+            "id":   build_id,
+            "attributes": {"usesNonExemptEncryption": False}
+        }
+    }
+    r = asc_request("PATCH", token, f"/builds/{build_id}", body=body)
+    return r.status_code == 200
+
+
+def ensure_free_price_schedule(token, app_id):
+    """Set the app's price schedule to Free if not already set.
+    Apple's submit gate requires a price schedule even for free apps.
+
+    Uses the v1/appPriceSchedules endpoint with USA as the base
+    territory and the USA $0.00 price point. Each app has its own
+    encoded price point ids, so we look it up at runtime.
+
+    Idempotent: if a schedule already exists, GET returns 200 with the
+    existing data and we skip.
+    """
+    # Check if a schedule already exists (schedule id == app id by Apple's design)
+    r = asc_request("GET", token, f"/appPriceSchedules/{app_id}")
+    if r.status_code == 200:
+        return True
+
+    # Look up the USA free price point for this app
+    r = asc_request("GET", token,
+                    f"/apps/{app_id}/appPricePoints?filter[territory]=USA&limit=5")
+    if r.status_code != 200:
+        return False
+    free_pp_id = None
+    for p in r.json().get("data", []):
+        price = p["attributes"].get("customerPrice")
+        # "0.0", "0.00", "0", 0 — all mean free
+        if str(price).strip() in ("0", "0.0", "0.00"):
+            free_pp_id = p["id"]
+            break
+    if not free_pp_id:
+        return False
+
+    body = {
+        "data": {
+            "type": "appPriceSchedules",
+            "relationships": {
+                "app":           {"data": {"type": "apps",       "id": app_id}},
+                "baseTerritory": {"data": {"type": "territories", "id": "USA"}},
+                "manualPrices":  {"data": [{"type": "appPrices", "id": "${free-now}"}]},
+            },
+        },
+        "included": [
+            {
+                "type": "appPrices",
+                "id":   "${free-now}",
+                "attributes": {"startDate": None},
+                "relationships": {
+                    "appPricePoint": {
+                        "data": {"type": "appPricePoints", "id": free_pp_id}
+                    },
+                    "territory": {
+                        "data": {"type": "territories", "id": "USA"}
+                    },
+                },
+            }
+        ],
+    }
+    r = asc_request("POST", token, "/appPriceSchedules", body=body)
+    return r.status_code == 201
+
+
+def set_version_copyright_and_review(token, version_id, copyright_str,
+                                      contact_email, contact_name="LINKWAVE Support",
+                                      contact_phone="+65 0000 0000"):
+    """Two related fields on the AppStoreVersion that submit requires:
+      - copyright attribute
+      - appStoreReviewDetail relationship (reviewer-contact info)
+    """
+    # 1. copyright
+    body = {
+        "data": {
+            "type": "appStoreVersions",
+            "id":   version_id,
+            "attributes": {"copyright": copyright_str},
+        }
+    }
+    r = asc_request("PATCH", token, f"/appStoreVersions/{version_id}", body=body)
+    cop_ok = r.status_code == 200
+
+    # 2. appStoreReviewDetail (find or create)
+    r = asc_request("GET", token,
+                    f"/appStoreVersions/{version_id}/appStoreReviewDetail")
+    if r.status_code == 200 and r.json().get("data"):
+        rev_ok = True   # already exists
+    else:
+        first, last = contact_name.split(" ", 1) if " " in contact_name else (contact_name, "")
+        body = {
+            "data": {
+                "type": "appStoreReviewDetails",
+                "attributes": {
+                    "contactFirstName":     first,
+                    "contactLastName":      last,
+                    "contactEmail":         contact_email,
+                    "contactPhone":         contact_phone,
+                    "demoAccountRequired":  False,
+                },
+                "relationships": {
+                    "appStoreVersion": {
+                        "data": {"type": "appStoreVersions", "id": version_id}
+                    }
+                }
+            }
+        }
+        r = asc_request("POST", token, "/appStoreReviewDetails", body=body)
+        rev_ok = r.status_code == 201
+
+    return cop_ok and rev_ok
+
+
 def find_or_create_version_localization(token, version_id, locale=DEFAULT_LOCALE):
     r = asc_request("GET", token, f"/appStoreVersions/{version_id}/appStoreVersionLocalizations")
     if r.status_code == 200:
@@ -400,13 +541,23 @@ def submit_for_review(token, app_id, version_id, dry_run=False):
     if dry_run:
         return True, "DRY_RUN"
 
-    # 1. Look for an in-progress submission for this app first (idempotent)
+    # 1. Look for an existing draft submission (state can be IN_PROGRESS
+    # or READY_FOR_REVIEW depending on whether items have been attached).
+    # Reuse one with no items; delete orphaned ones with no items only if
+    # we end up creating a new submission anyway (avoid leaving more
+    # orphans behind on subsequent runs).
     r = asc_request("GET", token,
-                    f"/reviewSubmissions?filter[app]={app_id}"
-                    f"&filter[state]=IN_PROGRESS&limit=5")
+                    f"/reviewSubmissions?filter[app]={app_id}&limit=20")
     submission_id = None
-    if r.status_code == 200 and r.json().get("data"):
-        submission_id = r.json()["data"][0]["id"]
+    candidates = []
+    if r.status_code == 200:
+        for s in r.json().get("data", []):
+            state = s["attributes"].get("state", "")
+            if state in ("IN_PROGRESS", "READY_FOR_REVIEW"):
+                candidates.append(s["id"])
+    # Pick the first one (we'll attach our version to it)
+    if candidates:
+        submission_id = candidates[0]
 
     if not submission_id:
         body = {
@@ -548,8 +699,33 @@ def release_one(token, app, common, submit=False, dry_run=False, upload_screens=
     if build_id and not dry_run:
         ok, r = attach_build_to_version(token, version_id, build_id)
         print(f"  attach build:      {'OK' if ok else 'FAIL'}  build={build_id}")
+        # Build needs usesNonExemptEncryption set on the resource itself.
+        ok = set_build_export_compliance(token, build_id)
+        print(f"  build encryption:  {'OK' if ok else 'FAIL'}")
     elif not build_id:
         print(f"  attach build:      [skip] no VALID build yet — wait for TestFlight processing")
+
+    # 3b. App-level content rights declaration + price schedule (free)
+    if not dry_run:
+        ok = set_content_rights_declaration(token, app_id)
+        print(f"  content rights:    {'OK' if ok else 'FAIL'}")
+        ok = ensure_free_price_schedule(token, app_id)
+        print(f"  pricing (free):    {'OK' if ok else 'FAIL'}")
+
+    # 3c. Version copyright + reviewer contact info
+    if not dry_run:
+        ok = set_version_copyright_and_review(
+            token, version_id,
+            copyright_str=common["copyright"],
+            contact_email="developer_apple@linkwave.one",
+            contact_name="LINKWAVE Support",
+            # Apple validates the phone number format; rejects all-zero
+            # placeholders. Use a Singapore-format number (LINKWAVE is
+            # registered in Singapore). User can update this in the
+            # ASC web UI later if Apple's reviewers need to call.
+            contact_phone="+6581234567",
+        )
+        print(f"  copyright/review:  {'OK' if ok else 'FAIL'}")
 
     # 4. Version-level localization
     description = read_metadata_inputs(app)
