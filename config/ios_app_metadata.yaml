@@ -21,6 +21,13 @@ common:
   copyright:           "2026 LINKWAVE PTE.LTD."
   release_type:        "MANUAL"        # release after approval, on our schedule
 
+  # Reviewer contact — used for App Store Connect's AppStoreReviewDetail
+  # resource. Apple's reviewers may call/email if they need clarification
+  # during review. Must be a real, reachable contact.
+  contact_name:        "LINKWAVE Support"
+  contact_email:       "developer_apple@linkwave.one"
+  contact_phone:       "+65 8436 6966"
+
 apps:
   - workspace:        ws_001_tipcalcdeluxe
     privacy_slug:     tipcalcdeluxe

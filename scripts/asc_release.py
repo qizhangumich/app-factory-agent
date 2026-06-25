@@ -717,13 +717,9 @@ def release_one(token, app, common, submit=False, dry_run=False, upload_screens=
         ok = set_version_copyright_and_review(
             token, version_id,
             copyright_str=common["copyright"],
-            contact_email="developer_apple@linkwave.one",
-            contact_name="LINKWAVE Support",
-            # Apple validates the phone number format; rejects all-zero
-            # placeholders. Use a Singapore-format number (LINKWAVE is
-            # registered in Singapore). User can update this in the
-            # ASC web UI later if Apple's reviewers need to call.
-            contact_phone="+6581234567",
+            contact_email=common.get("contact_email", "developer_apple@linkwave.one"),
+            contact_name=common.get("contact_name", "LINKWAVE Support"),
+            contact_phone=common.get("contact_phone", "+6581234567"),
         )
         print(f"  copyright/review:  {'OK' if ok else 'FAIL'}")
 
