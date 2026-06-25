@@ -79,6 +79,15 @@ platform :ios do
     ]
     xcargs_parts << "PROVISIONING_PROFILE_SPECIFIER=\"#{profile_name}\"" unless profile_name.empty?
 
+    # Bump CFBundleVersion before archive. App Store Connect rejects an
+    # upload if the build number is <= a build already on file. Use the
+    # current epoch second as the build number: monotonically increasing,
+    # always unique, no extra API roundtrip.
+    increment_build_number(
+      build_number: Time.now.to_i.to_s,
+      xcodeproj:    "#{app_dir}/#{scheme}.xcodeproj",
+    )
+
     gym(
       scheme: scheme,
       project: "#{app_dir}/#{scheme}.xcodeproj",
