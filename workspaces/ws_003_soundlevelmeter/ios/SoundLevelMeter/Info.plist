@@ -52,5 +52,7 @@
 		<string>armv7</string>
 		<string>microphone</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
