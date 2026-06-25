@@ -164,6 +164,64 @@ def find_or_create_app_store_version(token, app_id, build_version="1.0", dry_run
     return None
 
 
+def latest_valid_build(token, app_id):
+    """Return the build id of the most recent processed/valid build,
+    or None if none exists."""
+    r = asc_request("GET", token,
+                    f"/builds?filter[app]={app_id}&limit=20")
+    if r.status_code != 200:
+        return None
+    candidates = []
+    for b in r.json().get("data", []):
+        a = b["attributes"]
+        if a.get("processingState") == "VALID" and not a.get("expired"):
+            candidates.append((a.get("uploadedDate", ""), b["id"]))
+    candidates.sort(reverse=True)
+    return candidates[0][1] if candidates else None
+
+
+def attach_build_to_version(token, version_id, build_id):
+    body = {
+        "data": {
+            "type": "builds",
+            "id":   build_id,
+        }
+    }
+    # Use relationship-update endpoint to attach the build.
+    r = asc_request("PATCH", token,
+                    f"/appStoreVersions/{version_id}/relationships/build",
+                    body=body)
+    return r.status_code in (200, 204), r
+
+
+def set_categories(token, app_info_id, primary_id, secondary_id=None):
+    """Set primary + secondary categories on the AppInfo.
+
+    Apple rejects both PATCH attrs and PATCH /relationships/<name>
+    for categories. The only form that works is PATCH /appInfos/{id}
+    with the categories supplied as relationships inside the data
+    block — even though the API docs imply otherwise.
+    """
+    relationships = {
+        "primaryCategory": {
+            "data": {"type": "appCategories", "id": primary_id}
+        }
+    }
+    if secondary_id:
+        relationships["secondaryCategory"] = {
+            "data": {"type": "appCategories", "id": secondary_id}
+        }
+    body = {
+        "data": {
+            "type":          "appInfos",
+            "id":            app_info_id,
+            "relationships": relationships,
+        }
+    }
+    r = asc_request("PATCH", token, f"/appInfos/{app_info_id}", body=body)
+    return r.status_code == 200
+
+
 def find_or_create_version_localization(token, version_id, locale=DEFAULT_LOCALE):
     r = asc_request("GET", token, f"/appStoreVersions/{version_id}/appStoreVersionLocalizations")
     if r.status_code == 200:
@@ -457,12 +515,14 @@ def release_one(token, app, common, submit=False, dry_run=False, upload_screens=
                 "msg": "no editable AppInfo"}
 
     if not dry_run:
-        ok, _ = patch(token, "appInfos", info_id, {
-            "primaryCategory":   app["category_primary"],
-            "secondaryCategory": app["category_secondary"],
-        })
-        # Apple sometimes wants relationships for category rather than attrs.
-        # If attrs PATCH was a no-op (200 but no change), the relationship path is fine.
+        # Categories must be set via the relationships endpoint — the
+        # attribute form returns 200 but doesn't actually update anything.
+        cat_ok = set_categories(
+            token, info_id,
+            primary_id=app["category_primary"],
+            secondary_id=app.get("category_secondary"),
+        )
+        print(f"  categories:        {'OK' if cat_ok else 'FAIL'}")
 
     loc_id = find_app_info_localization(token, info_id)
     if loc_id and not dry_run:
@@ -481,6 +541,15 @@ def release_one(token, app, common, submit=False, dry_run=False, upload_screens=
         return {"workspace": ws, "status": "no_version",
                 "msg": "could not find or create AppStoreVersion"}
     print(f"  version_id: {version_id}")
+
+    # 3a. Attach the latest valid build to the version. Required before
+    # submission; without a build the version is unreleasable.
+    build_id = latest_valid_build(token, app_id)
+    if build_id and not dry_run:
+        ok, r = attach_build_to_version(token, version_id, build_id)
+        print(f"  attach build:      {'OK' if ok else 'FAIL'}  build={build_id}")
+    elif not build_id:
+        print(f"  attach build:      [skip] no VALID build yet — wait for TestFlight processing")
 
     # 4. Version-level localization
     description = read_metadata_inputs(app)
