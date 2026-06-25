@@ -328,25 +328,97 @@ def upload_screenshots_for_app(token, version_loc_id, ws):
             print(f"        {'[ok]' if ok else '[FAIL]'} {png.name}")
 
 
-def submit_for_review(token, version_id, dry_run=False):
+def submit_for_review(token, app_id, version_id, dry_run=False):
+    """Submit a version using Apple's modern ReviewSubmission flow.
+    Apple deprecated the older appStoreVersionSubmissions endpoint
+    (now DELETE-only) in favor of reviewSubmissions which can bundle
+    multiple items (versions, IAPs) into a single review.
+
+    Steps:
+      1. POST /v1/reviewSubmissions  → creates an in-progress submission
+      2. POST /v1/reviewSubmissionItems  → attach the version
+      3. PATCH /v1/reviewSubmissions/{id} {submitted: true}  → send to Apple
+    """
     if dry_run:
         return True, "DRY_RUN"
-    body = {
-        "data": {
-            "type": "appStoreVersionSubmissions",
-            "relationships": {
-                "appStoreVersion": {"data": {"type": "appStoreVersions", "id": version_id}}
+
+    # 1. Look for an in-progress submission for this app first (idempotent)
+    r = asc_request("GET", token,
+                    f"/reviewSubmissions?filter[app]={app_id}"
+                    f"&filter[state]=IN_PROGRESS&limit=5")
+    submission_id = None
+    if r.status_code == 200 and r.json().get("data"):
+        submission_id = r.json()["data"][0]["id"]
+
+    if not submission_id:
+        body = {
+            "data": {
+                "type": "reviewSubmissions",
+                "attributes": {"platform": "IOS"},
+                "relationships": {
+                    "app": {"data": {"type": "apps", "id": app_id}}
+                }
             }
         }
+        r = asc_request("POST", token, "/reviewSubmissions", body=body)
+        if r.status_code != 201:
+            try:
+                detail = r.json()["errors"][0].get("detail", r.text[:300])
+            except Exception:
+                detail = r.text[:300]
+            return False, f"create reviewSubmission HTTP {r.status_code}: {detail}"
+        submission_id = r.json()["data"]["id"]
+
+    # 2. Attach the version (skip if already attached)
+    r = asc_request("GET", token,
+                    f"/reviewSubmissions/{submission_id}/items")
+    already_attached = False
+    if r.status_code == 200:
+        for item in r.json().get("data", []):
+            rel = item.get("relationships", {}).get("appStoreVersion", {}).get("data") or {}
+            if rel.get("id") == version_id:
+                already_attached = True
+                break
+
+    if not already_attached:
+        item_body = {
+            "data": {
+                "type": "reviewSubmissionItems",
+                "relationships": {
+                    "reviewSubmission": {
+                        "data": {"type": "reviewSubmissions", "id": submission_id}
+                    },
+                    "appStoreVersion": {
+                        "data": {"type": "appStoreVersions", "id": version_id}
+                    }
+                }
+            }
+        }
+        r = asc_request("POST", token, "/reviewSubmissionItems", body=item_body)
+        if r.status_code != 201:
+            try:
+                detail = r.json()["errors"][0].get("detail", r.text[:300])
+            except Exception:
+                detail = r.text[:300]
+            return False, f"attach version HTTP {r.status_code}: {detail}"
+
+    # 3. Submit
+    submit_body = {
+        "data": {
+            "type": "reviewSubmissions",
+            "id":   submission_id,
+            "attributes": {"submitted": True},
+        }
     }
-    r = asc_request("POST", token, "/appStoreVersionSubmissions", body=body)
-    if r.status_code == 201:
-        return True, r.json()["data"]["id"]
+    r = asc_request("PATCH", token,
+                    f"/reviewSubmissions/{submission_id}", body=submit_body)
+    if r.status_code == 200:
+        return True, submission_id
     try:
-        detail = json.loads(r.text)["errors"][0].get("detail", r.text[:300])
+        detail = r.json()["errors"][0].get("detail", r.text[:300])
     except Exception:
         detail = r.text[:300]
-    return False, f"HTTP {r.status_code}: {detail}"
+    return False, f"submit PATCH HTTP {r.status_code}: {detail}"
 
 
 # ── Per-app pipeline ────────────────────────────────────────────────────────
@@ -439,9 +511,9 @@ def release_one(token, app, common, submit=False, dry_run=False, upload_screens=
             print(f"  screenshots:")
             upload_screenshots_for_app(token, vloc_id, ws)
 
-    # 5. Optional submit
+    # 5. Optional submit (uses modern reviewSubmissions flow)
     if submit:
-        ok, detail = submit_for_review(token, version_id)
+        ok, detail = submit_for_review(token, app_id, version_id)
         if ok:
             print(f"  [OK] submitted for review (id {detail})")
         else:
